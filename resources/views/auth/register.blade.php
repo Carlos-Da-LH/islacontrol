@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Registro de Usuario - Plataforma de Gestión</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,6 +65,41 @@
                 </svg>
             </div>
             <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-800">Crea tu cuenta</h2>
+
+            @php
+                $plan = request('plan');
+                $planNames = [
+                    'basico' => 'Plan Básico',
+                    'pro' => 'Plan Pro',
+                    'empresarial' => 'Plan Empresarial'
+                ];
+            @endphp
+
+            @if($plan && isset($planNames[$plan]))
+            <div class="mt-4 px-4 py-2 bg-emerald-50 border-2 border-emerald-200 rounded-lg">
+                <p class="text-sm text-emerald-800 font-semibold text-center">
+                    📦 {{ $planNames[$plan] }} seleccionado
+                </p>
+            </div>
+            @endif
+        </div>
+
+        {{-- Google Sign In Button --}}
+        <div class="mb-6">
+            <button onclick="signInWithGoogle()" type="button"
+                class="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-300 py-3 px-4 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 hover:border-custom-teal transition-all">
+                <img src="https://www.svgrepo.com/show/355037/google.svg" class="h-5 w-5" alt="Google">
+                <span>Continuar con Google</span>
+            </button>
+
+            <div class="relative my-4">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-300"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="bg-gray-50 px-2 text-gray-500">o regístrate con email</span>
+                </div>
+            </div>
         </div>
 
         {{-- El formulario ahora llama a la función handleRegister --}}
@@ -145,6 +181,87 @@
         // Inicializa Firebase
         window.app = firebase.initializeApp(firebaseConfig);
         window.auth = firebase.auth();
+        window.provider = new firebase.auth.GoogleAuthProvider();
+
+        // Google Sign In Function
+        function signInWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+
+            Toastify({
+                text: "Abriendo Google Sign In...",
+                duration: 2000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "linear-gradient(to right, #00D084, #00B372)",
+            }).showToast();
+
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    return result.user.getIdToken().then(idToken => {
+                        const user = result.user;
+
+                        return fetch('/login/firebase', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                            },
+                            body: JSON.stringify({
+                                idToken: idToken,
+                                uid: user.uid,
+                                email: user.email,
+                                name: user.displayName || user.email.split('@')[0]
+                            })
+                        });
+                    });
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Toastify({
+                            text: "Inicio de sesión exitoso! Redirigiendo...",
+                            duration: 2000,
+                            gravity: "top",
+                            position: "center",
+                            backgroundColor: "linear-gradient(to right, #22C55E, #4ADE80)",
+                        }).showToast();
+
+                        // Verificar si hay un plan seleccionado en la URL
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const selectedPlan = urlParams.get('plan');
+
+                        // Si hay un plan seleccionado, redirigir al checkout de ese plan
+                        if (selectedPlan) {
+                            setTimeout(() => {
+                                window.location.href = "/suscripcion/checkout/" + selectedPlan;
+                            }, 1500);
+                        } else {
+                            // Si no hay plan, redirigir a la página principal
+                            setTimeout(() => {
+                                window.location.href = "/";
+                            }, 1500);
+                        }
+                    } else {
+                        Toastify({
+                            text: "Error al iniciar sesión: " + (data.error || "Intenta nuevamente"),
+                            duration: 3000,
+                            gravity: "top",
+                            position: "center",
+                            backgroundColor: "linear-gradient(to right, #EF4444, #F87171)",
+                        }).showToast();
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error de autenticación:', error);
+                    Toastify({
+                        text: "Error de autenticación: " + error.message,
+                        duration: 3000,
+                        gravity: "top",
+                        position: "center",
+                        backgroundColor: "linear-gradient(to right, #EF4444, #F87171)",
+                    }).showToast();
+                });
+        }
 
         // Función para manejar el registro de usuarios
         function handleRegister(event) {
@@ -174,8 +291,20 @@
                             backgroundColor: "linear-gradient(to right, #22C55E, #4ADE80)",
                         }).showToast();
 
-                        // Redirige al usuario a la página principal después del registro
-                        window.location.href = "{{ url('/') }}";
+                        // Verificar si hay un plan seleccionado en la URL
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const selectedPlan = urlParams.get('plan');
+
+                        // Si hay un plan seleccionado, redirigir al checkout de ese plan
+                        if (selectedPlan) {
+                            // Esperar un momento antes de redirigir
+                            setTimeout(() => {
+                                window.location.href = "/suscripcion/checkout/" + selectedPlan;
+                            }, 1500);
+                        } else {
+                            // Si no hay plan, redirigir a la página principal
+                            window.location.href = "{{ url('/') }}";
+                        }
                     })
                     .catch((error) => {
                         const errorMessage = error.message;

@@ -6,11 +6,13 @@ use App\Models\Sale;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\SaleItem;
+use App\Models\CashRegister;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use App\Helpers\PlanHelper;
 
 class SaleController extends Controller
 {
@@ -19,13 +21,19 @@ class SaleController extends Controller
      */
     public function index()
     {
-        // Cargar ventas con todas las relaciones necesarias
-        $sales = Sale::with(['customer', 'saleItems.product'])
+        // Cargar ventas del usuario autenticado con todas las relaciones necesarias
+        $sales = Sale::where('user_id', auth()->id())
+            ->with(['customer', 'saleItems.product'])
             ->orderBy('sale_date', 'desc')
             ->get();
-        
-        $customers = Customer::orderBy('name')->get();
-        $products = Product::orderBy('name')->get();
+
+        // Ordenar clientes: "Público General" primero, luego los demás alfabéticamente
+        $customers = Customer::where('user_id', auth()->id())
+            ->orderByRaw("CASE WHEN name = 'Público General' THEN 0 ELSE 1 END")
+            ->orderBy('name')
+            ->get();
+
+        $products = Product::where('user_id', auth()->id())->orderBy('name')->get();
         
         // Obtener configuración del negocio para el modal
         $nombre_negocio = $this->getBusinessName();
@@ -46,9 +54,14 @@ class SaleController extends Controller
      */
     public function create()
     {
-        $customers = Customer::orderBy('name')->get();
-        $products = Product::orderBy('name')->get();
-        
+        // Ordenar clientes: "Público General" primero, luego los demás alfabéticamente
+        $customers = Customer::where('user_id', auth()->id())
+            ->orderByRaw("CASE WHEN name = 'Público General' THEN 0 ELSE 1 END")
+            ->orderBy('name')
+            ->get();
+
+        $products = Product::where('user_id', auth()->id())->orderBy('name')->get();
+
         return view('sales.create', compact('customers', 'products'));
     }
 
@@ -57,18 +70,50 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
+        // Verificar límites del plan (conteo mensual)
+        if (!PlanHelper::canCreate('sale')) {
+            $limits = PlanHelper::getLimits();
+            $current = PlanHelper::getCount('sale');
+
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'limit_reached' => true,
+                    'type' => 'sale',
+                    'limit' => $limits['sales_per_month'],
+                    'current' => $current,
+                    'message' => "Has alcanzado el límite de {$limits['sales_per_month']} ventas por mes de tu plan."
+                ], 403);
+            }
+
+            return redirect()->route('sales.create')->with('limit_reached', [
+                'type' => 'sale',
+                'limit' => $limits['sales_per_month'],
+                'current' => $current
+            ])->withInput();
+        }
+
         $validated = $request->validate([
-            'customer_id' => 'required|exists:customers,id',
+            'customer_id' => 'nullable|exists:customers,id',
             'sale_date' => 'required|date',
             'notes' => 'nullable|string',
             'sale_items' => 'required|array|min:1',
             'sale_items.*.product_id' => 'required|exists:products,id',
             'sale_items.*.quantity' => 'required|integer|min:1',
             'sale_items.*.price' => 'required|numeric|min:0',
+            'payment_method' => 'required|string|in:efectivo,tarjeta_credito,tarjeta_debito,transferencia,otros',
+            'amount_received' => 'nullable|numeric|min:0',
+            'payment_reference' => 'nullable|string|max:100',
         ]);
 
         try {
             DB::beginTransaction();
+
+            // Obtener caja abierta del usuario
+            $cashRegister = CashRegister::getOpenCashRegister(auth()->id());
+
+            // Si no se proporciona customer_id, usar cliente genérico
+            $customerId = $validated['customer_id'] ?? $this->getOrCreateDefaultCustomer();
 
             // Calcular el monto total
             $totalAmount = 0;
@@ -76,12 +121,27 @@ class SaleController extends Controller
                 $totalAmount += $item['quantity'] * $item['price'];
             }
 
+            // Calcular cambio si es efectivo
+            $changeReturned = null;
+            if ($validated['payment_method'] === 'efectivo' && isset($validated['amount_received'])) {
+                $amountReceived = floatval($validated['amount_received']);
+                if ($amountReceived >= $totalAmount) {
+                    $changeReturned = $amountReceived - $totalAmount;
+                }
+            }
+
             // Crear la venta
             $sale = Sale::create([
-                'customer_id' => $validated['customer_id'],
+                'customer_id' => $customerId,
                 'sale_date' => $validated['sale_date'],
                 'amount' => $totalAmount,
                 'notes' => $validated['notes'],
+                'user_id' => auth()->id(),
+                'cash_register_id' => $cashRegister ? $cashRegister->id : null,
+                'payment_method' => $validated['payment_method'],
+                'amount_received' => $validated['amount_received'] ?? null,
+                'change_returned' => $changeReturned,
+                'payment_reference' => $validated['payment_reference'] ?? null,
             ]);
 
             // Crear los items de la venta
@@ -93,17 +153,24 @@ class SaleController extends Controller
                     'price' => $item['price'],
                 ]);
 
-                // Actualizar el stock del producto
-                $product = Product::find($item['product_id']);
+                // Actualizar el stock del producto (verificar que pertenece al usuario)
+                $product = Product::where('id', $item['product_id'])
+                                ->where('user_id', auth()->id())
+                                ->first();
                 if ($product) {
                     $product->stock -= $item['quantity'];
                     $product->save();
                 }
             }
 
+            // Actualizar totales de la caja si está abierta
+            if ($cashRegister) {
+                $cashRegister->updateSalesTotals();
+            }
+
             DB::commit();
-            
-            Log::info('Sale created successfully', ['sale_id' => $sale->id]);
+
+            Log::info('Sale created successfully', ['sale_id' => $sale->id, 'cash_register_id' => $cashRegister ? $cashRegister->id : null]);
 
             if ($request->expectsJson() || $request->ajax()) {
                 return response()->json([
@@ -137,6 +204,11 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
+        // Verificar que la venta pertenece al usuario autenticado
+        if ($sale->user_id !== auth()->id()) {
+            abort(403, 'No tienes permiso para ver esta venta.');
+        }
+
         $sale->load(['customer', 'saleItems.product']);
         return view('sales.show', compact('sale'));
     }
@@ -146,6 +218,14 @@ class SaleController extends Controller
      */
     public function getEditData(Sale $sale)
     {
+        // Verificar que la venta pertenece al usuario autenticado
+        if ($sale->user_id !== auth()->id()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No tienes permiso para editar esta venta.'
+            ], 403);
+        }
+
         $sale->load(['customer', 'saleItems.product']);
         
         return response()->json([
@@ -173,6 +253,14 @@ class SaleController extends Controller
      */
     public function getViewData(Sale $sale)
     {
+        // Verificar que la venta pertenece al usuario autenticado
+        if ($sale->user_id !== auth()->id()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No tienes permiso para ver esta venta.'
+            ], 403);
+        }
+
         $sale->load(['customer', 'saleItems.product']);
         
         return response()->json([
@@ -200,10 +288,15 @@ class SaleController extends Controller
      */
     public function edit(Sale $sale)
     {
-        $customers = Customer::orderBy('name')->get();
-        $products = Product::orderBy('name')->get();
+        // Verificar que la venta pertenece al usuario autenticado
+        if ($sale->user_id !== auth()->id()) {
+            abort(403, 'No tienes permiso para editar esta venta.');
+        }
+
+        $customers = Customer::where('user_id', auth()->id())->orderBy('name')->get();
+        $products = Product::where('user_id', auth()->id())->orderBy('name')->get();
         $sale->load(['customer', 'saleItems.product']);
-        
+
         return view('sales.edit', compact('sale', 'customers', 'products'));
     }
 
@@ -212,6 +305,17 @@ class SaleController extends Controller
      */
     public function update(Request $request, Sale $sale)
     {
+        // Verificar que la venta pertenece al usuario autenticado
+        if ($sale->user_id !== auth()->id()) {
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No tienes permiso para actualizar esta venta.'
+                ], 403);
+            }
+            abort(403, 'No tienes permiso para actualizar esta venta.');
+        }
+
         $validated = $request->validate([
             'customer_id' => 'required|exists:customers,id',
             'sale_date' => 'required|date',
@@ -225,9 +329,11 @@ class SaleController extends Controller
         try {
             DB::beginTransaction();
 
-            // Restaurar el stock de los items anteriores
+            // Restaurar el stock de los items anteriores (verificar que pertenece al usuario)
             foreach ($sale->saleItems as $oldItem) {
-                $product = Product::find($oldItem->product_id);
+                $product = Product::where('id', $oldItem->product_id)
+                                ->where('user_id', auth()->id())
+                                ->first();
                 if ($product) {
                     $product->stock += $oldItem->quantity;
                     $product->save();
@@ -260,8 +366,10 @@ class SaleController extends Controller
                     'price' => $item['price'],
                 ]);
 
-                // Actualizar el stock del producto
-                $product = Product::find($item['product_id']);
+                // Actualizar el stock del producto (verificar que pertenece al usuario)
+                $product = Product::where('id', $item['product_id'])
+                                ->where('user_id', auth()->id())
+                                ->first();
                 if ($product) {
                     $product->stock -= $item['quantity'];
                     $product->save();
@@ -269,7 +377,7 @@ class SaleController extends Controller
             }
 
             DB::commit();
-            
+
             Log::info('Sale updated successfully', ['sale_id' => $sale->id]);
 
             if ($request->expectsJson() || $request->ajax()) {
@@ -304,12 +412,25 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
+        // Verificar que la venta pertenece al usuario autenticado
+        if ($sale->user_id !== auth()->id()) {
+            if (request()->expectsJson() || request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No tienes permiso para eliminar esta venta.'
+                ], 403);
+            }
+            abort(403, 'No tienes permiso para eliminar esta venta.');
+        }
+
         try {
             DB::beginTransaction();
 
-            // Restaurar el stock de los productos
+            // Restaurar el stock de los productos (verificar que pertenecen al usuario)
             foreach ($sale->saleItems as $item) {
-                $product = Product::find($item->product_id);
+                $product = Product::where('id', $item->product_id)
+                                ->where('user_id', auth()->id())
+                                ->first();
                 if ($product) {
                     $product->stock += $item->quantity;
                     $product->save();
@@ -384,13 +505,20 @@ class SaleController extends Controller
      */
     public function ticket(Sale $sale)
     {
+        // Verificar que la venta pertenece al usuario autenticado
+        if ($sale->user_id !== auth()->id()) {
+            abort(403, 'No tienes permiso para ver este ticket.');
+        }
+
         $sale->load(['customer', 'saleItems.product']);
-        
+
         // Obtener configuración del negocio
         $nombre_negocio = $this->getBusinessName();
         $logo_url = $this->getLogoUrl();
-        
-        return view('sales.ticket', compact('sale', 'nombre_negocio', 'logo_url'));
+        $telefono = $this->getPhone();
+        $ubicacion = $this->getLocation();
+
+        return view('sales.ticket', compact('sale', 'nombre_negocio', 'logo_url', 'telefono', 'ubicacion'));
     }
 
     /**
@@ -415,14 +543,64 @@ class SaleController extends Controller
         if (File::exists(public_path('images/logo.png'))) {
             return asset('images/logo.png');
         }
-        
+
         $formats = ['jpg', 'jpeg', 'gif', 'svg'];
         foreach ($formats as $format) {
             if (File::exists(public_path("images/logo.{$format}"))) {
                 return asset("images/logo.{$format}");
             }
         }
-        
+
         return asset('images/default_logo.png');
+    }
+
+    /**
+     * Obtener el teléfono del negocio
+     */
+    private function getPhone()
+    {
+        $configPath = storage_path('app/settings/business_phone.txt');
+
+        if (File::exists($configPath)) {
+            return trim(File::get($configPath));
+        }
+
+        return '';
+    }
+
+    /**
+     * Obtener la ubicación del negocio
+     */
+    private function getLocation()
+    {
+        $configPath = storage_path('app/settings/business_location.txt');
+
+        if (File::exists($configPath)) {
+            return trim(File::get($configPath));
+        }
+
+        return '';
+    }
+
+    /**
+     * Obtener o crear cliente genérico "Público General"
+     */
+    private function getOrCreateDefaultCustomer()
+    {
+        $defaultCustomer = Customer::where('user_id', auth()->id())
+                                    ->where('name', 'Público General')
+                                    ->first();
+
+        if (!$defaultCustomer) {
+            $defaultCustomer = Customer::create([
+                'name' => 'Público General',
+                'email' => 'publico@general.com',
+                'phone' => 'N/A',
+                'address' => 'N/A',
+                'user_id' => auth()->id(),
+            ]);
+        }
+
+        return $defaultCustomer->id;
     }
 }

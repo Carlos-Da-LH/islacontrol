@@ -27,21 +27,21 @@
 </head>
 
 <!-- Fondo general muy oscuro -->
-<body class="bg-gray-900 min-h-screen">
+<body class="bg-gray-900 min-h-screen pt-28 lg:pt-0">
     <!-- Contenedor principal ancho (max-w-7xl) -->
-    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        
+    <div class="max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+
         <!-- Tarjeta de Edición (fondo gris oscuro) -->
-        <div class="bg-gray-800 shadow-2xl rounded-2xl overflow-hidden p-10 border border-gray-700">
-            
+        <div class="bg-gray-800 shadow-2xl rounded-2xl overflow-hidden p-4 sm:p-6 lg:p-10 border border-gray-700">
+
             <!-- Título con Icono SVG -->
-            <div class="flex items-center justify-center mb-10 border-b border-gray-700 pb-4">
+            <div class="flex flex-col sm:flex-row items-center justify-center mb-6 sm:mb-8 lg:mb-10 border-b border-gray-700 pb-4 gap-2">
                 <!-- Icono de Edición de Cliente (SVG - Lápiz sobre Usuario) -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-green-400 mr-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 text-green-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
                     <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
                 </svg>
-                <h1 class="text-4xl font-extrabold text-white text-center">
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white text-center">
                     Editar Cliente
                 </h1>
             </div>

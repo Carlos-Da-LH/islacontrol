@@ -1,0 +1,103 @@
+<?php
+
+return [
+    'free' => [
+        'name' => 'Plan Gratuito',
+        'price' => 0,
+        'stripe_price_id' => null,
+        'features' => [
+            '1 usuario',
+            'Hasta 10 productos',
+            'Hasta 5 clientes',
+            'Hasta 20 ventas/mes',
+            'Reportes básicos limitados',
+            'Sin Isla IA',
+            'Sin Caja Express',
+        ],
+        'limits' => [
+            'users' => 1,
+            'products' => 10,
+            'customers' => 5,
+            'sales_per_month' => 20,
+            'has_ai' => false,
+            'has_cash_register' => false,
+            'has_advanced_reports' => false,
+        ],
+        'trial_days' => 0,
+    ],
+
+    'basico' => [
+        'name' => 'Plan Básico',
+        'price' => 19,
+        'stripe_price_id' => env('STRIPE_PLAN_BASICO_PRICE_ID', 'price_basico'),
+        'features' => [
+            '1 usuario',
+            'Hasta 100 productos',
+            'Hasta 100 clientes',
+            'Hasta 100 ventas/mes',
+            'Reportes básicos',
+            'Isla IA incluida',
+        ],
+        'limits' => [
+            'users' => 1,
+            'products' => 100,
+            'customers' => 100,
+            'sales_per_month' => 100,
+            'has_ai' => true,
+            'has_cash_register' => true,
+            'has_advanced_reports' => true,
+        ],
+        'trial_days' => 30,
+    ],
+
+    'pro' => [
+        'name' => 'Plan Pro',
+        'price' => 49,
+        'stripe_price_id' => env('STRIPE_PLAN_PRO_PRICE_ID', 'price_pro'),
+        'features' => [
+            '1 usuario',
+            'Hasta 500 productos',
+            'Hasta 500 clientes',
+            'Hasta 500 ventas/mes',
+            'Reportes avanzados',
+            'Isla IA incluida',
+            'Exportación de datos',
+        ],
+        'limits' => [
+            'users' => 1,
+            'products' => 500,
+            'customers' => 500,
+            'sales_per_month' => 500,
+            'has_ai' => true,
+            'has_cash_register' => true,
+            'has_advanced_reports' => true,
+        ],
+        'trial_days' => 0,
+    ],
+
+    'empresarial' => [
+        'name' => 'Plan Empresarial',
+        'price' => 149,
+        'stripe_price_id' => env('STRIPE_PLAN_EMPRESARIAL_PRICE_ID', 'price_empresarial'),
+        'features' => [
+            'Usuarios ilimitados',
+            'Productos ilimitados',
+            'Clientes ilimitados',
+            'Ventas ilimitadas',
+            'Reportes premium',
+            'Isla IA incluida',
+            'Soporte prioritario',
+            'Múltiples sucursales',
+        ],
+        'limits' => [
+            'users' => null,
+            'products' => null,
+            'customers' => null,
+            'sales_per_month' => null,
+            'has_ai' => true,
+            'has_cash_register' => true,
+            'has_advanced_reports' => true,
+        ],
+        'trial_days' => 0,
+    ],
+];

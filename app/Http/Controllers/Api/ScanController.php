@@ -14,7 +14,10 @@ class ScanController extends Controller
             'barcode' => 'required|string'
         ]);
 
-        $product = Product::where('barcode', $request->barcode)->first();
+        // Buscar por codigo_barras y filtrar por usuario autenticado
+        $product = Product::where('codigo_barras', $request->barcode)
+                          ->where('user_id', auth()->id())
+                          ->first();
 
         if (!$product) {
             return response()->json([

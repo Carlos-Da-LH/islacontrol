@@ -17,7 +17,18 @@ class Sale extends Model
         'paid_amount',
         'is_paid',
         'notes',
+        'user_id',
+        'cash_register_id',
+        'payment_method',
+        'amount_received',
+        'change_returned',
+        'payment_reference',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function customer()
     {
@@ -27,5 +38,13 @@ class Sale extends Model
     public function saleItems()
     {
         return $this->hasMany(SaleItem::class);
+    }
+
+    /**
+     * Relación con la caja registradora
+     */
+    public function cashRegister()
+    {
+        return $this->belongsTo(CashRegister::class);
     }
 }

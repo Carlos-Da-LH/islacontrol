@@ -14,7 +14,16 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'stock', 'price', 'category_id'];
+    protected $fillable = ['name', 'codigo_barras', 'stock', 'price', 'category_id', 'user_id'];
+
+    /**
+     * Define la relación con la tabla `users`.
+     * Un producto pertenece a un usuario.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Define la relación con la tabla `categories`.

@@ -24,21 +24,23 @@
         }
     </style>
 </head>
-<body class="text-white flex items-start justify-center min-h-screen pt-16 p-4">
+<body class="text-white flex items-start justify-center min-h-screen pt-36 lg:pt-16 p-4">
+
+    @include('components.limit-reached-modal')
 
     <!-- Main Content Container (Darker background, soft corners, shadow) -->
-    <div class="bg-gray-800 p-8 md:p-10 rounded-3xl shadow-[0_0_30px_rgba(16,185,129,0.15)] w-full max-w-2xl border border-gray-700">
-        
+    <div class="bg-gray-800 p-4 sm:p-6 lg:p-8 xl:p-10 rounded-3xl shadow-[0_0_30px_rgba(16,185,129,0.15)] w-full max-w-2xl border border-gray-700">
+
         <!-- Header -->
-        <div class="mb-8 pb-4 border-b border-emerald-600/50 flex items-center justify-between">
-            <a href="{{ route('products.index') }}" 
+        <div class="mb-6 sm:mb-8 pb-4 border-b border-emerald-600/50 flex items-center justify-between">
+            <a href="{{ route('products.index') }}"
                 class="text-gray-400 hover:text-emerald-400 transition-colors transform hover:scale-110 p-2 rounded-full -ml-3">
                 <!-- Icono de flecha hacia atrás (SVG) -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-7 sm:w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
             </a>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight flex-grow text-center pr-10">
+            <h1 class="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-white tracking-tight flex-grow text-center pr-6 sm:pr-10">
                 Crear Nuevo Producto
             </h1>
         </div>
@@ -65,9 +67,20 @@
                 <div>
                     <label for="name" class="block text-sm font-semibold text-gray-300 mb-2">Nombre del Producto</label>
                     <input type="text" id="name" name="name" value="{{ old('name') }}"
-                        class="mt-1 block w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner" 
+                        class="mt-1 block w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner"
                         placeholder="Ej. Laptop Gaming X200" required>
                     @error('name')
+                        <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Campo Código de Barras -->
+                <div>
+                    <label for="codigo_barras" class="block text-sm font-semibold text-gray-300 mb-2">Código de Barras</label>
+                    <input type="text" id="codigo_barras" name="codigo_barras" value="{{ old('codigo_barras') }}"
+                        class="mt-1 block w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner"
+                        placeholder="Ej. 7501086801046">
+                    @error('codigo_barras')
                         <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>

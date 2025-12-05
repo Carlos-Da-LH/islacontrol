@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="transition-colors duration-300">
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,8 @@
     <title>Gestión de Productos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dark-mode.css">
+    <script src="/js/dark-mode.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -52,25 +54,27 @@
     </style>
 </head>
 
-<body class="bg-gray-100 min-h-screen pt-8 pb-8 flex justify-center">
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen pt-36 lg:pt-8 pb-8 flex justify-center transition-colors duration-300">
+
+    @include('components.limit-reached-modal')
 
     <div class="w-full px-4 sm:px-6 lg:px-8">
 
-        <div class="bg-white shadow-2xl rounded-2xl overflow-hidden p-6 md:p-8 border border-gray-200">
+        <div class="bg-white dark:bg-gray-800 shadow-2xl rounded-2xl overflow-hidden p-6 md:p-8 border border-gray-200 dark:border-gray-700">
 
-            <div class="flex items-center justify-center mb-6 border-b border-gray-200 pb-3">
-                <svg class="w-9 h-9 mr-3 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="flex items-center justify-center mb-6 border-b border-gray-200 dark:border-gray-700 pb-3">
+                <svg class="w-9 h-9 mr-3 text-emerald-500 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 8l-9-5-9 5v8l9 5 9-5z"></path>
                     <polyline points="2 12 12 17 22 12"></polyline>
                     <polyline points="2 16 12 21 22 16"></polyline>
                     <line x1="12" y1="5" x2="12" y2="17"></line>
                 </svg>
-                <h1 class="text-3xl font-extrabold text-gray-800 text-center">
+                <h1 class="text-3xl font-extrabold text-gray-800 dark:text-white text-center">
                     Gestión de Productos
                 </h1>
             </div>
 
-            @if (session('success'))
+            @if (session('success') && !session('limit_reached'))
             <div class="bg-emerald-500 p-3 rounded-lg mb-4 text-white font-medium text-center shadow-lg">
                 {{ session('success') }}
             </div>
@@ -105,11 +109,17 @@
                     Agregar Nuevo Producto
                 </h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                     <div>
                         <label for="name" class="block text-xs font-medium text-gray-700 mb-1">Nombre</label>
                         <input type="text" name="name" id="name" required value="{{ old('name') }}"
                             placeholder="Ej. Laptop Gaming"
+                            class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-9">
+                    </div>
+                    <div>
+                        <label for="codigo_barras" class="block text-xs font-medium text-gray-700 mb-1">Código de Barras</label>
+                        <input type="text" name="codigo_barras" id="codigo_barras" value="{{ old('codigo_barras') }}"
+                            placeholder="7501086801046"
                             class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-9">
                     </div>
                     <div>
@@ -165,12 +175,13 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-[10%]">ID</th>
-                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-[30%]">Nombre</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-[8%]">ID</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-[22%]">Nombre</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-[15%]">Código de Barras</th>
                             <th class="px-4 py-3 text-right text-xs font-bold text-gray-600 uppercase tracking-wider w-[10%]">Stock</th>
-                            <th class="px-4 py-3 text-right text-xs font-bold text-gray-600 uppercase tracking-wider w-[15%]">Precio</th>
-                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-[20%]">Categoría</th>
-                            <th class="px-4 py-3 text-center text-xs font-bold text-gray-600 uppercase tracking-wider w-[15%]">Acciones</th>
+                            <th class="px-4 py-3 text-right text-xs font-bold text-gray-600 uppercase tracking-wider w-[12%]">Precio</th>
+                            <th class="px-4 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-[15%]">Categoría</th>
+                            <th class="px-4 py-3 text-center text-xs font-bold text-gray-600 uppercase tracking-wider w-[18%]">Acciones</th>
                         </tr>
                     </thead>
 
@@ -181,6 +192,13 @@
                             data-product-stock="{{ $product->stock }}">
                             <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-gray-700">{{ $product->id }}</td>
                             <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $product->name }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 font-mono">
+                                @if($product->codigo_barras)
+                                    {{ $product->codigo_barras }}
+                                @else
+                                    <span class="text-gray-400 italic">Sin código</span>
+                                @endif
+                            </td>
                             <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-yellow-600 font-medium">{{ $product->stock }}</td>
                             <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-emerald-600 font-medium">${{ number_format($product->price, 2) }}</td>
                             <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700">{{ $product->category->name }}</td>
@@ -188,11 +206,12 @@
                                 <button type="button"
                                     data-product-id="{{ $product->id }}"
                                     data-product-name="{{ e($product->name) }}"
+                                    data-product-barcode="{{ e($product->codigo_barras ?? '') }}"
                                     data-product-stock="{{ $product->stock }}"
                                     data-product-price="{{ $product->price }}"
                                     data-product-category="{{ $product->category_id }}"
                                     onclick="showEditModal(this)"
-                                    class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-lg shadow-md text-white 
+                                    class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-lg shadow-md text-white
                                          bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition duration-150 ease-in-out mr-2">
                                     Editar
                                 </button>
@@ -215,7 +234,7 @@
                         </tr>
                         @empty
                         <tr id="empty-state-row">
-                            <td colspan="6" class="px-6 py-8 text-center text-lg text-gray-500 font-medium">
+                            <td colspan="7" class="px-6 py-8 text-center text-lg text-gray-500 font-medium">
                                 No hay productos registrados. ¡Usa el formulario de arriba para agregar uno!
                             </td>
                         </tr>
@@ -340,6 +359,7 @@
                 try {
                     const id = buttonElement.dataset.productId;
                     const name = buttonElement.dataset.productName;
+                    const barcode = buttonElement.dataset.productBarcode || '';
                     const stock = buttonElement.dataset.productStock;
                     const price = buttonElement.dataset.productPrice;
                     const categoryId = buttonElement.dataset.productCategory;
@@ -382,6 +402,10 @@
                                     '<div>' +
                                         '<label for="edit-name" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>' +
                                         '<input type="text" name="name" id="edit-name" value="' + name + '" required class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-10">' +
+                                    '</div>' +
+                                    '<div>' +
+                                        '<label for="edit-barcode" class="block text-sm font-medium text-gray-700 mb-1">Código de Barras</label>' +
+                                        '<input type="text" name="codigo_barras" id="edit-barcode" value="' + barcode + '" placeholder="7501086801046" class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-10">' +
                                     '</div>' +
                                     '<div>' +
                                         '<label for="edit-stock" class="block text-sm font-medium text-gray-700 mb-1">Stock</label>' +

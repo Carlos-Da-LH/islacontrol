@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Modal de Autenticación Centrado</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -246,7 +247,7 @@
         }
 
 
-        // ✅ LOGIN con toast pequeño bonito
+        // ✅ LOGIN con Firebase Email/Password
         document.getElementById('login-form').addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -259,26 +260,110 @@
 
             showToast("Validando...", "success");
 
-            setTimeout(() => {
-                showToast("Inicio de sesión exitoso", "success");
+            if (typeof firebase !== 'undefined' && firebase.auth) {
+                // Autenticar con Firebase
+                firebase.auth().signInWithEmailAndPassword(email, pass)
+                    .then((result) => {
+                        // Obtener el token de Firebase
+                        return result.user.getIdToken().then(idToken => {
+                            const user = result.user;
 
-                setTimeout(() => {
-                    // **CORRECCIÓN CLAVE: Usamos replace para forzar una carga completa.**
-                    window.location.replace("/dashboard");
-                }, 800);
-
-            }, 1200);
+                            // Enviar el token al backend Laravel
+                            return fetch('/login/firebase', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+                                },
+                                body: JSON.stringify({
+                                    idToken: idToken,
+                                    uid: user.uid,
+                                    email: user.email,
+                                    name: user.displayName || user.email.split('@')[0]
+                                })
+                            });
+                        });
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast("Inicio de sesión exitoso", "success");
+                            setTimeout(() => {
+                                // Si el usuario necesita suscripción, redirigir a seleccionar plan
+                                if (data.needs_subscription) {
+                                    window.location.replace("/suscripcion/seleccionar-plan");
+                                } else {
+                                    window.location.replace("/dashboard");
+                                }
+                            }, 800);
+                        } else {
+                            showToast("Error: " + (data.error || "Intenta nuevamente"), "error");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error de autenticación:', error);
+                        let errorMessage = "Error de autenticación";
+                        if (error.code === 'auth/wrong-password') {
+                            errorMessage = "Contraseña incorrecta";
+                        } else if (error.code === 'auth/user-not-found') {
+                            errorMessage = "Usuario no encontrado";
+                        } else if (error.code === 'auth/invalid-email') {
+                            errorMessage = "Email inválido";
+                        }
+                        showToast(errorMessage, "error");
+                    });
+            } else {
+                // Fallback si Firebase no está configurado
+                showToast("Firebase no configurado", "error");
+            }
         });
         // Google login
         function signInWithGoogle() {
             if (typeof firebase !== 'undefined' && firebase.auth) {
                 const provider = new firebase.auth.GoogleAuthProvider();
                 firebase.auth().signInWithPopup(provider)
-                    .then(() => {
-                        // **CORRECCIÓN CLAVE: Usamos replace para forzar una carga completa.**
-                        window.location.replace("/dashboard")
+                    .then((result) => {
+                        // Obtener el token de Firebase
+                        return result.user.getIdToken().then(idToken => {
+                            // Obtener información del usuario
+                            const user = result.user;
+
+                            // Enviar el token e información del usuario al backend Laravel
+                            return fetch('/login/firebase', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+                                },
+                                body: JSON.stringify({
+                                    idToken: idToken,
+                                    uid: user.uid,
+                                    email: user.email,
+                                    name: user.displayName || user.email.split('@')[0]
+                                })
+                            });
+                        });
                     })
-                    .catch((error) => console.error('Error de autenticación:', error));
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast("Inicio de sesión exitoso", "success");
+                            setTimeout(() => {
+                                // Si el usuario necesita suscripción, redirigir a seleccionar plan
+                                if (data.needs_subscription) {
+                                    window.location.replace("/suscripcion/seleccionar-plan");
+                                } else {
+                                    window.location.replace("/dashboard");
+                                }
+                            }, 800);
+                        } else {
+                            showToast("Error al iniciar sesión: " + (data.error || "Intenta nuevamente"), "error");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error de autenticación:', error);
+                        showToast("Error de autenticación", "error");
+                    });
             } else {
                 console.warn('Firebase no está configurado. Simulando login...');
                 alert('Login con Google activado');

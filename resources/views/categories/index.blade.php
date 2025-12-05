@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="transition-colors duration-300">
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,8 @@
     <title>Gestión de Categorías</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dark-mode.css">
+    <script src="/js/dark-mode.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -43,17 +45,17 @@
     </style>
 </head>
 
-<body class="bg-gray-100 min-h-screen pt-8 pb-8 flex justify-center">
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen pt-36 lg:pt-8 pb-8 flex justify-center transition-colors duration-300">
 
     <div class="w-full px-4 sm:px-6 lg:px-8">
 
-        <div class="bg-white shadow-2xl rounded-2xl overflow-hidden p-6 md:p-8 border border-gray-200">
+        <div class="bg-white dark:bg-gray-800 shadow-2xl rounded-2xl overflow-hidden p-6 md:p-8 border border-gray-200 dark:border-gray-700">
 
-            <div class="flex items-center justify-center mb-6 border-b border-gray-200 pb-3">
-                <svg class="w-8 h-8 mr-3 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="flex items-center justify-center mb-6 border-b border-gray-200 dark:border-gray-700 pb-3">
+                <svg class="w-8 h-8 mr-3 text-purple-500 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
                 </svg>
-                <h1 class="text-3xl font-extrabold text-gray-800 text-center">
+                <h1 class="text-3xl font-extrabold text-gray-800 dark:text-white text-center">
                     Gestión de Categorías
                 </h1>
             </div>
@@ -74,19 +76,19 @@
                 <p class="text-5xl font-extrabold text-white mt-1 drop-shadow-lg" id="total-categories-count">{{ count($categories) }}</p>
             </div>
 
-            <form action="{{ route('categories.store') }}" method="POST" class="mb-8 p-6 border border-gray-200 rounded-xl bg-gray-50 shadow-xl" id="category-form">
+            <form action="{{ route('categories.store') }}" method="POST" class="mb-8 p-6 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-700/50 shadow-xl" id="category-form">
                 @csrf
                 <input type="hidden" name="from" value="dashboard">
-                <h2 class="text-xl font-bold text-purple-600 mb-4 border-b border-gray-200 pb-2">
+                <h2 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-4 border-b border-gray-200 dark:border-gray-600 pb-2">
                     Agregar Nueva Categoría
                 </h2>
 
                 <div class="grid grid-cols-1 gap-4">
                     <div>
-                        <label for="name" class="block text-xs font-medium text-gray-700 mb-1">Nombre de la Categoría</label>
+                        <label for="name" class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Nombre de la Categoría</label>
                         <input type="text" name="name" id="name" required value="{{ old('name') }}"
                             placeholder="Ej. Productos Electrónicos"
-                            class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-9">
+                            class="mt-1 block w-full rounded-lg shadow-sm light-input dark:bg-gray-600 dark:text-white dark:border-gray-500 text-sm h-9">
                     </div>
                 </div>
 

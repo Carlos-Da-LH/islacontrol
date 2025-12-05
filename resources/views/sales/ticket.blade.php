@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket de Venta #{{ $sale->id }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <style>
         /* Estilos generales */
@@ -108,37 +109,152 @@
 
         /* [ ... Media Print ... ] */
         @media print {
+            @page {
+                size: 80mm auto;
+                margin: 0mm;
+            }
+
             body {
-                font-family: 'Courier New', Courier, monospace !important; 
-                background: none !important;
+                font-family: 'Courier New', Courier, monospace !important;
+                background: white !important;
                 margin: 0 !important;
                 padding: 0 !important;
             }
 
             .ticket-container {
-                max-width: 80mm;
+                max-width: 80mm !important;
+                width: 80mm !important;
                 box-shadow: none !important;
                 border: none !important;
-                padding: 5px;
-                margin: 0;
-                font-size: 10px;
-                line-height: 1.2;
-                color: #000; /* Asegurar negro para impresión */
+                border-radius: 0 !important;
+                padding: 3mm !important;
+                margin: 0 !important;
+                font-size: 8pt !important;
+                line-height: 1.2 !important;
+                color: #000 !important;
             }
-            
+
             .settings-icon, .no-print {
                 display: none !important;
             }
-            
-            .logo { 
-                max-width: 60px; 
-                margin-bottom: 5px;
+
+            .logo-container {
+                text-align: center !important;
+                margin-bottom: 2mm !important;
+                padding-bottom: 2mm !important;
+                border-bottom: 1px dashed #000 !important;
             }
 
-            h2, p { margin: 0; padding: 0; }
-            .ticket-line { margin: 8px 0; border-bottom: 1px dashed #000; }
-            .product-qty-price { font-size: 9px; color: #000; } 
-            .total-box { background: none !important; padding: 0; border: none !important; }
+            .logo {
+                max-width: 35mm !important;
+                max-height: 35mm !important;
+                width: auto !important;
+                height: auto !important;
+                display: block !important;
+                margin: 0 auto 3mm auto !important;
+            }
+
+            .logo-container h2 {
+                font-size: 16pt !important;
+                font-weight: bold !important;
+                margin: 3mm 0 !important;
+                padding: 0 !important;
+                line-height: 1.4 !important;
+            }
+
+            .logo-container p {
+                font-size: 11pt !important;
+                margin: 1.5mm 0 !important;
+                padding: 0 !important;
+                line-height: 1.4 !important;
+            }
+
+            .ticket-header {
+                margin: 3mm 0 !important;
+            }
+
+            .ticket-header p {
+                font-size: 11pt !important;
+                margin: 1mm 0 !important;
+                padding: 0 !important;
+            }
+
+            h2 {
+                margin: 3mm 0 !important;
+                padding: 0 !important;
+            }
+
+            p {
+                margin: 1.5mm 0 !important;
+                padding: 0 !important;
+            }
+
+            .ticket-line {
+                margin: 3mm 0 !important;
+                border-bottom: 1px dashed #000 !important;
+                height: 0 !important;
+            }
+
+            .flex {
+                display: flex !important;
+                justify-content: space-between !important;
+            }
+
+            .product-item {
+                font-size: 11pt !important;
+                margin-bottom: 1.5mm !important;
+            }
+
+            .product-qty-price {
+                font-size: 10pt !important;
+                color: #000 !important;
+                margin: 0 0 2.5mm 0 !important;
+                padding-left: 4mm !important;
+            }
+
+            .total-box {
+                font-size: 14pt !important;
+                font-weight: bold !important;
+                background: #f0f0f0 !important;
+                padding: 3mm !important;
+                margin: 3mm 0 !important;
+                border: 1px solid #000 !important;
+                border-radius: 0 !important;
+            }
+
+            .qr-code-container {
+                text-align: center !important;
+                margin: 4mm 0 !important;
+            }
+
+            .qr-code-container p {
+                font-size: 11pt !important;
+                margin: 1.5mm 0 !important;
+            }
+
+            #qrcode {
+                width: 70px !important;
+                height: 70px !important;
+                margin: 3mm auto !important;
+                display: block !important;
+            }
+
+            #qrcode img,
+            #qrcode canvas {
+                width: 70px !important;
+                height: 70px !important;
+            }
+
+            .ticket-footer {
+                text-align: center !important;
+                margin-top: 3mm !important;
+            }
+
+            .ticket-footer p {
+                font-size: 9pt !important;
+                margin: 0 !important;
+                color: #666 !important;
+            }
         }
     </style>
 </head>
@@ -179,9 +295,36 @@
             
             {{-- Logo editable: Añadimos '?v=...' para EVITAR CACHÉ --}}
             <img src="{{ $logo_url ?? asset('images/default_logo.png') }}{{ '?v=' . time() }}" alt="Logo del Negocio" class="logo">
-            
+
             {{-- Nombre del Negocio editable --}}
             <h2 class="text-2xl font-black mt-3 text-gray-800">{{ $nombre_negocio ?? '[NOMBRE NO CONFIGURADO]' }}</h2>
+
+            {{-- DEBUG: Deshabilitado --}}
+            {{-- <div style="background:yellow;padding:10px;margin:10px 0;" class="no-print">
+                <strong>DEBUG:</strong><br>
+                Teléfono isset: {{ isset($telefono) ? 'SI' : 'NO' }}<br>
+                Teléfono valor: '{{ $telefono ?? 'NO DEFINIDO' }}'<br>
+                Teléfono empty: {{ empty($telefono ?? '') ? 'SI' : 'NO' }}<br>
+                Ubicación isset: {{ isset($ubicacion) ? 'SI' : 'NO' }}<br>
+                Ubicación valor: '{{ $ubicacion ?? 'NO DEFINIDO' }}'<br>
+                Ubicación empty: {{ empty($ubicacion ?? '') ? 'SI' : 'NO' }}
+            </div> --}}
+
+            {{-- Teléfono del negocio --}}
+            @if(isset($telefono) && $telefono != '')
+            <p class="text-sm text-gray-600 mt-2 flex items-center justify-center gap-1">
+                <i class='bx bx-phone'></i>
+                <span>{{ $telefono }}</span>
+            </p>
+            @endif
+
+            {{-- Ubicación del negocio --}}
+            @if(isset($ubicacion) && $ubicacion != '')
+            <p class="text-xs text-gray-600 mt-1 leading-tight px-2 text-center">
+                <i class='bx bx-map'></i>
+                <span>{{ $ubicacion }}</span>
+            </p>
+            @endif
         </div>
 
         <div class="ticket-header">
@@ -216,6 +359,52 @@
             <span class="text-green-700">${{ number_format($sale->amount, 2) }}</span>
         </div>
 
+        {{-- MÉTODO DE PAGO --}}
+        @if($sale->payment_method)
+        <div class="ticket-line"></div>
+        <div class="bg-gray-50 p-3 rounded-lg">
+            <p class="text-sm font-bold text-gray-800 mb-2">
+                <i class='bx bx-money'></i> Método de Pago:
+            </p>
+            <p class="text-base font-semibold text-gray-700">
+                @if($sale->payment_method == 'efectivo')
+                    💵 Efectivo
+                @elseif($sale->payment_method == 'tarjeta_debito')
+                    💳 Tarjeta de Débito
+                @elseif($sale->payment_method == 'tarjeta_credito')
+                    💳 Tarjeta de Crédito
+                @elseif($sale->payment_method == 'transferencia')
+                    🏦 Transferencia
+                @else
+                    {{ ucfirst($sale->payment_method) }}
+                @endif
+            </p>
+
+            {{-- Mostrar detalles de efectivo --}}
+            @if($sale->payment_method == 'efectivo' && $sale->amount_received)
+            <div class="mt-2 text-sm text-gray-600 space-y-1">
+                <div class="flex justify-between">
+                    <span>Recibido:</span>
+                    <span class="font-semibold">${{ number_format($sale->amount_received, 2) }}</span>
+                </div>
+                @if($sale->change_returned)
+                <div class="flex justify-between text-yellow-700 font-bold">
+                    <span>Cambio:</span>
+                    <span>${{ number_format($sale->change_returned, 2) }}</span>
+                </div>
+                @endif
+            </div>
+            @endif
+
+            {{-- Mostrar referencia para tarjetas/transferencias --}}
+            @if($sale->payment_reference && $sale->payment_method != 'efectivo')
+            <div class="mt-2 text-xs text-gray-600">
+                <span class="font-semibold">Ref:</span> {{ $sale->payment_reference }}
+            </div>
+            @endif
+        </div>
+        @endif
+
         {{-- NOTAS --}}
         @if($sale->notes)
         <div class="ticket-line"></div>
@@ -229,9 +418,8 @@
 
         {{-- CÓDIGO QR Y FOOTER --}}
         <div class="qr-code-container text-center">
-            <div id="qrcode" class="mx-auto my-3" style="width: 80px; height: 80px;"></div>
+            <div id="qrcode" class="mx-auto my-3" style="width: 70px; height: 70px;"></div>
             <p class="text-xs mt-3 text-gray-700">¡Gracias por tu compra!</p>
-            <p class="text-xs text-gray-500">Escanea para más detalles o promociones.</p>
         </div>
 
         <div class="ticket-line"></div>
@@ -246,14 +434,14 @@
         // Lógica para generar el Código QR
         document.addEventListener('DOMContentLoaded', () => {
             const qrContent = "https://www.islacontrol.com/sales/{{ $sale->id }}";
-            
+
             new QRCode(document.getElementById("qrcode"), {
                 text: qrContent,
-                width: 80,
-                height: 80,
-                colorDark: "#34495e", // Color más suave para el QR
+                width: 70,
+                height: 70,
+                colorDark: "#000000",
                 colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.H
+                correctLevel: QRCode.CorrectLevel.M
             });
         });
     </script>

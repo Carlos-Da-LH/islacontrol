@@ -14,7 +14,16 @@ class Customer extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'phone_number', 'email'];
+    protected $fillable = ['name', 'phone_number', 'email', 'user_id'];
+
+    /**
+     * Define la relación con la tabla `users`.
+     * Un cliente pertenece a un usuario.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Define la relación con la tabla `sales`.

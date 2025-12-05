@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="transition-colors duration-300">
 
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dark-mode.css">
+    <script src="/js/dark-mode.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -41,6 +43,18 @@
             max-height: 90vh;
             overflow-y: auto;
             animation: slideUp 0.3s ease-out;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .modal-content {
+                background: #1f2937;
+                color: #f3f4f6;
+            }
+        }
+
+        .dark .modal-content {
+            background: #1f2937;
+            color: #f3f4f6;
         }
 
         .ticket-modal-content {
@@ -189,7 +203,7 @@
     </style>
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300 pt-28 lg:pt-0">
 
     <div class="max-w-[95%] mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
@@ -197,13 +211,13 @@
         <div class="mb-8">
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-teal-600 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-teal-600 dark:text-teal-400 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                         <path d="M14 2v6h6" />
                         <path d="M8 13h8" />
                         <path d="M8 17h8" />
                     </svg>
-                    <h1 class="text-3xl font-bold text-gray-800">Gestión de Ventas</h1>
+                    <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Gestión de Ventas</h1>
                 </div>
             </div>
         </div>
@@ -373,9 +387,11 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Cliente *</label>
                             <select id="customer_id" name="customer_id" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent">
-                                <option value="">Seleccionar...</option>
                                 @foreach ($customers as $customer)
-                                    <option value="{{ $customer->id }}" data-name="{{ $customer->name }}">{{ $customer->name }}</option>
+                                    <option value="{{ $customer->id }}" data-name="{{ $customer->name }}"
+                                        {{ $customer->name == 'Público General' ? 'selected' : '' }}>
+                                        ({{ $customer->name === 'Público General' ? '1' : $customer->id }}) {{ $customer->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -412,6 +428,65 @@
                             <span class="text-xl font-bold text-gray-800">TOTAL:</span>
                             <span id="total-amount" class="text-3xl font-bold text-teal-600">$0.00</span>
                         </div>
+                    </div>
+
+                    <!-- Método de Pago -->
+                    <div class="border-t border-gray-200 pt-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-3">Método de Pago *</label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <label class="payment-method-option cursor-pointer">
+                                <input type="radio" name="payment_method" value="efectivo" class="peer sr-only" required checked>
+                                <div class="border-2 border-gray-300 peer-checked:border-emerald-500 peer-checked:bg-emerald-50 rounded-lg p-3 text-center hover:border-gray-400 transition-all">
+                                    <i class='bx bx-money text-3xl text-emerald-600'></i>
+                                    <p class="text-xs font-semibold text-gray-700 mt-1">Efectivo</p>
+                                </div>
+                            </label>
+                            <label class="payment-method-option cursor-pointer">
+                                <input type="radio" name="payment_method" value="tarjeta_debito" class="peer sr-only" required>
+                                <div class="border-2 border-gray-300 peer-checked:border-blue-500 peer-checked:bg-blue-50 rounded-lg p-3 text-center hover:border-gray-400 transition-all">
+                                    <i class='bx bx-credit-card text-3xl text-blue-600'></i>
+                                    <p class="text-xs font-semibold text-gray-700 mt-1">Débito</p>
+                                </div>
+                            </label>
+                            <label class="payment-method-option cursor-pointer">
+                                <input type="radio" name="payment_method" value="tarjeta_credito" class="peer sr-only" required>
+                                <div class="border-2 border-gray-300 peer-checked:border-purple-500 peer-checked:bg-purple-50 rounded-lg p-3 text-center hover:border-gray-400 transition-all">
+                                    <i class='bx bx-credit-card-alt text-3xl text-purple-600'></i>
+                                    <p class="text-xs font-semibold text-gray-700 mt-1">Crédito</p>
+                                </div>
+                            </label>
+                            <label class="payment-method-option cursor-pointer">
+                                <input type="radio" name="payment_method" value="transferencia" class="peer sr-only" required>
+                                <div class="border-2 border-gray-300 peer-checked:border-indigo-500 peer-checked:bg-indigo-50 rounded-lg p-3 text-center hover:border-gray-400 transition-all">
+                                    <i class='bx bx-transfer text-3xl text-indigo-600'></i>
+                                    <p class="text-xs font-semibold text-gray-700 mt-1">Transfer.</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Campos Condicionales para Efectivo -->
+                    <div id="cash-payment-fields" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Monto Recibido (Efectivo)</label>
+                            <input type="number" id="amount_received" name="amount_received" step="0.01" min="0"
+                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                                placeholder="0.00">
+                        </div>
+                        <div id="change-display-modal" class="hidden p-4 bg-yellow-50 border-2 border-yellow-300 rounded-lg">
+                            <div class="flex justify-between items-center">
+                                <span class="text-lg font-semibold text-gray-700">Cambio:</span>
+                                <span id="change-value-modal" class="text-2xl font-black text-yellow-600">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Campo de Referencia para Tarjetas/Transferencias -->
+                    <div id="reference-fields" class="hidden">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Referencia / Número de Transacción (Opcional)</label>
+                        <input type="text" id="payment_reference" name="payment_reference" maxlength="100"
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Ej: AUTH123456">
                     </div>
 
                     <!-- Notas -->
@@ -1551,6 +1626,46 @@
                             }
                         });
                         console.log('✅ Event listener del formulario agregado');
+                    }
+
+                    // === LISTENERS PARA MÉTODO DE PAGO ===
+                    const paymentMethodInputs = document.querySelectorAll('input[name="payment_method"]');
+                    paymentMethodInputs.forEach(input => {
+                        input.addEventListener('change', function() {
+                            const cashFields = document.getElementById('cash-payment-fields');
+                            const referenceFields = document.getElementById('reference-fields');
+                            const changeDisplay = document.getElementById('change-display-modal');
+
+                            if (this.value === 'efectivo') {
+                                cashFields.classList.remove('hidden');
+                                referenceFields.classList.add('hidden');
+                            } else {
+                                cashFields.classList.add('hidden');
+                                referenceFields.classList.remove('hidden');
+                                changeDisplay.classList.add('hidden');
+                            }
+                        });
+                    });
+
+                    // Calcular cambio en el modal
+                    const amountReceivedInput = document.getElementById('amount_received');
+                    if (amountReceivedInput) {
+                        amountReceivedInput.addEventListener('input', function() {
+                            const totalText = document.getElementById('total-amount').textContent.replace('$', '').replace(',', '');
+                            const total = parseFloat(totalText) || 0;
+                            const received = parseFloat(this.value) || 0;
+
+                            const changeDisplay = document.getElementById('change-display-modal');
+                            const changeValue = document.getElementById('change-value-modal');
+
+                            if (received >= total && received > 0) {
+                                const change = received - total;
+                                changeValue.textContent = `$${change.toFixed(2)}`;
+                                changeDisplay.classList.remove('hidden');
+                            } else {
+                                changeDisplay.classList.add('hidden');
+                            }
+                        });
                     }
 
                     updateTableTotals();

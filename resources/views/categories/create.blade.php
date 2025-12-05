@@ -13,15 +13,15 @@
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white flex items-start justify-center min-h-screen pt-16 p-4">
+<body class="bg-gray-900 text-white flex items-start justify-center min-h-screen pt-36 lg:pt-16 p-4">
 
     <!-- Main Content Container (Wide and Dark) -->
-    <div class="bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-4xl border border-gray-700">
-        
+    <div class="bg-gray-800 p-4 sm:p-6 lg:p-8 rounded-2xl shadow-2xl w-full max-w-4xl border border-gray-700">
+
         <!-- Header -->
-        <div class="mb-8 pb-4 border-b border-gray-700">
-            <h1 class="text-4xl font-extrabold text-white tracking-tight">
-                <svg class="inline-block w-8 h-8 mr-3 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="mb-6 sm:mb-8 pb-4 border-b border-gray-700">
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+                <svg class="inline-block w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 mr-2 sm:mr-3 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
                 Crear Nueva Categoría

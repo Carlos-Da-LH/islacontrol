@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="transition-colors duration-300">
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,8 @@
     <title>Gestión de Clientes Profesional</title>
     <!-- Carga de Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/dark-mode.css">
+    <script src="/js/dark-mode.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -48,21 +50,23 @@
     </style>
 </head>
 
-<body class="bg-gray-100 min-h-screen pt-8 pb-8 flex justify-center">
-    
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen pt-28 lg:pt-8 pb-8 flex justify-center transition-colors duration-300">
+
+    @include('components.limit-reached-modal')
+
     <div class="w-full px-4 sm:px-6 lg:px-8">
 
-        <div class="bg-white shadow-2xl rounded-2xl overflow-hidden p-6 md:p-8 border border-gray-200">
+        <div class="bg-white dark:bg-gray-800 shadow-2xl rounded-2xl overflow-hidden p-6 md:p-8 border border-gray-200 dark:border-gray-700">
 
-            <div class="flex items-center justify-center mb-6 border-b border-gray-200 pb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-green-500 mr-3" viewBox="0 0 24 24"
+            <div class="flex items-center justify-center mb-6 border-b border-gray-200 dark:border-gray-700 pb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-green-500 dark:text-green-400 mr-3" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
                     <circle cx="9" cy="7" r="4" />
                     <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                     <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
-                <h1 class="text-3xl font-extrabold text-gray-800 text-center">
+                <h1 class="text-3xl font-extrabold text-gray-800 dark:text-white text-center">
                     Gestión de Clientes
                 </h1>
             </div>
@@ -87,10 +91,10 @@
                 <p class="text-5xl font-extrabold text-white mt-1 drop-shadow-lg" id="client-count">{{ count($customers) }}</p>
             </div>
 
-            <form action="{{ route('customers.store') }}" method="POST" class="mb-8 p-6 border border-gray-200 rounded-xl bg-gray-50 shadow-xl" id="customer-form">
+            <form action="{{ route('customers.store') }}" method="POST" class="mb-8 p-6 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-700/50 shadow-xl" id="customer-form">
                 @csrf
                 <input type="hidden" name="from" value="dashboard">
-                <h2 class="text-xl font-bold text-green-600 mb-4 border-b border-gray-200 pb-2">
+                <h2 class="text-xl font-bold text-green-600 dark:text-green-400 mb-4 border-b border-gray-200 dark:border-gray-600 pb-2">
                     Agregar Nuevo Cliente
                 </h2>
 
@@ -154,38 +158,48 @@
                     <tbody class="bg-white divide-y divide-gray-200" id="customer-table-body">
                         @forelse ($customers as $customer)
                         <tr class="hover:bg-gray-50 transition duration-150 ease-in-out border-b border-gray-200 last:border-b-0">
-                            <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-gray-700">{{ $customer->id }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-gray-700">
+                                {{ $customer->name === 'Público General' ? '1' : $customer->id }}
+                            </td>
                             <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $customer->name }}</td>
                             <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $customer->phone_number ?? '-' }}</td>
                             <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $customer->email }}</td>
                             <td class="px-4 py-3 whitespace-nowrap text-center text-sm font-medium">
-                                <!-- Botón de Editar (Abre el modal) -->
-                                <button type="button"
-                                    data-customer-id="{{ $customer->id }}"
-                                    data-customer-name="{{ e($customer->name) }}"
-                                    data-customer-phone="{{ e($customer->phone_number) }}"
-                                    data-customer-email="{{ e($customer->email) }}"
-                                    onclick="showEditModal(this)"
-                                    class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-lg shadow-md text-white 
-                                         bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mr-2">
-                                    Editar
-                                </button>
+                                @if($customer->name === 'Público General')
+                                    <!-- Badge para cliente protegido -->
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gray-200 text-gray-600">
+                                        <i class='bx bx-lock-alt mr-1'></i>
+                                        Cliente por Defecto
+                                    </span>
+                                @else
+                                    <!-- Botón de Editar (Abre el modal) -->
+                                    <button type="button"
+                                        data-customer-id="{{ $customer->id }}"
+                                        data-customer-name="{{ e($customer->name) }}"
+                                        data-customer-phone="{{ e($customer->phone_number) }}"
+                                        data-customer-email="{{ e($customer->email) }}"
+                                        onclick="showEditModal(this)"
+                                        class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-lg shadow-md text-white
+                                             bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mr-2">
+                                        Editar
+                                    </button>
 
-                                <!-- Botón para Eliminar -->
-                                <button type="button" 
-                                    data-customer-id="{{ $customer->id }}"
-                                    data-customer-name="{{ e($customer->name) }}"
-                                    onclick="showDeleteModal(this)"
-                                    class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-lg shadow-md text-white 
-                                         bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-150 ease-in-out">
-                                    Eliminar
-                                </button>
-                                
-                                <form id="delete-form-{{ $customer->id }}" action="{{ route('customers.destroy', $customer->id) }}" method="POST" style="display: none;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="from" value="dashboard">
-                                </form>
+                                    <!-- Botón para Eliminar -->
+                                    <button type="button"
+                                        data-customer-id="{{ $customer->id }}"
+                                        data-customer-name="{{ e($customer->name) }}"
+                                        onclick="showDeleteModal(this)"
+                                        class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-lg shadow-md text-white
+                                             bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-150 ease-in-out">
+                                        Eliminar
+                                    </button>
+
+                                    <form id="delete-form-{{ $customer->id }}" action="{{ route('customers.destroy', $customer->id) }}" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="from" value="dashboard">
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                         @empty

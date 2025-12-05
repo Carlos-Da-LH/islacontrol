@@ -48,23 +48,23 @@
 </head>
 
 {{-- Fondo muy oscuro para el cuerpo --}}
-<body class="bg-gray-900 min-h-screen font-sans">
-    <div class="flex items-start justify-center p-8">
+<body class="bg-gray-900 min-h-screen font-sans pt-28 lg:pt-0">
+    <div class="flex items-start justify-center p-4 sm:p-6 lg:p-8">
         {{-- Contenedor del formulario: más ancho (max-w-4xl) y oscuro --}}
-        <div class="crud-container p-8 rounded-xl shadow-2xl w-full max-w-4xl">
-            
+        <div class="crud-container p-4 sm:p-6 lg:p-8 rounded-xl shadow-2xl w-full max-w-4xl">
+
             {{-- Encabezado y Botón de Retroceso --}}
-            <div class="flex items-center mb-8">
+            <div class="flex items-center mb-6 sm:mb-8">
                 {{-- Botón de Regreso (Ícono blanco) --}}
-                <a href="{{ route('sales.index') }}" class="back-button mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                <a href="{{ route('sales.index') }}" class="back-button mr-3 sm:mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                 </a>
                 {{-- Título --}}
-                <h1 class="text-3xl font-bold text-white flex-grow">Editar Venta #{{ $sale->id }}</h1>
+                <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white flex-grow">Editar Venta #{{ $sale->id }}</h1>
             </div>
 
             {{-- Pasamos el número inicial de ítems en un atributo data --}}

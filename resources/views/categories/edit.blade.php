@@ -14,18 +14,18 @@
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white flex items-start justify-center min-h-screen pt-16 p-4">
+<body class="bg-gray-900 text-white flex items-start justify-center min-h-screen pt-36 lg:pt-16 p-4">
 
     <!-- Main Content Container (Dark, Rounded, Wide) -->
-    <div class="bg-gray-800 p-8 md:p-12 rounded-3xl shadow-2xl w-full max-w-4xl border border-gray-700">
-        
+    <div class="bg-gray-800 p-4 sm:p-6 lg:p-8 xl:p-12 rounded-3xl shadow-2xl w-full max-w-4xl border border-gray-700">
+
         <!-- Header -->
-        <div class="mb-10 pb-4 border-b border-gray-700 flex items-center">
-            <svg class="w-10 h-10 mr-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="mb-6 sm:mb-8 lg:mb-10 pb-4 border-b border-gray-700 flex items-center">
+            <svg class="w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 mr-3 sm:mr-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
-                Editar Categoría: <span class="text-emerald-300">{{ $category->name ?? '' }}</span>
+            <h1 class="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-white tracking-tight">
+                Editar Categoría: <span class="text-emerald-300 block sm:inline">{{ $category->name ?? '' }}</span>
             </h1>
         </div>
 

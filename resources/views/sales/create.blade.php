@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="transition-colors duration-300">
 
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,8 @@
     {{-- CDN de Tailwind CSS --}}
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dark-mode.css">
+    <script src="/js/dark-mode.js"></script>
     <style>
         /* Estilos base */
         body {
@@ -47,23 +49,26 @@
 </head>
 
 {{-- Fondo muy oscuro para el cuerpo --}}
-<body class="bg-gray-900 min-h-screen font-sans">
-    <div class="flex items-start justify-center p-8">
+<body class="bg-gray-900 min-h-screen font-sans pt-28 lg:pt-0">
+
+    @include('components.limit-reached-modal')
+
+    <div class="flex items-start justify-center p-4 sm:p-6 lg:p-8">
         {{-- Contenedor del formulario: más ancho (max-w-4xl) y oscuro --}}
-        <div class="crud-container p-8 rounded-xl shadow-2xl w-full max-w-4xl">
-            
+        <div class="crud-container p-4 sm:p-6 lg:p-8 rounded-xl shadow-2xl w-full max-w-4xl">
+
             {{-- Encabezado y Botón de Retroceso --}}
-            <div class="flex items-center mb-8">
+            <div class="flex items-center mb-6 sm:mb-8">
                 {{-- Botón de Regreso (Ícono blanco) --}}
-                <a href="{{ route('sales.index') }}" class="text-gray-400 hover:text-white transition-colors mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                <a href="{{ route('sales.index') }}" class="text-gray-400 hover:text-white transition-colors mr-3 sm:mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                 </a>
                 {{-- Título --}}
-                <h1 class="text-3xl font-bold text-white flex-grow">Crear Nueva Venta</h1>
+                <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white flex-grow">Crear Nueva Venta</h1>
             </div>
 
             {{-- Mensajes de Session y Errores (Ajustados al tema oscuro) --}}
@@ -92,10 +97,10 @@
                         <select id="customer_id" name="customer_id"
                             class="mt-1 block w-full px-4 py-2 rounded-lg shadow-sm sm:text-sm input-dark-style"
                             required>
-                            <option value="" disabled selected class="text-gray-500">Selecciona un cliente</option>
                             @foreach ($customers as $customer)
-                                <option value="{{ $customer->id }}" data-name="{{ $customer->name }}">
-                                    {{ $customer->id }} - {{ $customer->name }}
+                                <option value="{{ $customer->id }}" data-name="{{ $customer->name }}"
+                                    {{ $customer->name == 'Público General' ? 'selected' : '' }}>
+                                    {{ $customer->name === 'Público General' ? '1' : $customer->id }} - {{ $customer->name }}
                                 </option>
                             @endforeach
                         </select>
@@ -136,6 +141,71 @@
                     <p class="text-xl font-bold text-white text-right">
                         TOTAL: <span id="total-amount" class="text-green-400 font-extrabold ml-2">$0.00</span>
                     </p>
+                </div>
+
+                <hr class="border-gray-700 mt-6 mb-6">
+
+                {{-- Método de Pago --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-3">Método de Pago</label>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <label class="payment-method-option cursor-pointer">
+                            <input type="radio" name="payment_method" value="efectivo" class="peer sr-only" checked required>
+                            <div class="border-2 border-gray-600 peer-checked:border-green-500 peer-checked:bg-green-900/30 rounded-lg p-3 text-center hover:border-gray-500 transition-all">
+                                <i class='bx bx-money text-3xl text-green-400'></i>
+                                <p class="text-xs font-semibold text-gray-300 mt-1">Efectivo</p>
+                            </div>
+                        </label>
+                        <label class="payment-method-option cursor-pointer">
+                            <input type="radio" name="payment_method" value="tarjeta_debito" class="peer sr-only" required>
+                            <div class="border-2 border-gray-600 peer-checked:border-blue-500 peer-checked:bg-blue-900/30 rounded-lg p-3 text-center hover:border-gray-500 transition-all">
+                                <i class='bx bx-credit-card text-3xl text-blue-400'></i>
+                                <p class="text-xs font-semibold text-gray-300 mt-1">Débito</p>
+                            </div>
+                        </label>
+                        <label class="payment-method-option cursor-pointer">
+                            <input type="radio" name="payment_method" value="tarjeta_credito" class="peer sr-only" required>
+                            <div class="border-2 border-gray-600 peer-checked:border-purple-500 peer-checked:bg-purple-900/30 rounded-lg p-3 text-center hover:border-gray-500 transition-all">
+                                <i class='bx bx-credit-card-alt text-3xl text-purple-400'></i>
+                                <p class="text-xs font-semibold text-gray-300 mt-1">Crédito</p>
+                            </div>
+                        </label>
+                        <label class="payment-method-option cursor-pointer">
+                            <input type="radio" name="payment_method" value="transferencia" class="peer sr-only" required>
+                            <div class="border-2 border-gray-600 peer-checked:border-indigo-500 peer-checked:bg-indigo-900/30 rounded-lg p-3 text-center hover:border-gray-500 transition-all">
+                                <i class='bx bx-transfer text-3xl text-indigo-400'></i>
+                                <p class="text-xs font-semibold text-gray-300 mt-1">Transfer.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                {{-- Campos Condicionales para Efectivo --}}
+                <div id="cash-payment-section" class="space-y-4">
+                    <div>
+                        <label for="amount_received" class="block text-sm font-medium text-gray-300 mb-2">
+                            Monto Recibido (Efectivo)
+                        </label>
+                        <input type="number" id="amount_received" name="amount_received" step="0.01" min="0"
+                            class="mt-1 block w-full px-4 py-2 rounded-lg shadow-sm sm:text-sm input-dark-style"
+                            placeholder="0.00" oninput="calculateChange()">
+                    </div>
+                    <div id="change-display" class="hidden p-4 bg-yellow-900/30 border-2 border-yellow-500 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-semibold text-gray-300">Cambio:</span>
+                            <span id="change-value" class="text-2xl font-black text-yellow-400">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Campo de Referencia para Tarjetas/Transferencias --}}
+                <div id="reference-section" class="hidden">
+                    <label for="payment_reference" class="block text-sm font-medium text-gray-300 mb-2">
+                        Referencia / Número de Transacción (Opcional)
+                    </label>
+                    <input type="text" id="payment_reference" name="payment_reference" maxlength="100"
+                        class="mt-1 block w-full px-4 py-2 rounded-lg shadow-sm sm:text-sm input-dark-style"
+                        placeholder="Ej: AUTH123456">
                 </div>
 
                 {{-- Notas y Botón IA --}}
@@ -388,6 +458,43 @@
 
         // ⚠️ CLAVE: Agregamos el primer ítem al cargar la página ⚠️
         addItem();
+
+        // === FUNCIONES PARA MÉTODO DE PAGO ===
+
+        // Manejar cambio de método de pago
+        document.querySelectorAll('input[name="payment_method"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const cashSection = document.getElementById('cash-payment-section');
+                const referenceSection = document.getElementById('reference-section');
+
+                if (this.value === 'efectivo') {
+                    cashSection.classList.remove('hidden');
+                    referenceSection.classList.add('hidden');
+                } else {
+                    cashSection.classList.add('hidden');
+                    referenceSection.classList.remove('hidden');
+                    document.getElementById('change-display').classList.add('hidden');
+                }
+            });
+        });
+
+        // Calcular cambio
+        function calculateChange() {
+            const totalText = document.getElementById('total-amount').innerText.replace('$', '').replace(',', '');
+            const total = parseFloat(totalText) || 0;
+            const received = parseFloat(document.getElementById('amount_received').value) || 0;
+
+            if (received >= total && received > 0) {
+                const change = received - total;
+                document.getElementById('change-value').textContent = `$${change.toFixed(2)}`;
+                document.getElementById('change-display').classList.remove('hidden');
+            } else {
+                document.getElementById('change-display').classList.add('hidden');
+            }
+        }
+
+        // Hacer disponible globalmente
+        window.calculateChange = calculateChange;
     });
 </script>
 </body>

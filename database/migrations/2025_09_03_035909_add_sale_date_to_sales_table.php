@@ -14,9 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('sales', function (Blueprint $table) {
-            // Agrega la columna `sale_date` de tipo `date`
-            // `after('customer_id')` es opcional, pero ayuda a mantener el orden
-            $table->date('sale_date')->after('customer_id');
+            // Agrega la columna `sale_date` de tipo `date` solo si no existe
+            if (!Schema::hasColumn('sales', 'sale_date')) {
+                $table->date('sale_date')->after('customer_id');
+            }
         });
     }
 

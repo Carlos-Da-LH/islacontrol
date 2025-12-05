@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Helpers\PlanHelper;
 
 class CustomerController extends Controller
 {
@@ -14,8 +15,11 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        // Obtener todos los clientes de la base de datos
-        $customers = Customer::all();
+        // Obtener todos los clientes ordenando "Público General" primero
+        $customers = Customer::where('user_id', auth()->id())
+            ->orderByRaw("CASE WHEN name = 'Público General' THEN 0 ELSE 1 END")
+            ->orderBy('name')
+            ->get();
 
         // Devolver la vista 'customers.index' y pasar los clientes
         return view('customers.index', [
@@ -41,19 +45,40 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        // Verificar límites del plan
+        if (!PlanHelper::canCreate('customer')) {
+            $limits = PlanHelper::getLimits();
+            $current = PlanHelper::getCount('customer');
+
+            // Si es petición AJAX, devolver JSON
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'limit_reached' => true,
+                    'type' => 'customer',
+                    'limit' => $limits['customers'],
+                    'current' => $current,
+                    'message' => "Has alcanzado el límite de {$limits['customers']} clientes de tu plan."
+                ], 403);
+            }
+
+            return redirect()->route('customers.index')->with('limit_reached', [
+                'type' => 'customer',
+                'limit' => $limits['customers'],
+                'current' => $current
+            ])->withInput();
+        }
+
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'phone_number' => 'nullable|string|max:20',
             'email' => 'required|email|unique:customers',
         ]);
 
+        $validatedData['user_id'] = auth()->id();
         Customer::create($validatedData);
 
-        // Verificar si viene desde el dashboard
-        if ($request->input('from') === 'dashboard') {
-            return redirect()->route('dashboard')->with('success', 'Cliente creado exitosamente!');
-        }
-
+        // Siempre redirigir al index de clientes
         return redirect()->route('customers.index')->with('success', 'Cliente creado exitosamente!');
     }
 
@@ -65,8 +90,10 @@ class CustomerController extends Controller
      */
     public function show($name)
     {
-        // Buscar el cliente por su nombre. Si no se encuentra, abortar con un error 404.
-        $customer = Customer::where('name', $name)->firstOrFail();
+        // Buscar el cliente por su nombre y que pertenezca al usuario autenticado
+        $customer = Customer::where('name', $name)
+                          ->where('user_id', auth()->id())
+                          ->firstOrFail();
 
         return view('customers.show', compact('customer'));
     }
@@ -79,6 +106,17 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
+        // Verificar que el cliente pertenece al usuario autenticado
+        if ($customer->user_id !== auth()->id()) {
+            abort(403, 'No tienes permiso para editar este cliente.');
+        }
+
+        // Proteger el cliente "Público General"
+        if ($customer->name === 'Público General') {
+            return redirect()->route('customers.index')
+                ->with('error', 'No se puede editar el cliente "Público General" ya que es un cliente del sistema.');
+        }
+
         return view('customers.edit', compact('customer'));
     }
 
@@ -91,6 +129,17 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
+        // Verificar que el cliente pertenece al usuario autenticado
+        if ($customer->user_id !== auth()->id()) {
+            abort(403, 'No tienes permiso para editar este cliente.');
+        }
+
+        // Proteger el cliente "Público General"
+        if ($customer->name === 'Público General') {
+            return redirect()->route('customers.index')
+                ->with('error', 'No se puede editar el cliente "Público General" ya que es un cliente del sistema.');
+        }
+
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'phone_number' => 'nullable|string|max:20',
@@ -99,11 +148,7 @@ class CustomerController extends Controller
 
         $customer->update($validatedData);
 
-        // Verificar si viene desde el dashboard
-        if ($request->input('from') === 'dashboard') {
-            return redirect()->route('dashboard')->with('success', 'Cliente actualizado exitosamente!');
-        }
-
+        // Siempre redirigir al index de clientes
         return redirect()->route('customers.index')->with('success', 'Cliente actualizado exitosamente!');
     }
 
@@ -115,13 +160,20 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        $customer->delete();
-        
-        // Verificar si viene desde el dashboard
-        if (request()->input('from') === 'dashboard') {
-            return redirect()->route('dashboard')->with('success', 'Cliente eliminado exitosamente!');
+        // Verificar que el cliente pertenece al usuario autenticado
+        if ($customer->user_id !== auth()->id()) {
+            abort(403, 'No tienes permiso para eliminar este cliente.');
         }
-        
+
+        // Proteger el cliente "Público General"
+        if ($customer->name === 'Público General') {
+            return redirect()->route('customers.index')
+                ->with('error', 'No se puede eliminar el cliente "Público General" ya que es un cliente del sistema.');
+        }
+
+        $customer->delete();
+
+        // Siempre redirigir al index de clientes
         return redirect()->route('customers.index')->with('success', 'Cliente eliminado exitosamente!');
     }
 }

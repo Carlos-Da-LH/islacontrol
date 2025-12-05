@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(php artisan:*)",
+      "Bash(findstr:*)",
+      "Bash(php check_products.php:*)",
+      "Bash(del check_products.php)",
+      "Bash(if not exist publicimages mkdir publicimages)",
+      "Bash(if not exist storageappsettings mkdir storageappsettings)",
+      "Bash(cat:*)",
+      "Bash(php -r:*)",
+      "Bash(php:*)",
+      "Bash(del publictest_settings.php)",
+      "Bash(composer require:*)",
+      "Bash(if not exist resourcesviewsreports mkdir resourcesviewsreports)",
+      "Bash(del \"C:\\xampp\\htdocs\\Islacontrol\\public\\test_gd.php\")",
+      "Bash(ollama --version:*)",
+      "Bash(curl:*)",
+      "Bash(del publictest_cash_register.php)",
+      "Bash(del publictest_dashboard_data.php)",
+      "Bash(if not exist publiccss mkdir publiccss)",
+      "Bash(if not exist publicjs mkdir publicjs)",
+      "Bash(if not exist resourcesviewscashiers mkdir resourcesviewscashiers)",
+      "Bash(del test_business_type.php)",
+      "Bash(del publictest_legal_pages.html)",
+      "Bash(grep:*)",
+      "Bash(composer update:*)",
+      "Bash(if not exist \"resources\\views\\subscriptions\" mkdir \"resources\\views\\subscriptions\")",
+      "Bash(composer dump-autoload:*)",
+      "Bash(del \"C:\\xampp\\htdocs\\Islacontrol\\public\\check_customers.php\")",
+      "Bash(del \"C:\\xampp\\htdocs\\Islacontrol\\public\\test_subscription.php\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -14,7 +14,16 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'user_id'];
+
+    /**
+     * Define la relación con la tabla `users`.
+     * Una categoría pertenece a un usuario.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * Define la relación con la tabla `products`.

@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::where('user_id', auth()->id())->get();
         // Cargar y pasar las categorías a la vista 'categories.index'
         return view('categories.index', compact('categories'));
     }
@@ -41,15 +41,11 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
+        $validatedData['user_id'] = auth()->id();
         $category = Category::create($validatedData);
-        
-        // Verificar si viene desde el dashboard
-        if ($request->input('from') === 'dashboard') {
-            return redirect()->route('dashboard')->with('success', 'Categoría creada exitosamente!');
-        }
-        
-        // Redirigir al usuario de vuelta a la lista de categorías
-        return redirect()->route('categories.index')->with('success', 'Categoría creada con éxito.');
+
+        // Siempre redirigir al index de categorías
+        return redirect()->route('categories.index')->with('success', 'Categoría creada exitosamente!');
     }
 
     /**
@@ -85,19 +81,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        // Verificar que la categoría pertenece al usuario autenticado
+        if ($category->user_id !== auth()->id()) {
+            abort(403, 'No tienes permiso para editar esta categoría.');
+        }
+
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
         $category->update($validatedData);
-        
-        // Verificar si viene desde el dashboard
-        if ($request->input('from') === 'dashboard') {
-            return redirect()->route('dashboard')->with('success', 'Categoría actualizada exitosamente!');
-        }
-        
-        // Redirigir de vuelta a la lista con un mensaje de éxito
-        return redirect()->route('categories.index')->with('success', 'Categoría actualizada con éxito.');
+
+        // Siempre redirigir al index de categorías
+        return redirect()->route('categories.index')->with('success', 'Categoría actualizada exitosamente!');
     }
 
     /**
@@ -108,14 +104,14 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
-        
-        // Verificar si viene desde el dashboard
-        if (request()->input('from') === 'dashboard') {
-            return redirect()->route('dashboard')->with('success', 'Categoría eliminada exitosamente!');
+        // Verificar que la categoría pertenece al usuario autenticado
+        if ($category->user_id !== auth()->id()) {
+            abort(403, 'No tienes permiso para eliminar esta categoría.');
         }
-        
-        // Redirigir de vuelta a la lista con un mensaje de éxito
-        return redirect()->route('categories.index')->with('success', 'Categoría eliminada con éxito.');
+
+        $category->delete();
+
+        // Siempre redirigir al index de categorías
+        return redirect()->route('categories.index')->with('success', 'Categoría eliminada exitosamente!');
     }
 }

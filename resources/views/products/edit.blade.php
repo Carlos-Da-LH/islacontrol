@@ -25,7 +25,7 @@
         }
     </style>
 </head>
-<body class="text-white flex items-start justify-center min-h-screen pt-16 p-4">
+<body class="text-white flex items-start justify-center min-h-screen pt-36 p-4">
 
     <!-- Main Content Container (Darker background, soft corners, shadow) -->
     <div class="bg-gray-800 p-8 md:p-10 rounded-3xl shadow-[0_0_30px_rgba(16,185,129,0.15)] w-full max-w-2xl border border-gray-700">
@@ -67,9 +67,20 @@
                 <div>
                     <label for="name" class="block text-sm font-semibold text-gray-300 mb-2">Nombre del Producto</label>
                     <input type="text" id="name" name="name" value="{{ old('name', $product->name) }}"
-                        class="mt-1 block w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner" 
+                        class="mt-1 block w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner"
                         placeholder="Ej. Laptop Gaming X200" required>
                     @error('name')
+                        <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Campo Código de Barras -->
+                <div>
+                    <label for="codigo_barras" class="block text-sm font-semibold text-gray-300 mb-2">Código de Barras</label>
+                    <input type="text" id="codigo_barras" name="codigo_barras" value="{{ old('codigo_barras', $product->codigo_barras) }}"
+                        class="mt-1 block w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner"
+                        placeholder="Ej. 7501086801046">
+                    @error('codigo_barras')
                         <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
