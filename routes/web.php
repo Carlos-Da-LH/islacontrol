@@ -16,6 +16,7 @@ use App\Http\Controllers\CashRegisterController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\SubscriptionController;
 
+
 Auth::routes(['register' => false, 'login' => false]);
 
 Route::get('/', function () {
