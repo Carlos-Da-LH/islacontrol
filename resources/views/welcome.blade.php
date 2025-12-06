@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>IslaControl - Sistema de Gestión</title>
-   <link rel="icon" type="image/png" href="/logo_islacontrol22.png">
+    <link rel="icon" type="image/png" href="/storage/logos/logo_islacontrol22.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
