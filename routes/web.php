@@ -17,7 +17,14 @@ use App\Http\Controllers\CashierController;
 use App\Http\Controllers\SubscriptionController;
 
 
-Auth::routes(['register' => false, 'login' => false]);
+//Auth::routes(['register' => false, 'login' => false]);
+Auth::routes([
+    'register' => false,  // No queremos la ruta de registro de Laravel
+    'login' => false,     // Ya tienes tu login personalizado
+    'reset' => true,      // Habilitar rutas de reset de contraseña
+    'verify' => false     // No necesitas verificación de email
+]);
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -54,10 +61,9 @@ Route::get('/login', [LoginController::class, 'showLoginView'])->name('login');
 Route::post('/login/firebase', [LoginController::class, 'loginWithFirebase'])->name('login.firebase');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/forgot-password', function () {
+Route::get('password/reset', function () {
     return view('auth.forgot-password');
 })->name('password.request');
-
 // ==========================================================
 // RUTAS PROTEGIDAS (REQUIEREN AUTENTICACIÓN)
 // ==========================================================
