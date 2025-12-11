@@ -235,5 +235,14 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('reports')->group(function () {
         Route::get('/', [ReportController::class, 'index'])->name('reports.index');
         Route::post('/corte-caja', [ReportController::class, 'corteCaja'])->name('reports.corte-caja');
+        Route::get('/corte-caja-pdf', [ReportController::class, 'corteCajaPdf'])->name('reports.corte-caja-pdf');
+        Route::get('/test-pdf', [ReportController::class, 'testPdf'])->name('reports.test-pdf');
+    });
+
+    // Rutas para Configuración del Negocio
+    Route::prefix('business-settings')->group(function () {
+        Route::get('/', [App\Http\Controllers\BusinessSettingsController::class, 'index'])->name('business-settings.index');
+        Route::post('/', [App\Http\Controllers\BusinessSettingsController::class, 'store'])->name('business-settings.store');
+        Route::post('/upload-logo', [App\Http\Controllers\BusinessSettingsController::class, 'uploadLogo'])->name('business-settings.upload-logo');
     });
 }); // Fin del grupo de rutas protegidas con middleware auth

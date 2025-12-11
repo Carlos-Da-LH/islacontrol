@@ -168,4 +168,55 @@ class PlanHelper
     {
         return self::getCurrentPlan();
     }
+
+    /**
+     * Obtiene las opciones de paginación según el plan del usuario
+     *
+     * @return array Array de opciones de paginación disponibles
+     */
+    public static function getPaginationOptions()
+    {
+        $plan = self::getCurrentPlan();
+        $planKey = $plan['key'] ?? 'free';
+
+        // Mapeo de planes a opciones de paginación
+        $paginationMap = [
+            'free' => [10],                                    // Plan Free: límite 10
+            'basico' => [10, 20, 30, 50, 100],                // Plan Básico: límite 100
+            'pro' => [10, 20, 30, 50, 100, 200, 500],         // Plan Pro: límite 500
+            'empresarial' => [10, 20, 30, 50, 100, 200, 500, 1000], // Plan Empresarial: ilimitado
+        ];
+
+        return $paginationMap[$planKey] ?? [10];
+    }
+
+    /**
+     * Obtiene el valor de paginación por defecto
+     *
+     * @return int Valor por defecto (10)
+     */
+    public static function getDefaultPagination()
+    {
+        return 10;
+    }
+
+    /**
+     * Valida que el valor de paginación solicitado esté permitido
+     *
+     * @param int $perPage Valor solicitado
+     * @return int Valor validado (o default si no está permitido)
+     */
+    public static function validatePaginationValue($perPage)
+    {
+        $options = self::getPaginationOptions();
+        $perPage = (int) $perPage;
+
+        // Si el valor está en las opciones permitidas, retornarlo
+        if (in_array($perPage, $options)) {
+            return $perPage;
+        }
+
+        // Si no, retornar el valor por defecto
+        return self::getDefaultPagination();
+    }
 }

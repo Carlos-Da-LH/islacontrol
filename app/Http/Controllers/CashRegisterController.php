@@ -7,20 +7,29 @@ use App\Models\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Helpers\PlanHelper;
 
 class CashRegisterController extends Controller
 {
     /**
      * Mostrar historial de cajas
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Obtener el valor de paginación del request o usar el default
+        $perPage = PlanHelper::validatePaginationValue(
+            $request->input('per_page', PlanHelper::getDefaultPagination())
+        );
+
         $cashRegisters = CashRegister::where('user_id', Auth::id())
             ->with('cashier')
             ->orderBy('opened_at', 'desc')
-            ->paginate(20);
+            ->paginate($perPage)->withQueryString();
 
-        return view('cash-register.index', compact('cashRegisters'));
+        // Obtener opciones de paginación según el plan
+        $paginationOptions = PlanHelper::getPaginationOptions();
+
+        return view('cash-register.index', compact('cashRegisters', 'paginationOptions'));
     }
 
     /**

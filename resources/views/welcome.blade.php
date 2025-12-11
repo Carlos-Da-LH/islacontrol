@@ -154,6 +154,107 @@
             </div>
         </div>
 
+        
+        <!-- Renta de Equipo -->
+        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-lg overflow-hidden mb-12 border-2 border-blue-200">
+            <div class="grid md:grid-cols-2 gap-0">
+                <!-- Imagen del Equipo -->
+                <div class="bg-white p-6 flex items-center justify-center">
+                    <img src="/storage/logos/renta_equipo.png" alt="Equipo POS" class="w-full h-full object-cover rounded-lg shadow-md">
+                    <!-- Reemplaza /storage/images/equipo-pos.jpg con la ruta de tu imagen -->
+                </div>
+                
+                <!-- Contenido -->
+                <div class="p-6 sm:p-8 flex flex-col justify-center">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class='bx bx-devices text-blue-600 text-2xl'></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-blue-600">Renta de Equipo Especializado</h3>
+                    </div>
+                    
+                    <p class="text-gray-700 text-base sm:text-lg leading-relaxed mb-4">
+                        ¿No tienes el equipo necesario? <strong>¡No te preocupes!</strong> Rentamos equipo especializado para puntos de venta, 
+                        para que puedas operar sin tener que hacer una gran inversión inicial.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <div class="flex items-center gap-2 bg-white p-3 rounded-lg shadow-sm">
+                            <i class='bx bx-desktop text-blue-600 text-xl'></i>
+                            <span class="text-gray-700 font-medium">Computadoras</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white p-3 rounded-lg shadow-sm">
+                            <i class='bx bx-laptop text-blue-600 text-xl'></i>
+                            <span class="text-gray-700 font-medium">Laptops</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white p-3 rounded-lg shadow-sm">
+                            <i class='bx bx-scan text-blue-600 text-xl'></i>
+                            <span class="text-gray-700 font-medium">Escáneres</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-white p-3 rounded-lg shadow-sm">
+                            <i class='bx bx-printer text-blue-600 text-xl'></i>
+                            <span class="text-gray-700 font-medium">Impresoras</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-600 text-white p-4 rounded-lg">
+                        <p class="font-semibold text-center">
+                            <i class='bx bx-star'></i> Planes accesibles para iniciar sin complicaciones
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personalización -->
+        <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl shadow-lg overflow-hidden mb-12 border-2 border-purple-200">
+            <div class="grid md:grid-cols-2 gap-0">
+                <!-- Contenido -->
+                <div class="p-6 sm:p-8 flex flex-col justify-center order-2 md:order-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class='bx bx-customize text-purple-600 text-2xl'></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-purple-600">Personalización a tu Medida</h3>
+                    </div>
+                    
+                    <p class="text-gray-700 text-base sm:text-lg leading-relaxed mb-4">
+                        Sabemos que cada negocio es único. Por eso ofrecemos <strong>personalización de la app web</strong>, 
+                        desarrollando funciones y módulos a la medida para que tu sistema se adapte exactamente a la forma 
+                        en que trabaja tu negocio.
+                    </p>
+                    
+                    <div class="space-y-3 mb-4">
+                        <div class="flex items-start gap-3 bg-white p-3 rounded-lg shadow-sm">
+                            <i class='bx bx-code-block text-purple-600 text-xl flex-shrink-0'></i>
+                            <span class="text-gray-700">Módulos específicos para tu industria</span>
+                        </div>
+                        <div class="flex items-start gap-3 bg-white p-3 rounded-lg shadow-sm">
+                            <i class='bx bx-link text-purple-600 text-xl flex-shrink-0'></i>
+                            <span class="text-gray-700">Integraciones con otros sistemas</span>
+                        </div>
+                        <div class="flex items-start gap-3 bg-white p-3 rounded-lg shadow-sm">
+                            <i class='bx bx-bar-chart text-purple-600 text-xl flex-shrink-0'></i>
+                            <span class="text-gray-700">Reportes personalizados</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-purple-600 text-white p-4 rounded-lg">
+                        <p class="font-semibold text-center">
+                            <i class='bx bx-check-double'></i> Desarrollamos cualquier funcionalidad que necesites
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Imagen de Personalización -->
+                <div class="bg-white p-6 flex items-center justify-center order-1 md:order-2">
+                    <img src="/storage/logos/renta_web.png" alt="Personalización" class="w-full h-full object-cover rounded-lg shadow-md">
+                    <!-- Reemplaza /storage/images/personalizacion.jpg con la ruta de tu imagen -->
+                </div>
+            </div>
+        </div>
+
+
         <!-- Características Principales -->
         <div class="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl shadow-lg p-8 mb-12">
             <div class="text-center mb-8">

@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Nueva Categoría</title>
-    <!-- Incluye Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Define la fuente Inter */
         body {
@@ -13,14 +11,14 @@
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white flex items-start justify-center min-h-screen pt-36 lg:pt-16 p-4">
+<body class="text-gray-900 dark:text-white min-h-screen">
 
     <!-- Main Content Container (Wide and Dark) -->
-    <div class="bg-gray-800 p-4 sm:p-6 lg:p-8 rounded-2xl shadow-2xl w-full max-w-4xl border border-gray-700">
+    <div class="bg-white dark:bg-gray-800 p-4 sm:p-5 lg:p-6 w-full border-b border-gray-200 dark:border-gray-700">
 
         <!-- Header -->
-        <div class="mb-6 sm:mb-8 pb-4 border-b border-gray-700">
-            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+        <div class="mb-6 sm:mb-8 pb-4 border-b border-gray-200 dark:border-gray-700">
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
                 <svg class="inline-block w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 mr-2 sm:mr-3 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
@@ -48,7 +46,7 @@
 
             <!-- Campo Nombre -->
             <div class="bg-gray-700 p-6 rounded-xl shadow-inner border border-gray-600">
-                <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Nombre de la Categoría</label>
+                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre de la Categoría</label>
                 
                 <input type="text" 
                     name="name" 
@@ -56,7 +54,7 @@
                     placeholder="Ej. Productos Electrónicos"
                     value="{{ old('name') }}" 
                     required 
-                    class="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors shadow-lg">
+                    class="w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors shadow-lg">
 
                 <!-- Mostrar errores de validación si existen -->
                 @error('name')

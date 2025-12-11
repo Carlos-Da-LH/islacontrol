@@ -19,7 +19,7 @@
         }
     </style>
 </head>
-<body class="text-white flex items-start justify-center min-h-screen p-4 pt-32 lg:pt-8">
+<body class="text-white flex items-start justify-center min-h-screen p-4 pt-52 lg:pt-8">
 
     <div class="bg-gray-800 dark:bg-gray-800 p-8 md:p-10 rounded-3xl shadow-[0_0_30px_rgba(239,68,68,0.15)] w-full max-w-3xl border border-gray-700 close-form-container">
 

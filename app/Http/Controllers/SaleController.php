@@ -19,13 +19,13 @@ class SaleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Cargar ventas del usuario autenticado con todas las relaciones necesarias
+        // Query base - SIN PAGINACIÓN - Traer TODAS las ventas
         $sales = Sale::where('user_id', auth()->id())
             ->with(['customer', 'saleItems.product'])
             ->orderBy('sale_date', 'desc')
-            ->get();
+            ->get(); // ← CAMBIO PRINCIPAL: get() en lugar de paginate()
 
         // Ordenar clientes: "Público General" primero, luego los demás alfabéticamente
         $customers = Customer::where('user_id', auth()->id())
@@ -34,18 +34,19 @@ class SaleController extends Controller
             ->get();
 
         $products = Product::where('user_id', auth()->id())->orderBy('name')->get();
-        
+
         // Obtener configuración del negocio para el modal
         $nombre_negocio = $this->getBusinessName();
         $logo_url = $this->getLogoUrl();
-        
+
         // Log para debugging
         Log::info('Sales Index - Data loaded', [
-            'sales_count' => $sales->count(),
+            'sales_count' => $sales->count(), // ← CAMBIO: count() en lugar de total()
             'customers_count' => $customers->count(),
             'products_count' => $products->count()
         ]);
-        
+
+        // ← CAMBIO: Ya NO incluimos $paginationOptions
         return view('sales.index', compact('sales', 'customers', 'products', 'nombre_negocio', 'logo_url'));
     }
 
@@ -155,8 +156,8 @@ class SaleController extends Controller
 
                 // Actualizar el stock del producto (verificar que pertenece al usuario)
                 $product = Product::where('id', $item['product_id'])
-                                ->where('user_id', auth()->id())
-                                ->first();
+                    ->where('user_id', auth()->id())
+                    ->first();
                 if ($product) {
                     $product->stock -= $item['quantity'];
                     $product->save();
@@ -182,11 +183,10 @@ class SaleController extends Controller
 
             return redirect()->route('sales.index')
                 ->with('success', 'Venta creada exitosamente');
-
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error creating sale', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
-            
+
             if ($request->expectsJson() || $request->ajax()) {
                 return response()->json([
                     'success' => false,
@@ -227,7 +227,7 @@ class SaleController extends Controller
         }
 
         $sale->load(['customer', 'saleItems.product']);
-        
+
         return response()->json([
             'success' => true,
             'sale' => [
@@ -236,7 +236,7 @@ class SaleController extends Controller
                 'sale_date' => Carbon::parse($sale->sale_date)->format('Y-m-d'),
                 'notes' => $sale->notes,
                 'amount' => $sale->amount,
-                'sale_items' => $sale->saleItems->map(function($item) {
+                'sale_items' => $sale->saleItems->map(function ($item) {
                     return [
                         'product_id' => $item->product_id,
                         'quantity' => $item->quantity,
@@ -262,7 +262,7 @@ class SaleController extends Controller
         }
 
         $sale->load(['customer', 'saleItems.product']);
-        
+
         return response()->json([
             'success' => true,
             'sale' => [
@@ -271,7 +271,7 @@ class SaleController extends Controller
                 'sale_date' => $sale->sale_date,
                 'notes' => $sale->notes,
                 'amount' => $sale->amount,
-                'sale_items' => $sale->saleItems->map(function($item) {
+                'sale_items' => $sale->saleItems->map(function ($item) {
                     return [
                         'product_id' => $item->product_id,
                         'product_name' => $item->product->name ?? 'Producto desconocido',
@@ -332,8 +332,8 @@ class SaleController extends Controller
             // Restaurar el stock de los items anteriores (verificar que pertenece al usuario)
             foreach ($sale->saleItems as $oldItem) {
                 $product = Product::where('id', $oldItem->product_id)
-                                ->where('user_id', auth()->id())
-                                ->first();
+                    ->where('user_id', auth()->id())
+                    ->first();
                 if ($product) {
                     $product->stock += $oldItem->quantity;
                     $product->save();
@@ -368,8 +368,8 @@ class SaleController extends Controller
 
                 // Actualizar el stock del producto (verificar que pertenece al usuario)
                 $product = Product::where('id', $item['product_id'])
-                                ->where('user_id', auth()->id())
-                                ->first();
+                    ->where('user_id', auth()->id())
+                    ->first();
                 if ($product) {
                     $product->stock -= $item['quantity'];
                     $product->save();
@@ -390,11 +390,10 @@ class SaleController extends Controller
 
             return redirect()->route('sales.index')
                 ->with('success', 'Venta actualizada exitosamente');
-
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error updating sale', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
-            
+
             if ($request->expectsJson() || $request->ajax()) {
                 return response()->json([
                     'success' => false,
@@ -429,8 +428,8 @@ class SaleController extends Controller
             // Restaurar el stock de los productos (verificar que pertenecen al usuario)
             foreach ($sale->saleItems as $item) {
                 $product = Product::where('id', $item->product_id)
-                                ->where('user_id', auth()->id())
-                                ->first();
+                    ->where('user_id', auth()->id())
+                    ->first();
                 if ($product) {
                     $product->stock += $item->quantity;
                     $product->save();
@@ -441,7 +440,7 @@ class SaleController extends Controller
             $sale->delete();
 
             DB::commit();
-            
+
             Log::info('Sale deleted successfully', ['sale_id' => $sale->id]);
 
             if (request()->expectsJson() || request()->ajax()) {
@@ -453,11 +452,10 @@ class SaleController extends Controller
 
             return redirect()->route('sales.index')
                 ->with('success', 'Venta eliminada exitosamente');
-
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error deleting sale', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
-            
+
             if (request()->expectsJson() || request()->ajax()) {
                 return response()->json([
                     'success' => false,
@@ -491,7 +489,6 @@ class SaleController extends Controller
                 'success' => true,
                 'note' => $note
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -527,11 +524,11 @@ class SaleController extends Controller
     private function getBusinessName()
     {
         $configPath = storage_path('app/settings/business_name.txt');
-        
+
         if (File::exists($configPath)) {
             return File::get($configPath);
         }
-        
+
         return config('app.name', 'Mi Negocio');
     }
 
@@ -588,8 +585,8 @@ class SaleController extends Controller
     private function getOrCreateDefaultCustomer()
     {
         $defaultCustomer = Customer::where('user_id', auth()->id())
-                                    ->where('name', 'Público General')
-                                    ->first();
+            ->where('name', 'Público General')
+            ->first();
 
         if (!$defaultCustomer) {
             $defaultCustomer = Customer::create([

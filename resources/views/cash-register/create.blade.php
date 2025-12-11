@@ -14,7 +14,7 @@
         }
     </style>
 </head>
-<body class="text-white flex items-center justify-center min-h-screen p-4 pt-32 lg:pt-4">
+<body class="text-white flex items-center justify-center min-h-screen p-4 pt-52 lg:pt-4">
 
     <div class="bg-gray-800 p-8 md:p-10 rounded-3xl shadow-[0_0_30px_rgba(16,185,129,0.15)] w-full max-w-2xl border border-gray-700">
 

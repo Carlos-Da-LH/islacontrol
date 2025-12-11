@@ -5,58 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Venta #{{ $sale->id }}</title>
-    {{-- CDN de Tailwind CSS --}}
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* Estilos base */
         body {
             font-family: 'Inter', sans-serif;
         }
-
-        /* Contenedor principal para el color de fondo específico de la imagen (Navy/Negro Oscuro) */
-        .crud-container {
-            /* slate-800 oscuro de la vista de listado */
-            background-color: #1e293b;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Estilo para los inputs en el tema oscuro */
-        .input-dark-style {
-            background-color: #374151;
-            color: #D1D5DB;
-            border-color: #4B5563;
-            transition: border-color 0.2s, background-color 0.2s;
-        }
-
-        .input-dark-style:focus {
-            border-color: #10B981;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.5);
-        }
-
-        /* Estilo para el botón de retroceso */
-        .back-button {
-            color: #9CA3AF;
-            transition: color 0.2s;
-        }
-
-        .back-button:hover {
-            color: #fff;
-        }
     </style>
 </head>
 
 {{-- Fondo muy oscuro para el cuerpo --}}
-<body class="bg-gray-900 min-h-screen font-sans pt-28 lg:pt-0">
-    <div class="flex items-start justify-center p-4 sm:p-6 lg:p-8">
-        {{-- Contenedor del formulario: más ancho (max-w-4xl) y oscuro --}}
-        <div class="crud-container p-4 sm:p-6 lg:p-8 rounded-xl shadow-2xl w-full max-w-4xl">
+<body class="min-h-screen font-sans">
+    {{-- Contenedor del formulario: ancho completo --}}
+    <div class="bg-white dark:bg-slate-800 p-4 sm:p-5 lg:p-6 w-full border-b border-gray-200 dark:border-gray-700">
 
             {{-- Encabezado y Botón de Retroceso --}}
             <div class="flex items-center mb-6 sm:mb-8">
                 {{-- Botón de Regreso (Ícono blanco) --}}
-                <a href="{{ route('sales.index') }}" class="back-button mr-3 sm:mr-4">
+                <a href="{{ route('sales.index') }}" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors mr-3 sm:mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -64,7 +30,7 @@
                     </svg>
                 </a>
                 {{-- Título --}}
-                <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white flex-grow">Editar Venta #{{ $sale->id }}</h1>
+                <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white flex-grow">Editar Venta #{{ $sale->id }}</h1>
             </div>
 
             {{-- Pasamos el número inicial de ítems en un atributo data --}}
@@ -77,9 +43,9 @@
                 {{-- Campo Cliente y Fecha --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="customer_id" class="block text-sm font-medium text-gray-300">Cliente</label>
+                        <label for="customer_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Cliente</label>
                         <select id="customer_id" name="customer_id"
-                            class="mt-1 block w-full px-4 py-2 rounded-lg shadow-sm sm:text-sm input-dark-style" required>
+                            class="mt-1 block w-full px-4 py-2 rounded-lg shadow-sm sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 transition-colors" required>
                             <option value="" disabled class="text-gray-500">Selecciona un cliente</option>
                             @foreach ($customers as $customer)
                                 <option value="{{ $customer->id }}" data-name="{{ $customer->name }}"
@@ -91,16 +57,16 @@
                     </div>
 
                     <div>
-                        <label for="sale_date" class="block text-sm font-medium text-gray-300">Fecha de Venta</label>
+                        <label for="sale_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha de Venta</label>
                         <input type="date" id="sale_date" name="sale_date"
-                            class="mt-1 block w-full px-4 py-2 rounded-lg shadow-sm sm:text-sm input-dark-style" required
+                            class="mt-1 block w-full px-4 py-2 rounded-lg shadow-sm sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 transition-colors" required
                             value="{{ old('sale_date', \Carbon\Carbon::parse($sale->sale_date)->format('Y-m-d')) }}">
                     </div>
                 </div>
 
-                <hr class="border-gray-700 mt-8 mb-6">
+                <hr class="border-gray-200 dark:border-gray-700 mt-8 mb-6">
 
-                <h2 class="text-2xl font-bold text-white mt-8 mb-4">Detalle de Productos</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mt-8 mb-4">Detalle de Productos</h2>
 
                 {{-- Encabezado de la cuadrícula de Productos --}}
                 <div
@@ -120,7 +86,7 @@
                         <div class="col-span-1 md:col-span-2">
                             {{-- No se requiere label aquí ya que está en el encabezado --}}
                             <select name="sale_items[{{ $index }}][product_id]" required
-                                class="block w-full rounded-lg shadow-sm px-4 py-2 sm:text-sm product-select input-dark-style">
+                                class="block w-full rounded-lg shadow-sm px-4 py-2 sm:text-sm product-select bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 transition-colors">
                                 <option value="">Selecciona un producto</option>
                                 @foreach($products as $product)
                                 <option value="{{ $product->id }}" data-price="{{ $product->price ?? 0.00 }}"
@@ -133,22 +99,22 @@
                         </div>
                         <div class="col-span-1">
                             <input type="number" name="sale_items[{{ $index }}][quantity]" required min="1"
-                                class="block w-full rounded-lg shadow-sm px-4 py-2 sm:text-sm input-dark-style"
+                                class="block w-full rounded-lg shadow-sm px-4 py-2 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 transition-colors"
                                 value="{{ $item->quantity }}">
                         </div>
                         <div class="col-span-1">
                             <input type="number" name="sale_items[{{ $index }}][price]" required step="0.01" min="0"
-                                class="block w-full rounded-lg shadow-sm px-4 py-2 sm:text-sm input-dark-style"
+                                class="block w-full rounded-lg shadow-sm px-4 py-2 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 transition-colors"
                                 value="{{ number_format($item->price, 2, '.', '') }}">
                         </div>
                         <div class="col-span-1 text-right">
-                            <span class="subtotal block text-base font-semibold text-white">
+                            <span class="subtotal block text-base font-semibold text-gray-900 dark:text-white">
                                 ${{ number_format($item->quantity * $item->price, 2) }}
                             </span>
                         </div>
                         <div class="col-span-1">
                             <button type="button"
-                                class="remove-item-button w-full px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600 focus:ring-offset-[#1e293b]">
+                                class="remove-item-button w-full px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600 focus:ring-offset-gray-50 dark:focus:ring-offset-slate-800">
                                 X
                             </button>
                         </div>
@@ -158,28 +124,28 @@
 
                 {{-- Botón para Añadir Producto --}}
                 <button type="button" id="add-item-button"
-                    class="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 focus:ring-offset-[#1e293b]">
+                    class="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 focus:ring-offset-gray-50 dark:focus:ring-offset-slate-800">
                     <span class="text-xl mr-1">+</span> Añadir Producto
                 </button>
 
                 {{-- Resumen del Total --}}
-                <div class="border-t border-gray-700 pt-6 mt-6">
-                    <p class="text-xl font-bold text-white text-right">
-                        TOTAL: <span id="total-amount" class="text-green-400 font-extrabold ml-2">${{ number_format($sale->amount, 2) }}</span>
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-6 mt-6">
+                    <p class="text-xl font-bold text-gray-900 dark:text-white text-right">
+                        TOTAL: <span id="total-amount" class="text-green-600 dark:text-green-400 font-extrabold ml-2">${{ number_format($sale->amount, 2) }}</span>
                     </p>
                 </div>
 
                 {{-- Notas --}}
                 <div>
-                    <label for="notes" class="block text-sm font-medium text-gray-300">Notas Adicionales</label>
+                    <label for="notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Notas Adicionales</label>
                     <textarea id="notes" name="notes" rows="4"
-                        class="mt-1 block w-full px-4 py-2 rounded-lg shadow-sm sm:text-sm input-dark-style">{{ old('notes', $sale->notes) }}</textarea>
+                        class="mt-1 block w-full px-4 py-2 rounded-lg shadow-sm sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 transition-colors">{{ old('notes', $sale->notes) }}</textarea>
                 </div>
 
                 {{-- Botón Guardar --}}
                 <div class="pt-4">
                     <button type="submit"
-                        class="w-full bg-blue-600 text-white font-bold text-lg py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-lg focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-blue-600 focus:ring-offset-[#1e293b]">
+                        class="w-full bg-blue-600 text-white font-bold text-lg py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-lg focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-blue-600 focus:ring-offset-gray-50 dark:focus:ring-offset-slate-800">
                         Guardar Cambios
                     </button>
                 </div>
@@ -192,7 +158,7 @@
         const container = document.getElementById('sale-items-container');
         const addButton = document.getElementById('add-item-button');
         const totalAmountSpan = document.getElementById('total-amount');
-        const inputDarkStyle = 'input-dark-style'; // Clase CSS
+        const inputDarkStyle = 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500 transition-colors'; // Clases Tailwind
         
         // Inicializamos el índice a partir de los ítems ya cargados
         let itemIndex = parseInt(document.getElementById('sale-meta').dataset.itemsCount);
@@ -257,11 +223,11 @@
                         class="block w-full rounded-lg shadow-sm px-4 py-2 sm:text-sm ${inputDarkStyle}" placeholder="Precio" value="0.00">
                 </div>
                 <div class="col-span-1 text-right">
-                    <span class="subtotal block text-base font-semibold text-white">$0.00</span>
+                    <span class="subtotal block text-base font-semibold text-gray-900 dark:text-white">$0.00</span>
                 </div>
                 <div class="col-span-1">
                     <button type="button"
-                        class="remove-item-button w-full px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600 focus:ring-offset-[#1e293b]">
+                        class="remove-item-button w-full px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600 focus:ring-offset-gray-50 dark:focus:ring-offset-slate-800">
                         X
                     </button>
                 </div>

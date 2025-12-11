@@ -5,19 +5,41 @@ namespace App\Http\Controllers;
 use App\Models\Cashier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\PlanHelper;
 
 class CashierController extends Controller
 {
     /**
      * Mostrar lista de cajeros
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cashiers = Cashier::where('user_id', Auth::id())
-            ->orderBy('name', 'asc')
-            ->get();
+        // Obtener el valor de paginación del request o usar el default
+        $perPage = PlanHelper::validatePaginationValue(
+            $request->input('per_page', PlanHelper::getDefaultPagination())
+        );
 
-        return view('cashiers.index', compact('cashiers'));
+        // Query base
+        $query = Cashier::where('user_id', Auth::id())
+            ->orderBy('name', 'asc');
+
+        // Aplicar búsqueda si existe
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('phone', 'like', "%{$search}%");
+            });
+        }
+
+        // Paginar resultados
+        $cashiers = $query->paginate($perPage)->withQueryString();
+
+        // Obtener opciones de paginación según el plan
+        $paginationOptions = PlanHelper::getPaginationOptions();
+
+        return view('cashiers.index', compact('cashiers', 'paginationOptions'));
     }
 
     /**

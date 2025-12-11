@@ -29,7 +29,21 @@
       "Bash(if not exist \"resources\\views\\subscriptions\" mkdir \"resources\\views\\subscriptions\")",
       "Bash(composer dump-autoload:*)",
       "Bash(del \"C:\\xampp\\htdocs\\Islacontrol\\public\\check_customers.php\")",
-      "Bash(del \"C:\\xampp\\htdocs\\Islacontrol\\public\\test_subscription.php\")"
+      "Bash(del \"C:\\xampp\\htdocs\\Islacontrol\\public\\test_subscription.php\")",
+      "Bash(find:*)",
+      "Bash(for file in categories/create.blade.php categories/edit.blade.php Customers/edit.blade.php sales/create.blade.php sales/edit.blade.php)",
+      "Bash(do if [ -f \"$file\" ])",
+      "Bash(then sed -i 's/class=\"\"text-white /class=\"\"bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white /g; s/class=\"\"bg-gray-800 /class=\"\"bg-white dark:bg-gray-800 /g; s/class=\"\"bg-gray-900 /class=\"\"bg-gray-50 dark:bg-gray-900 /g; s/text-white\"\"/text-gray-900 dark:text-white\"\"/g; s/text-gray-300/text-gray-700 dark:text-gray-300/g; s/ bg-gray-900 border border-gray-600/ bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600/g; s/placeholder-gray-500/placeholder-gray-400 dark:placeholder-gray-500/g; s/border-gray-700/border-gray-200 dark:border-gray-700/g' \"$file\")",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(for file in categories/create.blade.php categories/edit.blade.php)",
+      "Bash(do sed -i 's/text-white flex/text-gray-900 dark:text-white flex/g; s/text-white tracking/text-gray-900 dark:text-white tracking/g; s/rounded-lg text-white placeholder/rounded-lg text-gray-900 dark:text-white placeholder/g' \"$file\")",
+      "Bash(for file in create.blade.php edit.blade.php)",
+      "Bash(do sed -i 's/text-white\"\"/text-gray-900 dark:text-white\"\"/g; s/rounded-lg text-white placeholder/rounded-lg text-gray-900 dark:text-white placeholder/g' \"$file\")",
+      "Bash(del \"C:\\xampp\\htdocs\\Islacontrol\\public\\test_sales_ajax.php\")",
+      "Bash(awk:*)",
+      "Bash(composer show:*)",
+      "Bash(\")\")"
     ],
     "deny": [],
     "ask": []

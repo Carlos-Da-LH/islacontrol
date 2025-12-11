@@ -45,7 +45,7 @@
     </style>
 </head>
 
-<body class="bg-gray-100 min-h-screen pt-28 lg:pt-8 pb-8 flex justify-center">
+<body class="bg-gray-100 min-h-screen pt-52 lg:pt-8 pb-8 flex justify-center">
 
     <div class="w-full px-4 sm:px-6 lg:px-8">
 
@@ -119,6 +119,36 @@
                                  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500
                                  transition duration-300 ease-in-out transform">
                         Guardar Cajero
+                    </button>
+                </div>
+            </form>
+
+            <!-- Búsqueda del lado del servidor -->
+            <form method="GET" action="{{ route('cashiers.index') }}" class="mb-4">
+                <div class="flex items-center bg-gray-50 dark:bg-gray-700 rounded-lg p-3 border border-gray-200 dark:border-gray-600 gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ request('search') }}"
+                        placeholder="Buscar cajeros por nombre, email o teléfono..."
+                        class="flex-1 bg-transparent text-gray-800 dark:text-white placeholder-gray-400 focus:outline-none text-sm"
+                    >
+                    <input type="hidden" name="per_page" value="{{ request('per_page', 10) }}">
+                    @if(request('search'))
+                    <a href="{{ route('cashiers.index', ['per_page' => request('per_page', 10)]) }}"
+                       class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </a>
+                    @endif
+                    <button type="submit" class="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition text-sm font-semibold">
+                        Buscar
                     </button>
                 </div>
             </form>
@@ -208,6 +238,14 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Componente de paginación -->
+            @if($cashiers->hasPages() || count($paginationOptions) > 1)
+                <x-pagination-controls
+                    :paginator="$cashiers"
+                    :paginationOptions="$paginationOptions"
+                />
+            @endif
 
             <div id="notification-container" class="fixed bottom-5 right-5 z-50 space-y-2"></div>
             <div id="modal-container"></div>

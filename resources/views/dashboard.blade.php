@@ -137,17 +137,24 @@
         }
 
         /* Proteger la fuente en todos los elementos */
-        body, body * {
+        body,
+        body * {
             font-family: 'Inter', sans-serif !important;
         }
 
         /* Excepciones para elementos que necesitan fuentes específicas */
-        .font-mono, code, pre, #barcode-input {
+        .font-mono,
+        code,
+        pre,
+        #barcode-input {
             font-family: 'Courier New', Courier, monospace !important;
         }
 
         /* Excepciones para íconos - NO aplicar Inter */
-        i, i.bx, [class^="bx-"], [class*=" bx-"] {
+        i,
+        i.bx,
+        [class^="bx-"],
+        [class*=" bx-"] {
             font-family: 'boxicons' !important;
         }
 
@@ -246,10 +253,14 @@
         }
 
         @keyframes typing {
-            0%, 60%, 100% {
+
+            0%,
+            60%,
+            100% {
                 transform: translateY(0);
                 opacity: 0.6;
             }
+
             30% {
                 transform: translateY(-8px);
                 opacity: 1;
@@ -262,6 +273,7 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -283,19 +295,22 @@
             z-index: 50;
             transform: translateX(-100%);
             transition: transform 0.3s ease-in-out;
-            width: 70%; /* MODIFICADO: Ancho mediano para móvil */
-            max-width: 280px; /* MODIFICADO: Ancho mediano para móvil */
+            width: 70%;
+            /* MODIFICADO: Ancho mediano para móvil */
+            max-width: 280px;
+            /* MODIFICADO: Ancho mediano para móvil */
             overflow-y: hidden;
         }
-        
+
         /* Contenedor principal para el scroll (navegación) */
         /* Se ajusta el padding top para compensar la posición del logo en móvil/escritorio */
         .sidebar-content-scrollable {
-            padding: 0 1.5rem; /* p-6 horizontal */
+            padding: 0 1.5rem;
+            /* p-6 horizontal */
             overflow-y: auto;
             flex-grow: 1;
         }
-        
+
         .sidebar.open {
             transform: translateX(0);
         }
@@ -303,6 +318,17 @@
         .main-content {
             margin-left: 0;
             transition: margin-left 0.3s ease-in-out;
+            padding-top: 4rem;
+            /* Espacio para el header fijo en móvil */
+        }
+
+        /* Agregar margen superior al primer hijo del contenido cargado */
+        .main-content>* {
+            margin-top: 0;
+        }
+
+        .main-content>*:first-child {
+            margin-top: 0;
         }
 
         /* Mostrar el sidebar y agregar margen en escritorio (> 1024px) */
@@ -314,9 +340,11 @@
                 height: 100vh;
                 overflow-y: auto;
             }
+
             /* Resetear padding para desktop */
             .sidebar-content-scrollable {
-                padding-top: 0; /* Se elimina el padding, ya que el logo está en su propio div p-6 */
+                padding-top: 0;
+                /* Se elimina el padding, ya que el logo está en su propio div p-6 */
                 padding-bottom: 1.5rem;
                 overflow-y: visible;
                 flex-grow: 0;
@@ -324,10 +352,12 @@
 
             .main-content {
                 margin-left: 256px;
-                padding-top: 0; /* Quitar padding-top en desktop */
+                padding-top: 0;
+                /* Quitar padding-top en desktop */
             }
+
             /* Asegurar que el logo de escritorio se muestre */
-            .sidebar .hidden.lg\:flex { 
+            .sidebar .hidden.lg\:flex {
                 display: flex !important;
             }
         }
@@ -343,6 +373,7 @@
             z-index: 40;
             display: none;
         }
+
         .overlay.visible {
             display: block;
         }
@@ -379,9 +410,12 @@
         }
 
         @keyframes splash-pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1);
             }
+
             50% {
                 transform: scale(1.05);
             }
@@ -410,8 +444,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .splash-loading-text {
@@ -423,8 +462,15 @@
         }
 
         @keyframes fade-in-out {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; }
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
         /* Responsive para móviles */
@@ -433,12 +479,354 @@
                 width: 220px;
                 height: 220px;
             }
+
             .splash-tagline {
                 font-size: 1.1rem;
                 padding: 0 2rem;
             }
         }
 
+        /* Texto negro para TODAS las celdas de la tabla */
+        #cash-table table tbody tr td {
+            color: #111827 !important;
+        }
+
+        /* Asegurar que los textos dentro de divs/spans también sean negros */
+        #cash-table table tbody tr td *:not(button):not(i):not(.bg-emerald-500):not(.bg-red-500):not(.text-green-600):not(.text-red-600):not(.text-blue-700) {
+            color: #111827 !important;
+        }
+
+        /* Fechas y textos de "Sin asignar" en negro */
+        #cash-table table tbody tr td span,
+        #cash-table table tbody tr td div {
+            color: #111827 !important;
+        }
+
+        /* Números de dinero en negro (excepto diferencias que ya tienen color) */
+        #cash-table table tbody tr td:nth-child(6),
+        /* Fondo */
+        #cash-table table tbody tr td:nth-child(7) {
+            /* Ventas */
+            color: #111827 !important;
+        }
+
+        /* Mantener colores específicos para badges y diferencias */
+        .bg-emerald-500,
+        .bg-red-500 {
+            color: white !important;
+        }
+
+        .text-green-600 {
+            color: #059669 !important;
+        }
+
+        .text-red-600 {
+            color: #DC2626 !important;
+        }
+
+        .text-blue-700 {
+            color: #1D4ED8 !important;
+        }
+
+        /* Header de la tabla en blanco */
+        #cash-table table thead tr th {
+            color: #ffffff !important;
+        }
+
+        /* Iconos de usuario */
+        #cash-table table tbody tr td i.bx-user-circle {
+            color: #3B82F6 !important;
+        }
+
+        /* Modo oscuro - texto blanco */
+        .dark #cash-table table tbody tr td {
+            color: #F9FAFB !important;
+        }
+
+        .dark #cash-table table tbody tr td *:not(button):not(i):not(.bg-emerald-500):not(.bg-red-500):not(.text-green-600):not(.text-red-600):not(.text-blue-700) {
+            color: #F9FAFB !important;
+        }
+
+        .dark #cash-table table tbody tr td span,
+        .dark #cash-table table tbody tr td div {
+            color: #F9FAFB !important;
+        }
+
+        /* ============================================
+           DESHABILITAR HOVER EN TABLA DE CAJAS
+           ============================================ */
+
+        #cash-table table tbody tr:hover {
+            background-color: transparent !important;
+        }
+
+        #cash-table table tbody tr.hover\:bg-gray-50:hover,
+        #cash-table table tbody tr.hover\:bg-gray-100:hover {
+            background-color: transparent !important;
+        }
+
+        .dark #cash-table table tbody tr:hover {
+            background-color: transparent !important;
+        }
+
+        .dark #cash-table table tbody tr.hover\:bg-gray-700:hover {
+            background-color: transparent !important;
+        }
+
+        /* ============================================
+   MEJORAR DISEÑO DE TARJETAS DE ESTADÍSTICAS
+   ============================================ */
+
+        /* Contenedor de las tarjetas */
+        #cash-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Estilos base para todas las tarjetas */
+        #cash-stats>div {
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 2px solid;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Efecto hover para las tarjetas */
+        #cash-stats>div:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tarjeta 1: Cajas Abiertas (Verde) */
+        #cash-stats>div:nth-child(1) {
+            background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+            border-color: #10B981;
+        }
+
+        /* Tarjeta 2: Cajas Cerradas (Rojo) */
+        #cash-stats>div:nth-child(2) {
+            background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+            border-color: #EF4444;
+        }
+
+        /* Tarjeta 3: Total Vendido (Azul) */
+        #cash-stats>div:nth-child(3) {
+            background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+            border-color: #3B82F6;
+        }
+
+        /* Tarjeta 4: Total Cajas (Púrpura) */
+        #cash-stats>div:nth-child(4) {
+            background: linear-gradient(135deg, #E9D5FF 0%, #D8B4FE 100%);
+            border-color: #A855F7;
+        }
+
+        /* Títulos de las tarjetas */
+        #cash-stats>div p:first-child {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        /* Números grandes en las tarjetas */
+        #cash-stats>div p:last-child,
+        #cash-stats>div .text-2xl,
+        #cash-stats>div .text-3xl {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #111827;
+        }
+
+        /* Íconos en las tarjetas */
+        #cash-stats>div .text-emerald-600 {
+            color: #10B981;
+        }
+
+        #cash-stats>div .text-red-600 {
+            color: #EF4444;
+        }
+
+        #cash-stats>div .text-blue-600 {
+            color: #3B82F6;
+        }
+
+        #cash-stats>div .text-purple-600 {
+            color: #A855F7;
+        }
+
+        /* Responsive: En móvil, 2 columnas */
+        @media (max-width: 768px) {
+            #cash-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            #cash-stats>div {
+                padding: 1rem;
+            }
+
+            #cash-stats>div p:last-child,
+            #cash-stats>div .text-2xl,
+            #cash-stats>div .text-3xl {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Responsive: En móvil pequeño, 1 columna */
+        @media (max-width: 480px) {
+            #cash-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Modo oscuro */
+        .dark #cash-stats>div:nth-child(1) {
+            background: linear-gradient(135deg, #064E3B 0%, #065F46 100%);
+            border-color: #10B981;
+        }
+
+        .dark #cash-stats>div:nth-child(2) {
+            background: linear-gradient(135deg, #7F1D1D 0%, #991B1B 100%);
+            border-color: #EF4444;
+        }
+
+        .dark #cash-stats>div:nth-child(3) {
+            background: linear-gradient(135deg, #1E3A8A 0%, #1E40AF 100%);
+            border-color: #3B82F6;
+        }
+
+        .dark #cash-stats>div:nth-child(4) {
+            background: linear-gradient(135deg, #581C87 0%, #6B21A8 100%);
+            border-color: #A855F7;
+        }
+
+        .dark #cash-stats>div p:last-child,
+        .dark #cash-stats>div .text-2xl,
+        .dark #cash-stats>div .text-3xl {
+            color: #F9FAFB;
+        }
+
+        /* ============================================
+   MEJORAR CONTRASTE DE TEXTO EN TARJETAS
+   ============================================ */
+
+        /* Títulos de las tarjetas - texto más oscuro y visible */
+        #cash-stats>div p:first-child,
+        #cash-stats>div .text-xs {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            color: #1F2937 !important;
+            /* Gris muy oscuro */
+        }
+
+        /* Números grandes - negro sólido */
+        #cash-stats>div p:last-child,
+        #cash-stats>div .text-2xl,
+        #cash-stats>div .text-3xl,
+        #cash-stats>div .font-bold {
+            font-size: 2.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            color: #000000 !important;
+            /* Negro puro para máximo contraste */
+        }
+
+        /* Tarjeta Verde - Cajas Abiertas */
+        #cash-stats>div:nth-child(1) p:first-child {
+            color: #065F46 !important;
+            /* Verde oscuro */
+        }
+
+        #cash-stats>div:nth-child(1) p:last-child {
+            color: #064E3B !important;
+            /* Verde muy oscuro */
+        }
+
+        /* Tarjeta Roja - Cajas Cerradas */
+        #cash-stats>div:nth-child(2) p:first-child {
+            color: #7F1D1D !important;
+            /* Rojo oscuro */
+        }
+
+        #cash-stats>div:nth-child(2) p:last-child {
+            color: #7F1D1D !important;
+            /* Rojo oscuro */
+        }
+
+        /* Tarjeta Azul - Total Vendido */
+        #cash-stats>div:nth-child(3) p:first-child {
+            color: #1E3A8A !important;
+            /* Azul oscuro */
+        }
+
+        #cash-stats>div:nth-child(3) p:last-child {
+            color: #1E40AF !important;
+            /* Azul oscuro */
+        }
+
+        /* Tarjeta Púrpura - Total Cajas */
+        #cash-stats>div:nth-child(4) p:first-child {
+            color: #581C87 !important;
+            /* Púrpura oscuro */
+        }
+
+        #cash-stats>div:nth-child(4) p:last-child {
+            color: #6B21A8 !important;
+            /* Púrpura oscuro */
+        }
+
+        /* Íconos con colores más oscuros y visibles */
+        #cash-stats .text-emerald-600,
+        #cash-stats .bx-wallet {
+            color: #065F46 !important;
+        }
+
+        #cash-stats .text-red-600,
+        #cash-stats .bx-lock-alt {
+            color: #991B1B !important;
+        }
+
+        #cash-stats .text-blue-600,
+        #cash-stats .bx-dollar-circle {
+            color: #1E40AF !important;
+        }
+
+        #cash-stats .text-purple-600,
+        #cash-stats .bx-line-chart {
+            color: #6B21A8 !important;
+        }
+
+        /* Responsive: texto más pequeño en móvil pero igual de legible */
+        @media (max-width: 768px) {
+
+            #cash-stats>div p:last-child,
+            #cash-stats>div .text-2xl,
+            #cash-stats>div .text-3xl {
+                font-size: 2rem;
+            }
+        }
+
+        /* Modo oscuro - texto blanco brillante */
+        .dark #cash-stats>div p:first-child,
+        .dark #cash-stats>div .text-xs {
+            color: #F3F4F6 !important;
+        }
+
+        .dark #cash-stats>div p:last-child,
+        .dark #cash-stats>div .text-2xl,
+        .dark #cash-stats>div .text-3xl {
+            color: #FFFFFF !important;
+        }
     </style>
 
     <script>
@@ -469,21 +857,21 @@
         <p class="splash-loading-text">Cargando...</p>
     </div>
 
-    <div id="sidebar-overlay" class="overlay" onclick="toggleSidebar()"></div>
+    <div id="sidebar-overlay" class="overlay print:hidden" onclick="toggleSidebar()"></div>
 
-    <header class="lg:hidden bg-white shadow-md p-4 fixed top-0 left-0 right-0 z-30 flex justify-between items-center border-b border-gray-200">
+    <header class="lg:hidden bg-white shadow-md p-4 fixed top-0 left-0 right-0 z-30 flex justify-between items-center border-b border-gray-200 print:hidden">
         <h1 class="text-xl font-bold text-custom-active">IslaControl</h1>
         <button id="menu-toggle" onclick="toggleSidebar()" class="text-2xl text-custom-text">
             <i class='bx bx-menu'></i>
         </button>
     </header>
 
-    <div id="sidebar" class="sidebar bg-white text-gray-800 flex flex-col shadow-lg border-r border-gray-200">
+    <div id="sidebar" class="sidebar bg-white text-gray-800 flex flex-col shadow-lg border-r border-gray-200 print:hidden">
 
         <div class="flex items-center justify-center pt-6 pb-4 border-b border-gray-200">
             <img src="/images/nuevo_islacontrol.png" class="h-48 w-48 object-contain drop-shadow-xl" alt="Logo IslaControl">
         </div>
-        
+
         <div class="sidebar-content-scrollable" id="sidebar-nav-container">
             <nav class="space-y-2 pb-6 pt-6" id="sidebar-nav">
                 <a href="#dashboard" data-page="dashboard" class="sidebar-link active flex items-center p-3 rounded-lg text-sm font-semibold transition duration-200 text-gray-700" onclick="if(window.innerWidth < 1024) toggleSidebar()">
@@ -538,90 +926,90 @@
         <div class="border-t border-gray-200 p-4 lg:p-6 flex-shrink-0">
             <!-- Subscription Info -->
             @auth
-                @if(auth()->user()->subscribed('default'))
-                    @php
-                        $subscription = auth()->user()->subscription('default');
-                        $currentPlan = null;
-                        $allPlans = config('plans');
+            @if(auth()->user()->subscribed('default'))
+            @php
+            $subscription = auth()->user()->subscription('default');
+            $currentPlan = null;
+            $allPlans = config('plans');
 
-                        // Encontrar el plan actual
-                        foreach($allPlans as $key => $plan) {
-                            if($subscription->stripe_price == $plan['stripe_price_id']) {
-                                $currentPlan = $plan;
-                                $currentPlan['key'] = $key;
-                                break;
-                            }
-                        }
+            // Encontrar el plan actual
+            foreach($allPlans as $key => $plan) {
+            if($subscription->stripe_price == $plan['stripe_price_id']) {
+            $currentPlan = $plan;
+            $currentPlan['key'] = $key;
+            break;
+            }
+            }
 
-                        // Si no se encuentra, usar el primer plan
-                        if(!$currentPlan) {
-                            $currentPlan = reset($allPlans);
-                            $currentPlan['key'] = key($allPlans);
-                        }
-                    @endphp
+            // Si no se encuentra, usar el primer plan
+            if(!$currentPlan) {
+            $currentPlan = reset($allPlans);
+            $currentPlan['key'] = key($allPlans);
+            }
+            @endphp
 
-                    <a href="{{ route('subscription.dashboard') }}" class="block mb-4 p-3 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-lg hover:shadow-lg transition-all">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-bold text-white uppercase">Mi Plan</span>
-                            @if($subscription->onTrial())
-                                <span class="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full">
-                                    Prueba
-                                </span>
-                            @elseif($subscription->canceled())
-                                <span class="bg-yellow-400/90 text-gray-800 text-xs px-2 py-0.5 rounded-full">
-                                    Cancelado
-                                </span>
-                            @else
-                                <span class="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full">
-                                    Activo
-                                </span>
-                            @endif
-                        </div>
-                        <p class="text-white font-bold text-base mb-1">{{ $currentPlan['name'] ?? 'Plan Actual' }}</p>
-                        <div class="flex items-baseline">
-                            <span class="text-white text-xl font-bold">${{ $currentPlan['price'] ?? '0' }}</span>
-                            <span class="text-white/80 text-xs ml-1">/mes</span>
-                        </div>
-                        @if($subscription->onTrial())
-                            <p class="text-white/90 text-xs mt-2">
-                                <i class='bx bx-time-five'></i> Termina el {{ $subscription->trial_ends_at->format('d/m/Y') }}
-                            </p>
-                        @endif
-                        <div class="flex items-center justify-between mt-2 text-white/90">
-                            <span class="text-xs">Ver detalles</span>
-                            <i class='bx bx-chevron-right'></i>
-                        </div>
-                    </a>
-                @else
-                    @php
-                        $freePlan = config('plans.free');
-                    @endphp
-                    <a href="{{ route('subscription.select-plan') }}" class="block mb-4 p-3 bg-gradient-to-r from-gray-500 to-gray-600 rounded-lg hover:shadow-lg transition-all">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-bold text-white uppercase">Mi Plan</span>
-                            <span class="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full">
-                                Gratuito
-                            </span>
-                        </div>
-                        <p class="text-white font-bold text-base mb-1">Plan Gratuito</p>
-                        <div class="flex items-baseline mb-2">
-                            <span class="text-white text-xl font-bold">$0</span>
-                            <span class="text-white/80 text-xs ml-1">/mes</span>
-                        </div>
-                        <div class="bg-white/10 rounded p-2 mb-2">
-                            <p class="text-white/90 text-xs mb-1">
-                                <i class='bx bx-package'></i> {{ $freePlan['limits']['products'] }} productos
-                            </p>
-                            <p class="text-white/90 text-xs">
-                                <i class='bx bx-shopping-bag'></i> {{ $freePlan['limits']['sales_per_month'] }} ventas/mes
-                            </p>
-                        </div>
-                        <div class="flex items-center justify-between text-white bg-white/20 rounded p-2">
-                            <span class="text-xs font-semibold">🎁 Mejora con 30 días gratis</span>
-                            <i class='bx bx-chevron-right'></i>
-                        </div>
-                    </a>
+            <a href="{{ route('subscription.dashboard') }}" class="block mb-4 p-3 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-lg hover:shadow-lg transition-all">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold text-white uppercase">Mi Plan</span>
+                    @if($subscription->onTrial())
+                    <span class="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full">
+                        Prueba
+                    </span>
+                    @elseif($subscription->canceled())
+                    <span class="bg-yellow-400/90 text-gray-800 text-xs px-2 py-0.5 rounded-full">
+                        Cancelado
+                    </span>
+                    @else
+                    <span class="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full">
+                        Activo
+                    </span>
+                    @endif
+                </div>
+                <p class="text-white font-bold text-base mb-1">{{ $currentPlan['name'] ?? 'Plan Actual' }}</p>
+                <div class="flex items-baseline">
+                    <span class="text-white text-xl font-bold">${{ $currentPlan['price'] ?? '0' }}</span>
+                    <span class="text-white/80 text-xs ml-1">/mes</span>
+                </div>
+                @if($subscription->onTrial())
+                <p class="text-white/90 text-xs mt-2">
+                    <i class='bx bx-time-five'></i> Termina el {{ $subscription->trial_ends_at->format('d/m/Y') }}
+                </p>
                 @endif
+                <div class="flex items-center justify-between mt-2 text-white/90">
+                    <span class="text-xs">Ver detalles</span>
+                    <i class='bx bx-chevron-right'></i>
+                </div>
+            </a>
+            @else
+            @php
+            $freePlan = config('plans.free');
+            @endphp
+            <a href="{{ route('subscription.select-plan') }}" class="block mb-4 p-3 bg-gradient-to-r from-gray-500 to-gray-600 rounded-lg hover:shadow-lg transition-all">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold text-white uppercase">Mi Plan</span>
+                    <span class="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full">
+                        Gratuito
+                    </span>
+                </div>
+                <p class="text-white font-bold text-base mb-1">Plan Gratuito</p>
+                <div class="flex items-baseline mb-2">
+                    <span class="text-white text-xl font-bold">$0</span>
+                    <span class="text-white/80 text-xs ml-1">/mes</span>
+                </div>
+                <div class="bg-white/10 rounded p-2 mb-2">
+                    <p class="text-white/90 text-xs mb-1">
+                        <i class='bx bx-package'></i> {{ $freePlan['limits']['products'] }} productos
+                    </p>
+                    <p class="text-white/90 text-xs">
+                        <i class='bx bx-shopping-bag'></i> {{ $freePlan['limits']['sales_per_month'] }} ventas/mes
+                    </p>
+                </div>
+                <div class="flex items-center justify-between text-white bg-white/20 rounded p-2">
+                    <span class="text-xs font-semibold">🎁 Mejora con 30 días gratis</span>
+                    <i class='bx bx-chevron-right'></i>
+                </div>
+            </a>
+            @endif
             @endauth
 
             <!-- Theme Toggle -->
@@ -709,6 +1097,42 @@
             const isDark = document.documentElement.classList.toggle('dark');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
             updateThemeIcons(isDark);
+
+            // Sincronizar el modo con el contenido cargado dinámicamente
+            const contentArea = document.getElementById('main-content-area');
+            if (contentArea) {
+                const loadedElements = contentArea.querySelectorAll('html, body');
+                loadedElements.forEach(element => {
+                    if (isDark) {
+                        element.classList.add('dark');
+                    } else {
+                        element.classList.remove('dark');
+                    }
+                });
+
+                // También al contenedor
+                if (isDark) {
+                    contentArea.classList.add('dark');
+                } else {
+                    contentArea.classList.remove('dark');
+                }
+
+                // IMPORTANTE: Forzar colores de títulos para sobrescribir dark-mode.css !important
+                const allHeadings = contentArea.querySelectorAll('h1, h2, h3, h4, h5, h6');
+                allHeadings.forEach(heading => {
+                    if (!isDark) {
+                        // En modo claro, forzar color oscuro con !important
+                        if (heading.classList.contains('text-gray-900') ||
+                            heading.classList.contains('text-gray-800') ||
+                            heading.classList.contains('text-custom-text')) {
+                            heading.style.setProperty('color', '#111827', 'important');
+                        }
+                    } else {
+                        // En modo oscuro, dejar que dark-mode.css maneje
+                        heading.style.removeProperty('color');
+                    }
+                });
+            }
         }
 
         function updateThemeIcons(isDark) {
@@ -896,7 +1320,7 @@
                     const trendText = metrics.salesTrend > 0 ? `aumentaron ${metrics.salesTrend.toFixed(1)}%` : `bajaron ${Math.abs(metrics.salesTrend).toFixed(1)}%`;
                     response = `¡Hola! 👋 Un placer ayudarte.\n\n📊 *Resumen Ejecutivo:*\n━━━━━━━━━━━━━━━━━━\n• Ventas este mes: ${metrics.totalSales} ${trend}\n• Ingresos: $${metrics.revenueThisMonth.toFixed(2)}\n• Tendencia: ${trendText}\n• Productos: ${metrics.totalProducts}\n• ⚠️ Stock bajo: ${metrics.lowStock} productos\n\n¿En qué más puedo ayudarte?`;
 
-                // ANÁLISIS DE VENTAS DETALLADO
+                    // ANÁLISIS DE VENTAS DETALLADO
                 } else if (lowerQ.includes('venta') || lowerQ.includes('ingreso') || lowerQ.includes('ganancia')) {
                     const trend = metrics.salesTrend > 0 ? '📈 Positiva' : '📉 Negativa';
                     const trendEmoji = metrics.salesTrend > 0 ? '✅' : '⚠️';
@@ -904,7 +1328,7 @@
 
                     response = `📊 *Análisis de Ventas Completo*\n━━━━━━━━━━━━━━━━━━\n\n*Este Mes:*\n• Ventas: ${metrics.totalSales}\n• Ingresos: $${metrics.revenueThisMonth.toFixed(2)}\n• Ticket promedio: $${metrics.avgSale.toFixed(2)}\n\n*Tendencia:* ${trend} ${trendEmoji}\n• Cambio: ${metrics.salesTrend.toFixed(1)}%\n\n*Proyección:*\n• Estimado fin de mes: ${projection} ventas\n• Ingreso proyectado: $${(projection * metrics.avgSale).toFixed(2)}\n\n*Histórico:*\n• Total de ventas: ${metrics.totalSalesAllTime}\n• Ingresos totales: $${metrics.totalRevenueAllTime.toFixed(2)}`;
 
-                // ANÁLISIS DE PRODUCTOS TOP
+                    // ANÁLISIS DE PRODUCTOS TOP
                 } else if (lowerQ.includes('mejor') || lowerQ.includes('top') || lowerQ.includes('más vendido')) {
                     const productSales = {};
                     data.sales.forEach(sale => {
@@ -924,7 +1348,7 @@
 
                     response = `🏆 *Top Productos Más Vendidos*\n━━━━━━━━━━━━━━━━━━\n\n${topProducts.length > 0 ? topProducts.join('\n') : '• No hay datos suficientes'}\n\n💡 *Recomendación:*\nMantén stock alto de estos productos.`;
 
-                // ANÁLISIS DE INVENTARIO
+                    // ANÁLISIS DE INVENTARIO
                 } else if (lowerQ.includes('producto') || lowerQ.includes('inventario') || lowerQ.includes('stock')) {
                     const totalStock = data.products.reduce((sum, p) => sum + parseInt(p.stock || 0), 0);
                     const lowStockItems = data.products.filter(p => parseInt(p.stock || 0) < 5);
@@ -933,14 +1357,14 @@
 
                     response = `📦 *Análisis de Inventario*\n━━━━━━━━━━━━━━━━━━\n\n*General:*\n• Total productos: ${metrics.totalProducts}\n• Stock total: ${totalStock} unidades\n• Valor inventario: $${totalValue.toFixed(2)}\n\n*Alertas:* ⚠️\n• Stock bajo (<5): ${lowStockItems.length}\n• Sin stock: ${outOfStock.length}\n\n${lowStockItems.length > 0 ? `*Productos críticos:*\n${lowStockItems.slice(0, 5).map(p => `• ${p.nombre}: ${p.stock} unidades`).join('\n')}` : '✅ Todo en orden'}`;
 
-                // ANÁLISIS DE CLIENTES
+                    // ANÁLISIS DE CLIENTES
                 } else if (lowerQ.includes('cliente')) {
                     const retention = this.calculateRetention(data.customers);
                     const avgPurchase = metrics.totalSalesAllTime > 0 ? (metrics.totalRevenueAllTime / metrics.totalSalesAllTime).toFixed(2) : 0;
 
                     response = `👥 *Análisis de Clientes*\n━━━━━━━━━━━━━━━━━━\n\n*Base de datos:*\n• Total clientes: ${metrics.totalCustomers}\n• Tasa retención: ${retention.toFixed(1)}%\n\n*Comportamiento:*\n• Compra promedio: $${avgPurchase}\n• Total compras: ${metrics.totalSalesAllTime}\n\n💡 *Recomendación:*\n${retention < 80 ? '• Implementa programa de lealtad\n• Ofrece promociones especiales' : '• Excelente retención, sigue así\n• Considera programa VIP'}`;
 
-                // PREDICCIONES
+                    // PREDICCIONES
                 } else if (lowerQ.includes('predic') || lowerQ.includes('futuro') || lowerQ.includes('proyecc')) {
                     const dailyAvg = metrics.totalSales / new Date().getDate();
                     const projection30 = (dailyAvg * 30).toFixed(0);
@@ -948,7 +1372,7 @@
 
                     response = `🔮 *Predicciones y Proyecciones*\n━━━━━━━━━━━━━━━━━━\n\n*Basado en datos actuales:*\n\n📈 *Fin de mes:*\n• Ventas estimadas: ${projection30}\n• Ingresos estimados: $${revenue30}\n\n📊 *Promedio diario:*\n• Ventas/día: ${dailyAvg.toFixed(1)}\n• Ingresos/día: $${(dailyAvg * metrics.avgSale).toFixed(2)}\n\n⚡ *Próximos 7 días:*\n• Ventas estimadas: ${(dailyAvg * 7).toFixed(0)}\n• Ingresos: $${(dailyAvg * 7 * metrics.avgSale).toFixed(2)}`;
 
-                // ALERTAS
+                    // ALERTAS
                 } else if (lowerQ.includes('alerta') || lowerQ.includes('problema') || lowerQ.includes('urgente')) {
                     const alerts = [];
                     if (metrics.lowStock > 0) alerts.push(`⚠️ ${metrics.lowStock} productos con stock bajo`);
@@ -957,7 +1381,7 @@
 
                     response = `🚨 *Alertas del Sistema*\n━━━━━━━━━━━━━━━━━━\n\n${alerts.length > 0 ? alerts.join('\n') : '✅ No hay alertas críticas'}\n\n${alerts.length > 0 ? '\n💡 *Acción requerida:*\n• Revisa inventario\n• Analiza estrategia de ventas\n• Contacta proveedores' : ''}`;
 
-                // RECOMENDACIONES INTELIGENTES
+                    // RECOMENDACIONES INTELIGENTES
                 } else if (lowerQ.includes('recomendación') || lowerQ.includes('consejo') || lowerQ.includes('sugerencia') || lowerQ.includes('qué hacer')) {
                     const recommendations = [];
 
@@ -977,14 +1401,14 @@
 
                     response = `💡 *Recomendaciones Personalizadas*\n━━━━━━━━━━━━━━━━━━\n\n${recommendations.length > 0 ? recommendations.join('\n\n') : '✅ Tu negocio va bien, sigue así'}\n\n*Métricas clave:*\n• Ticket promedio: $${metrics.avgSale.toFixed(2)}\n• ${metrics.totalCustomers} clientes activos`;
 
-                // COMPARACIONES
+                    // COMPARACIONES
                 } else if (lowerQ.includes('comparar') || lowerQ.includes('diferencia') || lowerQ.includes('mes pasado')) {
                     const change = metrics.salesTrend;
                     const revenueChange = metrics.revenueTrend;
 
                     response = `📊 *Comparación Periodos*\n━━━━━━━━━━━━━━━━━━\n\n*Ventas:*\n• Cambio: ${change > 0 ? '+' : ''}${change.toFixed(1)}%\n• ${change > 0 ? '📈 Mejorando' : '📉 Descendiendo'}\n\n*Ingresos:*\n• Cambio: ${revenueChange > 0 ? '+' : ''}${revenueChange.toFixed(1)}%\n• ${revenueChange > 0 ? '✅ Crecimiento' : '⚠️ Decrecimiento'}\n\n*Análisis:*\n${change > 10 ? '🎉 Excelente crecimiento' : change > 0 ? '👍 Crecimiento moderado' : change > -10 ? '⚠️ Ligera baja' : '🚨 Necesita atención'}`;
 
-                // AYUDA
+                    // AYUDA
                 } else {
                     response = `🤖 *Puedo ayudarte con:*\n━━━━━━━━━━━━━━━━━━\n\n📊 *Ventas:*\n• "Análisis de ventas"\n• "Predicciones"\n• "Comparar periodos"\n\n📦 *Inventario:*\n• "Estado del inventario"\n• "Top productos"\n• "Alertas"\n\n👥 *Clientes:*\n• "Análisis de clientes"\n\n💡 *Estrategia:*\n• "Recomendaciones"\n• "Qué hacer"\n\n*Escribe tu pregunta y te ayudo* 😊`;
                 }
@@ -1005,11 +1429,26 @@
                 };
 
                 const [salesRes, productsRes, categoriesRes, customersRes, saleItemsRes, subscriptionRes] = await Promise.all([
-                    fetch('/sales/api', { headers, timeout: 10000 }),
-                    fetch('/products/api', { headers, timeout: 10000 }),
-                    fetch('/categories/api', { headers, timeout: 10000 }),
-                    fetch('/customers/api', { headers, timeout: 10000 }),
-                    fetch('/api/sale-items/top-products', { headers, timeout: 10000 }),
+                    fetch('/sales/api', {
+                        headers,
+                        timeout: 10000
+                    }),
+                    fetch('/products/api', {
+                        headers,
+                        timeout: 10000
+                    }),
+                    fetch('/categories/api', {
+                        headers,
+                        timeout: 10000
+                    }),
+                    fetch('/customers/api', {
+                        headers,
+                        timeout: 10000
+                    }),
+                    fetch('/api/sale-items/top-products', {
+                        headers,
+                        timeout: 10000
+                    }),
                     fetch('/api/subscription/info?t=' + Date.now(), {
                         headers,
                         timeout: 10000,
@@ -1023,7 +1462,10 @@
                     categoriesRes.ok ? categoriesRes.json() : [],
                     customersRes.ok ? customersRes.json() : [],
                     saleItemsRes.ok ? saleItemsRes.json() : [],
-                    subscriptionRes.ok ? subscriptionRes.json() : { hasActiveSubscription: false, planLimits: null }
+                    subscriptionRes.ok ? subscriptionRes.json() : {
+                        hasActiveSubscription: false,
+                        planLimits: null
+                    }
                 ]);
 
                 dashboardData.sales = Array.isArray(sales) ? sales : [];
@@ -1388,7 +1830,10 @@
                     const activeBadge = isActive ? '<span class="bg-custom-active text-white text-xs px-2 py-1 rounded-full">Activa</span>' : '';
 
                     const date = new Date(session.last_message_at);
-                    const dateStr = date.toLocaleDateString('es-MX', { day: 'numeric', month: 'short' });
+                    const dateStr = date.toLocaleDateString('es-MX', {
+                        day: 'numeric',
+                        month: 'short'
+                    });
 
                     sessionsHTML += `
                         <div class="${activeClass} rounded-lg p-4 border-2 transition-all cursor-pointer group" onclick="loadConversation('${session.session_id}'); closeConversationsModal();">
@@ -1625,34 +2070,34 @@
 
         // 🎨 PALETA DE COLORES VIBRANTE (basada en el verde de la app #5F9E74)
         const islaColors = {
-            primary: '#5F9E74',     // Verde principal de la app
-            teal: '#26A69A',        // Turquesa vibrante
-            blue: '#2196F3',        // Azul oceánico
-            purple: '#9C27B0',      // Púrpura vibrante
-            pink: '#E91E63',        // Rosa fucsia
-            orange: '#FF9800',      // Naranja cálido
-            amber: '#FFC107',       // Ámbar dorado
-            mint: '#4CAF50',        // Verde menta
-            coral: '#FF5252',       // Coral rojizo
-            lime: '#7CB342',        // Verde lima
-            cyan: '#00BCD4',        // Cian brillante
-            indigo: '#3F51B5'       // Índigo
+            primary: '#5F9E74', // Verde principal de la app
+            teal: '#26A69A', // Turquesa vibrante
+            blue: '#2196F3', // Azul oceánico
+            purple: '#9C27B0', // Púrpura vibrante
+            pink: '#E91E63', // Rosa fucsia
+            orange: '#FF9800', // Naranja cálido
+            amber: '#FFC107', // Ámbar dorado
+            mint: '#4CAF50', // Verde menta
+            coral: '#FF5252', // Coral rojizo
+            lime: '#7CB342', // Verde lima
+            cyan: '#00BCD4', // Cian brillante
+            indigo: '#3F51B5' // Índigo
         };
 
         // Array de colores en orden visual atractivo
         const chartColors = [
-            islaColors.primary,  // Verde principal
-            islaColors.teal,     // Turquesa
-            islaColors.blue,     // Azul
-            islaColors.purple,   // Púrpura
-            islaColors.pink,     // Rosa
-            islaColors.orange,   // Naranja
-            islaColors.amber,    // Ámbar
-            islaColors.mint,     // Verde menta
-            islaColors.coral,    // Coral
-            islaColors.lime,     // Lime
-            islaColors.cyan,     // Cian
-            islaColors.indigo    // Índigo
+            islaColors.primary, // Verde principal
+            islaColors.teal, // Turquesa
+            islaColors.blue, // Azul
+            islaColors.purple, // Púrpura
+            islaColors.pink, // Rosa
+            islaColors.orange, // Naranja
+            islaColors.amber, // Ámbar
+            islaColors.mint, // Verde menta
+            islaColors.coral, // Coral
+            islaColors.lime, // Lime
+            islaColors.cyan, // Cian
+            islaColors.indigo // Índigo
         ];
 
         function renderSalesChart() {
@@ -2296,10 +2741,10 @@
                 salesByDate[date] = (salesByDate[date] || 0) + parseFloat(sale.monto || sale.total || 0);
             });
 
-            const sortedDates = Object.entries(salesByDate).sort((a,b) => new Date(a[0]) - new Date(b[0])).slice(-30);
+            const sortedDates = Object.entries(salesByDate).sort((a, b) => new Date(a[0]) - new Date(b[0])).slice(-30);
             console.log('  → Fechas procesadas:', sortedDates.length);
 
-            if(charts.tendenciaVentas) charts.tendenciaVentas.destroy();
+            if (charts.tendenciaVentas) charts.tendenciaVentas.destroy();
 
             charts.tendenciaVentas = new Chart(ctx, {
                 type: 'line',
@@ -2319,7 +2764,9 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { display: true },
+                        legend: {
+                            display: true
+                        },
                         tooltip: {
                             callbacks: {
                                 label: (context) => '$' + context.parsed.y.toFixed(2)
@@ -2327,7 +2774,12 @@
                         }
                     },
                     scales: {
-                        y: { beginAtZero: true, ticks: { callback: (value) => '$' + value } }
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: (value) => '$' + value
+                            }
+                        }
                     }
                 }
             });
@@ -2347,10 +2799,10 @@
                 productProfit[productName] = profit;
             });
 
-            const sorted = Object.entries(productProfit).sort((a,b) => b[1] - a[1]).slice(0,8);
+            const sorted = Object.entries(productProfit).sort((a, b) => b[1] - a[1]).slice(0, 8);
             console.log('📊 Gráfica 2: Rentabilidad de', sorted.length, 'productos');
 
-            if(charts.rentabilidad) charts.rentabilidad.destroy();
+            if (charts.rentabilidad) charts.rentabilidad.destroy();
 
             charts.rentabilidad = new Chart(ctx, {
                 type: 'bar',
@@ -2368,7 +2820,9 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { display: false }
+                        legend: {
+                            display: false
+                        }
                     }
                 }
             });
@@ -2428,66 +2882,66 @@
 
             console.log('  → Ventas por categoría:', catSales);
 
-                if(charts.distribucion) charts.distribucion.destroy();
+            if (charts.distribucion) charts.distribucion.destroy();
 
-                const categories = Object.keys(catSales);
-                const values = Object.values(catSales);
-                const total = values.reduce((a, b) => a + b, 0);
+            const categories = Object.keys(catSales);
+            const values = Object.values(catSales);
+            const total = values.reduce((a, b) => a + b, 0);
 
-                charts.distribucion = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: categories,
-                        datasets: [{
-                            data: values,
-                            backgroundColor: ['#8B5CF6', '#EC4899', '#F59E0B', '#10B981', '#3B82F6', '#EF4444', '#F97316', '#14B8A6'],
-                            borderWidth: 2,
-                            borderColor: '#1F2937'
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    padding: 15,
-                                    font: {
-                                        size: 12
-                                    },
-                                    generateLabels: (chart) => {
-                                        const data = chart.data;
-                                        return data.labels.map((label, i) => {
-                                            const value = data.datasets[0].data[i];
-                                            const percentage = ((value / total) * 100).toFixed(1);
-                                            return {
-                                                text: `${label}: ${percentage}%`,
-                                                fillStyle: data.datasets[0].backgroundColor[i],
-                                                hidden: false,
-                                                index: i
-                                            };
-                                        });
-                                    }
-                                }
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: (context) => {
-                                        const label = context.label || '';
-                                        const value = context.parsed;
+            charts.distribucion = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: categories,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: ['#8B5CF6', '#EC4899', '#F59E0B', '#10B981', '#3B82F6', '#EF4444', '#F97316', '#14B8A6'],
+                        borderWidth: 2,
+                        borderColor: '#1F2937'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                font: {
+                                    size: 12
+                                },
+                                generateLabels: (chart) => {
+                                    const data = chart.data;
+                                    return data.labels.map((label, i) => {
+                                        const value = data.datasets[0].data[i];
                                         const percentage = ((value / total) * 100).toFixed(1);
-                                        return [
-                                            `${label}`,
-                                            `Ventas: $${value.toFixed(2)}`,
-                                            `Porcentaje: ${percentage}%`
-                                        ];
-                                    }
+                                        return {
+                                            text: `${label}: ${percentage}%`,
+                                            fillStyle: data.datasets[0].backgroundColor[i],
+                                            hidden: false,
+                                            index: i
+                                        };
+                                    });
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const label = context.label || '';
+                                    const value = context.parsed;
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return [
+                                        `${label}`,
+                                        `Ventas: $${value.toFixed(2)}`,
+                                        `Porcentaje: ${percentage}%`
+                                    ];
                                 }
                             }
                         }
                     }
-                });
+                }
+            });
         }
 
         // 4. Inventario vs Ventas (Mixed)
@@ -2512,14 +2966,13 @@
 
             console.log('  → Productos analizados:', products.length);
 
-            if(charts.inventarioVentas) charts.inventarioVentas.destroy();
+            if (charts.inventarioVentas) charts.inventarioVentas.destroy();
 
             charts.inventarioVentas = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: products.map(p => p[0]),
-                    datasets: [
-                        {
+                    datasets: [{
                             label: 'Stock Actual',
                             data: products.map(p => p[1].stock),
                             backgroundColor: '#F59E0B',
@@ -2540,7 +2993,9 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { display: true },
+                        legend: {
+                            display: true
+                        },
                         tooltip: {
                             callbacks: {
                                 label: (context) => context.dataset.label + ': ' + context.parsed.y + ' unidades'
@@ -2559,7 +3014,10 @@
             const dailyTickets = {};
             dashboardData.sales.forEach(sale => {
                 const date = new Date(sale.fecha || sale.created_at).toLocaleDateString();
-                if(!dailyTickets[date]) dailyTickets[date] = { total: 0, count: 0 };
+                if (!dailyTickets[date]) dailyTickets[date] = {
+                    total: 0,
+                    count: 0
+                };
                 dailyTickets[date].total += parseFloat(sale.monto || 0);
                 dailyTickets[date].count++;
             });
@@ -2569,7 +3027,7 @@
                 avg: data.total / data.count
             })).slice(-15);
 
-            if(charts.ticketPromedio) charts.ticketPromedio.destroy();
+            if (charts.ticketPromedio) charts.ticketPromedio.destroy();
 
             charts.ticketPromedio = new Chart(ctx, {
                 type: 'line',
@@ -2630,73 +3088,75 @@
                 });
             }
 
-                // Unir con nombres de productos
-                const productData = Object.values(productSales).map(sale => {
-                    const product = dashboardData.products.find(p => p.id === sale.id);
-                    return {
-                        name: product ? (product.name || product.nombre || 'Producto #' + sale.id) : 'Desconocido',
-                        quantity: sale.quantity,
-                        revenue: sale.revenue,
-                        price: product ? parseFloat(product.price || product.precio || 0) : 0
-                    };
-                });
+            // Unir con nombres de productos
+            const productData = Object.values(productSales).map(sale => {
+                const product = dashboardData.products.find(p => p.id === sale.id);
+                return {
+                    name: product ? (product.name || product.nombre || 'Producto #' + sale.id) : 'Desconocido',
+                    quantity: sale.quantity,
+                    revenue: sale.revenue,
+                    price: product ? parseFloat(product.price || product.precio || 0) : 0
+                };
+            });
 
-                // Ordenar por cantidad vendida y tomar top 10
-                const top10 = productData
-                    .sort((a, b) => b.quantity - a.quantity)
-                    .slice(0, 10);
+            // Ordenar por cantidad vendida y tomar top 10
+            const top10 = productData
+                .sort((a, b) => b.quantity - a.quantity)
+                .slice(0, 10);
 
-                console.log('  → Top 10 productos:', top10.map(p => `${p.name}: ${p.quantity} unidades`));
+            console.log('  → Top 10 productos:', top10.map(p => `${p.name}: ${p.quantity} unidades`));
 
-                if(charts.top10) charts.top10.destroy();
+            if (charts.top10) charts.top10.destroy();
 
-                const gradientColors = [
-                    '#F43F5E', '#EC4899', '#D946EF', '#C026D3',
-                    '#A855F7', '#9333EA', '#7C3AED', '#6366F1',
-                    '#3B82F6', '#0EA5E9'
-                ];
+            const gradientColors = [
+                '#F43F5E', '#EC4899', '#D946EF', '#C026D3',
+                '#A855F7', '#9333EA', '#7C3AED', '#6366F1',
+                '#3B82F6', '#0EA5E9'
+            ];
 
-                charts.top10 = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: top10.map(p => p.name),
-                        datasets: [{
-                            label: 'Unidades Vendidas',
-                            data: top10.map(p => p.quantity),
-                            backgroundColor: gradientColors,
-                            borderRadius: 10,
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        indexAxis: 'y', // Barras horizontales para mejor lectura de nombres
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: {
-                                callbacks: {
-                                    label: (context) => {
-                                        const product = top10[context.dataIndex];
-                                        return [
-                                            `Vendidos: ${product.quantity} unidades`,
-                                            `Precio: $${product.price.toFixed(2)}`,
-                                            `Ingresos: $${product.revenue.toFixed(2)}`
-                                        ];
-                                    }
-                                }
-                            }
+            charts.top10 = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: top10.map(p => p.name),
+                    datasets: [{
+                        label: 'Unidades Vendidas',
+                        data: top10.map(p => p.quantity),
+                        backgroundColor: gradientColors,
+                        borderRadius: 10,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // Barras horizontales para mejor lectura de nombres
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
                         },
-                        scales: {
-                            x: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: (value) => value + ' unidades'
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const product = top10[context.dataIndex];
+                                    return [
+                                        `Vendidos: ${product.quantity} unidades`,
+                                        `Precio: $${product.price.toFixed(2)}`,
+                                        `Ingresos: $${product.revenue.toFixed(2)}`
+                                    ];
                                 }
                             }
                         }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: (value) => value + ' unidades'
+                            }
+                        }
                     }
-                });
+                }
+            });
         }
 
         // 7. Análisis de Márgenes (Radar)
@@ -2704,7 +3164,7 @@
             const ctx = document.getElementById('chartMargenGanancia');
             if (!ctx) return;
 
-            if(charts.margen) charts.margen.destroy();
+            if (charts.margen) charts.margen.destroy();
 
             charts.margen = new Chart(ctx, {
                 type: 'radar',
@@ -2735,7 +3195,10 @@
             // Analizar ventas por hora del día
             const hourlyStats = {};
             for (let i = 8; i <= 20; i++) {
-                hourlyStats[i] = { sales: 0, count: 0 };
+                hourlyStats[i] = {
+                    sales: 0,
+                    count: 0
+                };
             }
 
             dashboardData.sales.forEach(sale => {
@@ -2752,7 +3215,7 @@
 
             console.log('  → Ventas por hora:', hourlyStats);
 
-            if(charts.conversion) charts.conversion.destroy();
+            if (charts.conversion) charts.conversion.destroy();
 
             charts.conversion = new Chart(ctx, {
                 type: 'line',
@@ -2788,7 +3251,10 @@
             dashboardData.products.forEach(product => {
                 const category = product.category_name || product.categoria || 'Sin categoría';
                 if (!categoryRotation[category]) {
-                    categoryRotation[category] = { sales: 0, stock: 0 };
+                    categoryRotation[category] = {
+                        sales: 0,
+                        stock: 0
+                    };
                 }
                 categoryRotation[category].stock += parseInt(product.stock || 0);
             });
@@ -2810,7 +3276,7 @@
 
             console.log('  → Rotación calculada:', rotationData);
 
-            if(charts.rotacion) charts.rotacion.destroy();
+            if (charts.rotacion) charts.rotacion.destroy();
 
             charts.rotacion = new Chart(ctx, {
                 type: 'polarArea',
@@ -2826,7 +3292,9 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { display: true },
+                        legend: {
+                            display: true
+                        },
                         tooltip: {
                             callbacks: {
                                 label: (context) => context.label + ': ' + context.parsed + ' veces'
@@ -2873,14 +3341,13 @@
 
             console.log('  → Top clientes:', topCustomers);
 
-            if(charts.clientesFrecuentes) charts.clientesFrecuentes.destroy();
+            if (charts.clientesFrecuentes) charts.clientesFrecuentes.destroy();
 
             charts.clientesFrecuentes = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: topCustomers.map(c => c[0]),
-                    datasets: [
-                        {
+                    datasets: [{
                             label: 'Compras',
                             data: topCustomers.map(c => c[1].purchases),
                             backgroundColor: '#EC4899'
@@ -2896,7 +3363,9 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        x: { stacked: false },
+                        x: {
+                            stacked: false
+                        },
                         y: {
                             stacked: false,
                             beginAtZero: true
@@ -2958,7 +3427,10 @@
             // Calcular predicción usando regresión lineal simple
             // Fórmula: y = mx + b (tendencia lineal)
             const n = historico.length;
-            let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+            let sumX = 0,
+                sumY = 0,
+                sumXY = 0,
+                sumX2 = 0;
 
             historico.forEach((value, index) => {
                 sumX += index;
@@ -2990,14 +3462,13 @@
             console.log('  → Tendencia: ' + (m > 0 ? '📈 Creciente' : '📉 Decreciente'));
             console.log('  → Crecimiento esperado: ' + crecimiento + '%');
 
-            if(charts.pronostico) charts.pronostico.destroy();
+            if (charts.pronostico) charts.pronostico.destroy();
 
             charts.pronostico = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
-                    datasets: [
-                        {
+                    datasets: [{
                             label: 'Ventas Históricas',
                             data: historicoData,
                             borderColor: '#7C3AED',
@@ -3081,15 +3552,24 @@
             const costos = units.map(u => 10000 + u * 50);
             const ingresos = units.map(u => u * 150);
 
-            if(charts.equilibrio) charts.equilibrio.destroy();
+            if (charts.equilibrio) charts.equilibrio.destroy();
 
             charts.equilibrio = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: units,
-                    datasets: [
-                        { label: 'Costos', data: costos, borderColor: '#EF4444', fill: false },
-                        { label: 'Ingresos', data: ingresos, borderColor: '#10B981', fill: false }
+                    datasets: [{
+                            label: 'Costos',
+                            data: costos,
+                            borderColor: '#EF4444',
+                            fill: false
+                        },
+                        {
+                            label: 'Ingresos',
+                            data: ingresos,
+                            borderColor: '#10B981',
+                            fill: false
+                        }
                     ]
                 },
                 options: {
@@ -3108,8 +3588,18 @@
 
             // Calcular ventas REALES por mes
             const salesByMonth = {
-                0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0,
-                6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0
+                0: 0,
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0,
+                6: 0,
+                7: 0,
+                8: 0,
+                9: 0,
+                10: 0,
+                11: 0
             };
 
             dashboardData.sales.forEach(sale => {
@@ -3130,7 +3620,7 @@
             console.log('  → Promedio mensual: $' + avgSales.toFixed(2));
             console.log('  → Mes más alto: $' + maxSales.toFixed(2));
 
-            if(charts.estacionalidad) charts.estacionalidad.destroy();
+            if (charts.estacionalidad) charts.estacionalidad.destroy();
 
             charts.estacionalidad = new Chart(ctx, {
                 type: 'bar',
@@ -3143,7 +3633,7 @@
                         backgroundColor: ventas.map(v =>
                             v > avgSales * 1.2 ? '#10B981' : // Verde (20% arriba del promedio)
                             v > avgSales * 0.8 ? '#F59E0B' : // Amarillo (cerca del promedio)
-                            '#EF4444'  // Rojo (20% debajo del promedio)
+                            '#EF4444' // Rojo (20% debajo del promedio)
                         ),
                         borderRadius: 8
                     }]
@@ -3152,7 +3642,9 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { display: true },
+                        legend: {
+                            display: true
+                        },
                         tooltip: {
                             callbacks: {
                                 label: (context) => {
@@ -3185,17 +3677,16 @@
 
             const products = dashboardData.products.slice(0, 10);
             const cumulative = products.map((_, i, arr) =>
-                arr.slice(0, i+1).reduce((sum, p) => sum + ((p.price || p.precio) * p.stock || 0), 0)
+                arr.slice(0, i + 1).reduce((sum, p) => sum + ((p.price || p.precio) * p.stock || 0), 0)
             );
 
-            if(charts.abc) charts.abc.destroy();
+            if (charts.abc) charts.abc.destroy();
 
             charts.abc = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: products.map(p => p.name || p.nombre),
-                    datasets: [
-                        {
+                    datasets: [{
                             label: 'Valor',
                             data: products.map(p => (p.price || p.precio) * p.stock || 0),
                             backgroundColor: '#0EA5E9',
@@ -3203,7 +3694,7 @@
                         },
                         {
                             label: 'Acumulado %',
-                            data: cumulative.map((c, i, arr) => (c / arr[arr.length-1]) * 100),
+                            data: cumulative.map((c, i, arr) => (c / arr[arr.length - 1]) * 100),
                             borderColor: '#EF4444',
                             backgroundColor: 'transparent',
                             type: 'line',
@@ -3215,8 +3706,13 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        y: { position: 'left' },
-                        y1: { position: 'right', max: 100 }
+                        y: {
+                            position: 'left'
+                        },
+                        y1: {
+                            position: 'right',
+                            max: 100
+                        }
                     }
                 }
             });
@@ -3273,16 +3769,15 @@
             const flujoNeto = ingresos.map((ing, i) => ing - egresos[i]);
 
             console.log('  → Cash Flow semanal:', weeklyData);
-            console.log('  → Flujo neto promedio: $' + (flujoNeto.reduce((a,b) => a+b, 0) / flujoNeto.length).toFixed(2));
+            console.log('  → Flujo neto promedio: $' + (flujoNeto.reduce((a, b) => a + b, 0) / flujoNeto.length).toFixed(2));
 
-            if(charts.cashflow) charts.cashflow.destroy();
+            if (charts.cashflow) charts.cashflow.destroy();
 
             charts.cashflow = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: semanas,
-                    datasets: [
-                        {
+                    datasets: [{
                             label: 'Ingresos (Ventas)',
                             data: ingresos,
                             borderColor: '#16A34A',
@@ -3363,34 +3858,35 @@
             const totalProducts = dashboardData.products.length;
             const avgStock = dashboardData.products.reduce((sum, p) => sum + (p.stock || 0), 0) / (totalProducts || 1);
 
-            if(charts.kpis) charts.kpis.destroy();
+            if (charts.kpis) charts.kpis.destroy();
 
             charts.kpis = new Chart(ctx, {
                 type: 'radar',
                 data: {
                     labels: ['Ventas', 'Ticket Avg', 'Inventario', 'Productos', 'Clientes', 'Rotación'],
-                    datasets: [
-                        {
-                            label: 'Actual',
-                            data: [
-                                Math.min(totalSales / 1000, 100),
-                                Math.min(avgTicket / 10, 100),
-                                Math.min(avgStock * 2, 100),
-                                Math.min(totalProducts * 5, 100),
-                                Math.min(dashboardData.customers.length * 10, 100),
-                                Math.floor(Math.random() * 30) + 60
-                            ],
-                            backgroundColor: 'rgba(220, 38, 38, 0.2)',
-                            borderColor: '#DC2626',
-                            borderWidth: 2
-                        }
-                    ]
+                    datasets: [{
+                        label: 'Actual',
+                        data: [
+                            Math.min(totalSales / 1000, 100),
+                            Math.min(avgTicket / 10, 100),
+                            Math.min(avgStock * 2, 100),
+                            Math.min(totalProducts * 5, 100),
+                            Math.min(dashboardData.customers.length * 10, 100),
+                            Math.floor(Math.random() * 30) + 60
+                        ],
+                        backgroundColor: 'rgba(220, 38, 38, 0.2)',
+                        borderColor: '#DC2626',
+                        borderWidth: 2
+                    }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        r: { beginAtZero: true, max: 100 }
+                        r: {
+                            beginAtZero: true,
+                            max: 100
+                        }
                     }
                 }
             });
@@ -3405,16 +3901,16 @@
             dashboardData.sales.forEach(sale => {
                 const method = sale.payment_method || sale.metodo_pago || 'Efectivo';
                 const methodName = method === 'efectivo' ? 'Efectivo' :
-                                 method === 'tarjeta_debito' ? 'Tarjeta Débito' :
-                                 method === 'tarjeta_credito' ? 'Tarjeta Crédito' :
-                                 method === 'transferencia' ? 'Transferencia' : 'Efectivo';
+                    method === 'tarjeta_debito' ? 'Tarjeta Débito' :
+                    method === 'tarjeta_credito' ? 'Tarjeta Crédito' :
+                    method === 'transferencia' ? 'Transferencia' : 'Efectivo';
                 paymentMethods[methodName] = (paymentMethods[methodName] || 0) + parseFloat(sale.monto || sale.total || sale.amount || 0);
             });
 
             const labels = Object.keys(paymentMethods);
             const data = Object.values(paymentMethods);
 
-            if(charts.metodosPago) charts.metodosPago.destroy();
+            if (charts.metodosPago) charts.metodosPago.destroy();
 
             charts.metodosPago = new Chart(ctx, {
                 type: 'pie',
@@ -3433,7 +3929,12 @@
                     plugins: {
                         legend: {
                             position: 'bottom',
-                            labels: { padding: 15, font: { size: 11 } }
+                            labels: {
+                                padding: 15,
+                                font: {
+                                    size: 11
+                                }
+                            }
                         },
                         tooltip: {
                             callbacks: {
@@ -3467,14 +3968,13 @@
                 transaccionesPorDia[dayOfWeek]++;
             });
 
-            if(charts.ventasDiaSemana) charts.ventasDiaSemana.destroy();
+            if (charts.ventasDiaSemana) charts.ventasDiaSemana.destroy();
 
             charts.ventasDiaSemana = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: diasSemana,
-                    datasets: [
-                        {
+                    datasets: [{
                             label: 'Ventas ($)',
                             data: ventasPorDia,
                             backgroundColor: '#64748B',
@@ -3496,7 +3996,9 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'top' },
+                        legend: {
+                            position: 'top'
+                        },
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
@@ -3525,7 +4027,9 @@
                         y1: {
                             type: 'linear',
                             position: 'right',
-                            grid: { drawOnChartArea: false }
+                            grid: {
+                                drawOnChartArea: false
+                            }
                         }
                     }
                 }
@@ -3611,9 +4115,11 @@
                                     <input
                                         type="text"
                                         id="barcode-input"
-                                        placeholder="Escanea aquí..."
+                                        placeholder="Toca para escanear..."
                                         class="w-full px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-active text-lg font-mono"
                                         autocomplete="off"
+                                        readonly
+                                        onfocus="this.removeAttribute('readonly')"
                                     >
                                 </div>
 
@@ -4105,11 +4611,14 @@
                         html5QrCode = new Html5Qrcode("qr-reader");
                     }
 
-                    await html5QrCode.start(
-                        { facingMode: "environment" },
-                        {
+                    await html5QrCode.start({
+                            facingMode: "environment"
+                        }, {
                             fps: 10,
-                            qrbox: { width: 250, height: 250 },
+                            qrbox: {
+                                width: 250,
+                                height: 250
+                            },
                             // Habilitar TODOS los formatos de códigos de barras
                             formatsToSupport: [
                                 Html5QrcodeSupportedFormats.QR_CODE,
@@ -4127,14 +4636,26 @@
                                 Html5QrcodeSupportedFormats.AZTEC
                             ]
                         },
-                        (decodedText, decodedResult) => {
-                            searchProductByBarcode(decodedText);
-                            // Opcional: detener escáner después de encontrar
-                            // toggleCameraScanner();
-                        },
-                        (errorMessage) => {
-                            // Error de escaneo (normal, sigue intentando)
-                        }
+                        async (decodedText, decodedResult) => {
+                                // Detener scanner inmediatamente después de escanear
+                                try {
+                                    await html5QrCode.stop();
+                                    cameraReader.classList.add('hidden');
+                                    toggleBtn.innerHTML = '<i class="bx bx-camera mr-1"></i> Activar Cámara';
+                                    toggleBtn.classList.add('bg-custom-active', 'hover:bg-green-700');
+                                    toggleBtn.classList.remove('bg-red-500', 'hover:bg-red-600');
+                                    scannerActive = false;
+                                } catch (e) {
+                                    console.log('Error al detener scanner:', e);
+                                }
+
+                                // Reproducir sonido y buscar producto
+                                playSuccessSound();
+                                searchProductByBarcode(decodedText);
+                            },
+                            (errorMessage) => {
+                                // Error de escaneo (normal, sigue intentando)
+                            }
                     );
 
                     scannerActive = true;
@@ -4361,7 +4882,9 @@
 
                 // Notificar a pantalla del cliente
                 if (posChannel) {
-                    posChannel.postMessage({ type: 'cart_clear' });
+                    posChannel.postMessage({
+                        type: 'cart_clear'
+                    });
                 }
                 localStorage.removeItem('pos_cart_data');
             }
@@ -4410,7 +4933,9 @@
 
             // Resetear selección
             selectedPaymentMethod = null;
-            paymentData = { total: total };
+            paymentData = {
+                total: total
+            };
             document.querySelectorAll('.payment-method-btn').forEach(btn => {
                 btn.classList.remove('border-emerald-500', 'bg-emerald-50', 'border-blue-500', 'bg-blue-50', 'border-purple-500', 'bg-purple-50', 'border-indigo-500', 'bg-indigo-50');
                 btn.classList.add('border-gray-300');
@@ -4594,7 +5119,9 @@
                 // 4. Guardar datos de última venta para WhatsApp
                 window.lastSaleData = {
                     saleId: saveResult.sale.id,
-                    items: cartItems.map(item => ({...item})), // Copiar items antes de limpiar
+                    items: cartItems.map(item => ({
+                        ...item
+                    })), // Copiar items antes de limpiar
                     total: total,
                     totalUnits: totalUnits,
                     settings: settings
@@ -4607,7 +5134,9 @@
 
                     // Notificar a pantalla del cliente
                     if (posChannel) {
-                        posChannel.postMessage({ type: 'cart_clear' });
+                        posChannel.postMessage({
+                            type: 'cart_clear'
+                        });
                     }
                     localStorage.removeItem('pos_cart_data');
 
@@ -4655,7 +5184,13 @@
 
         // Generar mensaje de ticket para WhatsApp
         function generateWhatsAppMessage(saleData) {
-            const { saleId, items, total, totalUnits, settings } = saleData;
+            const {
+                saleId,
+                items,
+                total,
+                totalUnits,
+                settings
+            } = saleData;
             const nombreNegocio = settings.nombre_negocio || 'IslaControl';
             const fecha = new Date().toLocaleDateString('es-MX', {
                 day: '2-digit',
@@ -4820,7 +5355,12 @@ Esperamos verte pronto de nuevo.
                 return;
             }
 
-            const { items, total, totalUnits, settings } = window.lastSaleData;
+            const {
+                items,
+                total,
+                totalUnits,
+                settings
+            } = window.lastSaleData;
 
             // Imprimir usando la función original de impresión
             printTicket(items, total, totalUnits, settings);
@@ -4830,7 +5370,13 @@ Esperamos verte pronto de nuevo.
 
         // Generar ticket como imagen y descargar
         async function generateAndDownloadTicketImage(saleData) {
-            const { saleId, items, total, totalUnits, settings } = saleData;
+            const {
+                saleId,
+                items,
+                total,
+                totalUnits,
+                settings
+            } = saleData;
             const nombreNegocio = settings.nombre_negocio || 'IslaControl';
             const fecha = new Date().toLocaleDateString('es-MX', {
                 day: '2-digit',
@@ -4973,7 +5519,9 @@ Esperamos verte pronto de nuevo.
                 return;
             }
 
-            const { settings } = window.lastSaleData;
+            const {
+                settings
+            } = window.lastSaleData;
             const nombreNegocio = settings.nombre_negocio || 'IslaControl';
 
             // Limpiar el teléfono (quitar espacios, guiones, etc)
@@ -5939,7 +6487,7 @@ Esperamos verte pronto de nuevo.
             // - `grid-cols-1 sm:grid-cols-2 lg:grid-cols-5` en las métricas
             // - `text-2xl sm:text-3xl` en los números de las métricas
             // - `grid-cols-1 lg:grid-cols-2` en las gráficas
-            
+
             contentArea.innerHTML = `
                 <div class="max-w-full mx-auto">
                     <div class="mb-6 sm:mb-8 mt-20 lg:mt-0">
@@ -6556,11 +7104,11 @@ Esperamos verte pronto de nuevo.
 
             contentArea.innerHTML = `
                 <div class="max-w-7xl mx-auto">
-                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-200 mb-6">
+                    <div class="dashboard-card p-6 md:p-8 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 mb-6">
 
                         <!-- Header -->
-                        <div class="mb-6 pb-4 border-b border-gray-200">
-                            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 text-center flex items-center justify-center">
+                        <div class="mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+                            <h1 class="text-3xl md:text-4xl font-bold text-custom-text text-center flex items-center justify-center">
                                 <i class='bx bx-history text-4xl text-blue-600 mr-3'></i>
                                 Historial de Cajas
                             </h1>
@@ -6568,13 +7116,13 @@ Esperamos verte pronto de nuevo.
 
                         <!-- Estadísticas -->
                         <div id="cash-stats" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                            <div class="bg-emerald-50 border-2 border-emerald-200 rounded-xl p-4">
-                                <p class="text-xs text-emerald-700 mb-1 font-semibold">🟢 Cajas Abiertas</p>
-                                <p class="text-2xl font-bold text-emerald-800" id="open-count">Cargando...</p>
+                            <div class="bg-emerald-50 dark:bg-emerald-900/20 border-2 border-emerald-200 dark:border-emerald-700 rounded-xl p-4">
+                                <p class="text-xs text-emerald-700 dark:text-emerald-300 mb-1 font-semibold">Cajas Abiertas</p>
+                                <p class="text-2xl font-bold text-emerald-800 dark:text-emerald-400" id="open-count">Cargando...</p>
                             </div>
-                            <div class="bg-red-50 border-2 border-red-200 rounded-xl p-4">
-                                <p class="text-xs text-red-700 mb-1 font-semibold">🔒 Cajas Cerradas</p>
-                                <p class="text-2xl font-bold text-red-800" id="closed-count">Cargando...</p>
+                            <div class="bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-700 rounded-xl p-4">
+                                <p class="text-xs text-red-700 dark:text-red-300 mb-1 font-semibold">Cajas Cerradas</p>
+                                <p class="text-2xl font-bold text-red-800 dark:text-red-400" id="closed-count">Cargando...</p>
                             </div>
                             <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-4">
                                 <p class="text-xs text-blue-700 mb-1 font-semibold">💰 Total Vendido</p>
@@ -6593,7 +7141,7 @@ Esperamos verte pronto de nuevo.
 
                         <!-- Tabla de Historial -->
                         <div>
-                            <h2 class="text-2xl font-bold mb-4 flex items-center text-gray-800">
+                            <h2 class="text-2xl font-bold mb-4 flex items-center text-custom-text">
                                 <i class='bx bx-list-ul text-blue-600 mr-2'></i>
                                 Registro de Cajas
                             </h2>
@@ -6672,9 +7220,9 @@ Esperamos verte pronto de nuevo.
                         data.cash_registers.forEach(register => {
                             const openedDate = new Date(register.opened_at);
                             const closedDate = register.closed_at ? new Date(register.closed_at) : null;
-                            const statusBadge = register.status === 'open'
-                                ? '<span class="bg-emerald-100 text-emerald-800 px-2 py-1 rounded-full text-xs font-semibold">🟢 Abierta</span>'
-                                : '<span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-semibold">🔒 Cerrada</span>';
+                            const statusBadge = register.status === 'open' ?
+                                '<span class="bg-emerald-500 text-white px-3 py-1 rounded-md text-xs font-semibold">Abierta</span>' :
+                                '<span class="bg-red-500 text-white px-3 py-1 rounded-md text-xs font-semibold">Cerrada</span>';
 
                             const difference = register.difference;
                             let diffClass = 'text-gray-600';
@@ -6687,9 +7235,9 @@ Esperamos verte pronto de nuevo.
                                 diffIcon = '';
                             }
 
-                            const cashierName = register.cashier
-                                ? `<div class="flex items-center"><i class='bx bx-user-circle text-blue-500 mr-1'></i> ${register.cashier.name}</div>`
-                                : '<span class="text-gray-400 italic">Sin asignar</span>';
+                            const cashierName = register.cashier ?
+                                `<div class="flex items-center"><i class='bx bx-user-circle text-blue-500 mr-1'></i> ${register.cashier.name}</div>` :
+                                '<span class="text-gray-400 italic">Sin asignar</span>';
 
                             tableHTML += `
                                 <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
@@ -6968,7 +7516,64 @@ Esperamos verte pronto de nuevo.
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
                     const html = await response.text();
-                    contentArea.innerHTML = html;
+
+                    // IMPORTANTE: Extraer solo el contenido del <body> del HTML cargado
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+
+                    // Sincronizar el modo oscuro/claro ANTES de insertar el contenido
+                    const isDark = document.documentElement.classList.contains('dark');
+
+                    console.log('🎨 Modo actual del dashboard:', isDark ? 'OSCURO' : 'CLARO');
+
+                    // Aplicar la clase 'dark' al html y body del documento parseado
+                    if (isDark) {
+                        doc.documentElement.classList.add('dark');
+                        doc.body.classList.add('dark');
+                    } else {
+                        doc.documentElement.classList.remove('dark');
+                        doc.body.classList.remove('dark');
+                    }
+
+                    // Insertar el contenido SIN wrapper - directamente el innerHTML del body
+                    // NO copiamos clases del body porque causan espacios extra
+
+                    // CRÍTICO: Si estamos en modo CLARO, necesitamos remover las variantes dark: de todos los elementos
+                    if (!isDark) {
+                        const allElements = doc.body.querySelectorAll('*');
+                        allElements.forEach(el => {
+                            if (el.className && typeof el.className === 'string') {
+                                // Remover todas las clases que empiezan con "dark:"
+                                el.className = el.className
+                                    .split(' ')
+                                    .filter(cls => !cls.startsWith('dark:'))
+                                    .join(' ');
+                            }
+                        });
+                    }
+
+                    // Insertar directamente sin wrapper
+                    contentArea.innerHTML = doc.body.innerHTML;
+
+                    // El contenido ahora respeta el modo dark del <html> raíz del dashboard
+
+                    // IMPORTANTE: Forzar colores de títulos para sobrescribir dark-mode.css !important
+                    setTimeout(() => {
+                        const allHeadings = contentArea.querySelectorAll('h1, h2, h3, h4, h5, h6');
+                        allHeadings.forEach(heading => {
+                            if (!isDark) {
+                                // En modo claro, forzar color oscuro con !important
+                                if (heading.classList.contains('text-gray-900') ||
+                                    heading.classList.contains('text-gray-800') ||
+                                    heading.classList.contains('text-custom-text')) {
+                                    heading.style.setProperty('color', '#111827', 'important');
+                                }
+                            } else {
+                                // En modo oscuro, dejar que dark-mode.css maneje
+                                heading.style.removeProperty('color');
+                            }
+                        });
+                    }, 100);
 
                     const scripts = contentArea.querySelectorAll("script");
                     scripts.forEach(script => {
@@ -7002,7 +7607,7 @@ Esperamos verte pronto de nuevo.
                 }
             }
         }
-        
+
         // 🚀 Nueva función para manejar el sidebar en móvil 🚀
         window.toggleSidebar = function() {
             const sidebar = document.getElementById('sidebar');
@@ -7545,13 +8150,13 @@ Esperamos verte pronto de nuevo.
         function showAlert(options) {
             const {
                 title = 'Notificación',
-                message = '',
-                type = 'info', // success, error, warning, info, question
-                confirmText = 'Aceptar',
-                cancelText = 'Cancelar',
-                showCancel = false,
-                onConfirm = () => {},
-                onCancel = () => {}
+                    message = '',
+                    type = 'info', // success, error, warning, info, question
+                    confirmText = 'Aceptar',
+                    cancelText = 'Cancelar',
+                    showCancel = false,
+                    onConfirm = () => {},
+                    onCancel = () => {}
             } = options;
 
             return new Promise((resolve) => {
@@ -7969,7 +8574,12 @@ Esperamos verte pronto de nuevo.
 
         // Función para mostrar modal de límite alcanzado
         async function showLimitReachedModal(limitData) {
-            const { type, limit, current, message } = limitData;
+            const {
+                type,
+                limit,
+                current,
+                message
+            } = limitData;
 
             const typeNames = {
                 'product': 'productos',
@@ -8099,36 +8709,52 @@ Esperamos verte pronto de nuevo.
         };
 
         // ==========================================
-        // 📝 INTERCEPTOR DE FORMULARIOS (AJAX)
+        // 📝 INTERCEPTOR DE FORMULARIOS (AJAX) - VERSIÓN CORREGIDA
         // ==========================================
-        // Esta función intercepta todos los formularios que se cargan dinámicamente
-        // y los convierte en envíos AJAX para mantener al usuario en el dashboard
 
         function setupFormInterceptors() {
             const contentArea = document.getElementById('main-content-area');
             if (!contentArea) return;
 
-            // Buscar todos los formularios en el área de contenido
             const forms = contentArea.querySelectorAll('form');
 
             forms.forEach(form => {
-                // Verificar si el formulario ya tiene el interceptor
                 if (form.dataset.ajaxIntercepted) return;
 
                 form.dataset.ajaxIntercepted = 'true';
 
                 form.addEventListener('submit', async function(e) {
+                    const action = form.action;
+                    const method = form.method.toUpperCase();
+
+                    // ⭐ LISTA DE EXCLUSIONES - NO interceptar estas rutas
+                    const exclusionList = [
+                        '/pdf',
+                        '/download',
+                        'corte-caja',
+                        '/reports/corte-caja-pdf',
+                        '/export',
+                        '.pdf'
+                    ];
+
+                    // ⭐ Verificar si la acción debe ser excluida
+                    const shouldExclude = exclusionList.some(pattern => action.includes(pattern));
+
+                    if (shouldExclude) {
+                        console.log('🚫 Interceptor: Permitiendo navegación normal para PDF/descarga');
+                        console.log('   Acción:', action);
+                        return; // ⭐ NO interceptar, dejar funcionar normalmente
+                    }
+
+                    // Si llegamos aquí, SÍ interceptar con AJAX
                     e.preventDefault();
                     e.stopPropagation();
 
                     const formData = new FormData(form);
-                    const method = form.method.toUpperCase();
-                    const action = form.action;
 
                     console.log('📤 Enviando formulario vía AJAX:', action, 'Método:', method);
 
                     try {
-                        // Mostrar loading
                         const submitBtn = form.querySelector('button[type="submit"]');
                         const originalBtnText = submitBtn ? submitBtn.innerHTML : '';
                         if (submitBtn) {
@@ -8153,13 +8779,11 @@ Esperamos verte pronto de nuevo.
                             ok: response.ok
                         });
 
-                        // Restaurar botón
                         if (submitBtn) {
                             submitBtn.disabled = false;
                             submitBtn.innerHTML = originalBtnText;
                         }
 
-                        // Intentar obtener el contenido (puede ser HTML o JSON)
                         const contentType = response.headers.get('content-type');
                         console.log('📄 Content-Type:', contentType);
 
@@ -8170,20 +8794,18 @@ Esperamos verte pronto de nuevo.
                         } else {
                             const text = await response.text();
                             console.log('📄 HTML recibido, longitud:', text.length);
-                            responseData = { html: text };
+                            responseData = {
+                                html: text
+                            };
 
-                            // Verificar si el HTML contiene el modal de límite alcanzado
                             if (text.includes('id="limit-modal"') || text.includes('limit-reached-modal')) {
                                 console.log('🚫 Límite alcanzado detectado en respuesta');
-                                // Recargar la página para mostrar el modal
                                 window.location.reload();
                                 return;
                             }
                         }
 
-                        // Si la respuesta fue exitosa (status 200-299)
                         if (response.ok || response.redirected) {
-                            // Determinar a qué página volver basándose en la URL actual o de respuesta
                             const url = new URL(response.url || window.location.href);
                             let backPage = 'dashboard';
 
@@ -8199,17 +8821,14 @@ Esperamos verte pronto de nuevo.
 
                             console.log('✅ Guardado exitoso, volviendo a:', backPage);
 
-                            // Mostrar mensaje de éxito
                             await showAlert({
                                 title: '¡Éxito!',
                                 message: 'La operación se completó correctamente',
                                 type: 'success'
                             });
 
-                            // Volver a la página correspondiente
                             await loadContent(backPage);
                         } else if (response.status === 422) {
-                            // Error de validación
                             console.warn('⚠️ Error de validación:', responseData);
 
                             let errorMessage = 'Por favor, revisa los campos del formulario.';
@@ -8224,9 +8843,7 @@ Esperamos verte pronto de nuevo.
                                 type: 'warning'
                             });
                         } else if (response.status === 403 && responseData.limit_reached) {
-                            // Límite de plan alcanzado
                             console.warn('🚫 Límite alcanzado:', responseData);
-
                             await showLimitReachedModal(responseData);
                         } else {
                             throw new Error('Error en la respuesta del servidor (Status: ' + response.status + ')');
@@ -8235,7 +8852,6 @@ Esperamos verte pronto de nuevo.
                     } catch (error) {
                         console.error('❌ Error al enviar formulario:', error);
 
-                        // Restaurar botón en caso de error
                         const submitBtn = form.querySelector('button[type="submit"]');
                         if (submitBtn) {
                             submitBtn.disabled = false;
@@ -9033,7 +9649,7 @@ Esperamos verte pronto de nuevo.
             }
 
             // Si tiene acceso, permitir navegación normal
-            if(window.innerWidth < 1024) toggleSidebar();
+            if (window.innerWidth < 1024) toggleSidebar();
             return true;
         }
 
@@ -9145,7 +9761,6 @@ Esperamos verte pronto de nuevo.
 
             document.body.appendChild(modal);
         }
-
     </script>
 </body>
 

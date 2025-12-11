@@ -19,7 +19,7 @@
         }
     </style>
 </head>
-<body class="text-white min-h-screen p-4 pt-28 lg:pt-4">
+<body class="text-white min-h-screen p-4 pt-52 lg:pt-4">
 
     <div class="max-w-7xl mx-auto">
 
@@ -182,10 +182,13 @@
                     </table>
                 </div>
 
-                <!-- Paginación -->
-                <div class="mt-6">
-                    {{ $cashRegisters->links() }}
-                </div>
+                <!-- Componente de paginación -->
+                @if($cashRegisters->hasPages() || count($paginationOptions) > 1)
+                    <x-pagination-controls
+                        :paginator="$cashRegisters"
+                        :paginationOptions="$paginationOptions"
+                    />
+                @endif
 
             @else
                 <div class="text-center py-12 text-gray-400">

@@ -42,6 +42,7 @@
                 opacity: 0;
                 transform: scale(0.95);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1);
@@ -51,10 +52,98 @@
         .modal-content {
             animation: modalFadeIn 0.3s ease-out;
         }
+
+        /* ============================================
+   MODO OSCURO - PRODUCTOS
+   ============================================ */
+
+        /* TÍTULOS */
+        html.dark h1,
+        html.dark h2,
+        html.dark h3 {
+            color: #F9FAFB !important;
+        }
+
+        /* TEXTO "Agregar Nuevo Producto" en verde */
+        html.dark .text-emerald-600 {
+            color: #34D399 !important;
+        }
+
+        /* LABELS */
+        html.dark label {
+            color: #E5E7EB !important;
+        }
+
+        /* FORMULARIO - Inputs y Select */
+        html.dark input,
+        html.dark textarea,
+        html.dark select {
+            background-color: #374151 !important;
+            color: #F9FAFB !important;
+            border-color: #4B5563 !important;
+        }
+
+        html.dark input::placeholder {
+            color: #9CA3AF !important;
+        }
+
+        /* TABLA - Header con fondo claro */
+        html.dark table thead tr th {
+            color: #1F2937 !important;
+            background-color: #F3F4F6 !important;
+            font-weight: 700 !important;
+        }
+
+        /* TABLA - Body con fondo oscuro */
+        html.dark table tbody {
+            background-color: #1F2937 !important;
+        }
+
+        /* TABLA - TODO el texto en BLANCO */
+        html.dark tbody tr td {
+            color: #FFFFFF !important;
+        }
+
+        html.dark tbody td,
+        html.dark tbody td * {
+            color: #FFFFFF !important;
+        }
+
+        /* Colores especiales mantenidos */
+        html.dark tbody .text-yellow-600 {
+            color: #FCD34D !important;
+        }
+
+        html.dark tbody .text-emerald-600 {
+            color: #34D399 !important;
+        }
+
+        html.dark tbody .text-gray-400 {
+            color: #9CA3AF !important;
+        }
+
+        /* Hover */
+        html.dark table tbody tr:hover {
+            background-color: rgba(16, 185, 129, 0.2) !important;
+        }
+
+        /* Búsqueda */
+        html.dark .bg-gray-50 {
+            background-color: #374151 !important;
+        }
+
+        html.dark #products-search-input {
+            color: #F9FAFB !important;
+        }
+
+        /* Estado vacío */
+        html.dark #empty-state-row td {
+            color: #9CA3AF !important;
+        }
     </style>
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-900 min-h-screen pt-36 lg:pt-8 pb-8 flex justify-center transition-colors duration-300">
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen pt-52 lg:pt-8 pb-8 flex justify-center transition-colors duration-300">
 
     @include('components.limit-reached-modal')
 
@@ -84,7 +173,7 @@
                 <div class="bg-indigo-500 p-6 rounded-xl shadow-xl border-b-4 border-indigo-600 flex justify-between items-center">
                     <div>
                         <p class="text-white text-base font-semibold uppercase tracking-wider opacity-90">Total de Productos</p>
-                        <p id="total-products-count" class="text-white text-4xl font-extrabold">{{ count($products) }}</p>
+                        <p id="total-products-count" class="text-white text-4xl font-extrabold">{{ $products->count() }}</p>
                     </div>
                     <svg class="w-10 h-10 text-white opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path>
@@ -97,7 +186,7 @@
                         <p class="text-white text-4xl font-extrabold">$<span id="total-inventory-value">0.00</span></p>
                     </div>
                     <svg class="w-10 h-10 text-white opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                     </svg>
                 </div>
             </div>
@@ -140,7 +229,7 @@
                             class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-9">
                             <option value="">Seleccionar...</option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -157,14 +246,21 @@
                 </div>
             </form>
 
-            <div class="mb-4 flex items-center bg-gray-50 rounded-lg p-3 border border-gray-200">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mr-3" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <input type="text" id="products-search-input" placeholder="Buscar por ID, Nombre, Stock o Categoría..."
-                    class="w-full bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none text-sm">
+            <!-- Búsqueda del lado del servidor -->
+            <!-- Búsqueda del lado del cliente -->
+            <div class="mb-4">
+                <div class="flex items-center bg-gray-50 rounded-lg p-3 border border-gray-200 gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input
+                        type="text"
+                        id="products-search-input"
+                        placeholder="Buscar por nombre, código de barras, categoría..."
+                        class="flex-1 bg-gray-50 text-gray-800 placeholder-gray-400 focus:outline-none text-sm">
+                </div>
             </div>
 
             <h2 class="text-xl font-bold text-gray-800 mb-4 border-b border-gray-200 pb-2">
@@ -185,23 +281,33 @@
                         </tr>
                     </thead>
 
-                    <tbody class="bg-white divide-y divide-gray-200" id="products-table-body">
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700" id="products-table-body">
                         @forelse ($products as $product)
-                        <tr class="hover:bg-gray-50 transition duration-150 ease-in-out product-row"
+                        <tr class="hover:bg-gray-50 dark:hover:bg-emerald-900/20 transition duration-150 ease-in-out product-row"
                             data-product-price="{{ $product->price }}"
                             data-product-stock="{{ $product->stock }}">
-                            <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-gray-700">{{ $product->id }}</td>
-                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{{ $product->name }}</td>
-                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 font-mono">
+                            <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-gray-700 dark:text-white">
+                                {{ $product->id }}
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                                {{ $product->name }}
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300 font-mono">
                                 @if($product->codigo_barras)
-                                    {{ $product->codigo_barras }}
+                                {{ $product->codigo_barras }}
                                 @else
-                                    <span class="text-gray-400 italic">Sin código</span>
+                                <span class="text-gray-400 dark:text-gray-500 italic">Sin código</span>
                                 @endif
                             </td>
-                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-yellow-600 font-medium">{{ $product->stock }}</td>
-                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-emerald-600 font-medium">${{ number_format($product->price, 2) }}</td>
-                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700">{{ $product->category->name }}</td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-yellow-600 dark:text-yellow-400 font-medium">
+                                {{ $product->stock }}
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-emerald-600 dark:text-emerald-400 font-medium">
+                                ${{ number_format($product->price, 2) }}
+                            </td>
+                            <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-700 dark:text-white">
+                                {{ $product->category->name }}
+                            </td>
                             <td class="px-4 py-3 whitespace-nowrap text-center text-sm font-medium">
                                 <button type="button"
                                     data-product-id="{{ $product->id }}"
@@ -212,19 +318,19 @@
                                     data-product-category="{{ $product->category_id }}"
                                     onclick="showEditModal(this)"
                                     class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-lg shadow-md text-white
-                                         bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition duration-150 ease-in-out mr-2">
+                     bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition duration-150 ease-in-out mr-2">
                                     Editar
                                 </button>
 
-                                <button type="button" 
+                                <button type="button"
                                     data-product-id="{{ $product->id }}"
                                     data-product-name="{{ e($product->name) }}"
                                     onclick="showDeleteModal(this)"
                                     class="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-lg shadow-md text-white 
-                                         bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-150 ease-in-out">
+                     bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-150 ease-in-out">
                                     Eliminar
                                 </button>
-                                
+
                                 <form id="delete-form-{{ $product->id }}" action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: none;">
                                     @csrf
                                     @method('DELETE')
@@ -234,7 +340,7 @@
                         </tr>
                         @empty
                         <tr id="empty-state-row">
-                            <td colspan="7" class="px-6 py-8 text-center text-lg text-gray-500 font-medium">
+                            <td colspan="7" class="px-6 py-8 text-center text-lg text-gray-500 dark:text-gray-400 font-medium">
                                 No hay productos registrados. ¡Usa el formulario de arriba para agregar uno!
                             </td>
                         </tr>
@@ -243,6 +349,9 @@
                 </table>
             </div>
 
+            <!-- Componente de paginación -->
+
+
             <div id="notification-container" class="fixed bottom-5 right-5 z-50 space-y-2"></div>
             <div id="modal-container"></div>
 
@@ -250,13 +359,14 @@
     </div>
 
     <script>
-        // SOLUCIÓN: Envolver todo en DOMContentLoaded y usar try-catch
         (function() {
             'use strict';
-            
-            // Cargar categorías desde PHP/Blade al cargar la página
-            const categoriesData = {!! json_encode($categories) !!};
-            
+
+            // ✅ CORRECCIÓN: Sin espacios en la sintaxis de Blade
+            const categoriesData = {
+                !!json_encode($categories) !!
+            };
+
             const formatCurrency = (number) => {
                 try {
                     return number.toLocaleString('es-MX', {
@@ -269,19 +379,18 @@
                 }
             };
 
-            // Función para actualizar totales
             const updateTotalsProducts = () => {
                 try {
                     let totalProductsCount = 0;
                     let totalInventoryValue = 0;
 
                     const productRows = document.querySelectorAll('#products-table-body tr.product-row[data-product-price]');
-                    
+
                     productRows.forEach(row => {
                         if (row.style.display !== 'none') {
                             const price = parseFloat(row.getAttribute('data-product-price')) || 0;
                             const stock = parseInt(row.getAttribute('data-product-stock')) || 0;
-                            
+
                             if (!isNaN(price) && !isNaN(stock)) {
                                 totalProductsCount++;
                                 totalInventoryValue += (price * stock);
@@ -303,34 +412,56 @@
                 }
             };
 
-            // Función de filtrado
             const filterTableProducts = () => {
                 try {
                     const input = document.getElementById('products-search-input');
-                    if (!input) return;
-                    
-                    const filter = input.value.toUpperCase();
-                    const tableBody = document.getElementById('products-table-body');
-                    if (!tableBody) return;
-                    
-                    const rows = tableBody.querySelectorAll('tr.product-row');
-                    
+                    if (!input) {
+                        console.warn('⚠️ Input de búsqueda no encontrado');
+                        return;
+                    }
+
+                    const filter = input.value.toLowerCase().trim();
+                    const rows = document.querySelectorAll('#products-table-body .product-row');
+
+                    console.log('🔍 Filtrando productos con término:', filter);
+
+                    if (!filter) {
+                        rows.forEach(row => row.style.display = '');
+                        updateTotalsProducts();
+                        return;
+                    }
+
+                    let visibleCount = 0;
+
                     rows.forEach(row => {
-                        const rowText = row.innerText.toUpperCase();
-                        if (rowText.indexOf(filter) > -1) {
-                            row.style.display = ''; 
-                        } else {
-                            row.style.display = 'none';
+                        const id = row.querySelector('td:nth-child(1)')?.textContent.toLowerCase() || '';
+                        const name = row.querySelector('td:nth-child(2)')?.textContent.toLowerCase() || '';
+                        const barcode = row.querySelector('td:nth-child(3)')?.textContent.toLowerCase() || '';
+                        const stock = row.querySelector('td:nth-child(4)')?.textContent.toLowerCase() || '';
+                        const price = row.querySelector('td:nth-child(5)')?.textContent.toLowerCase() || '';
+                        const category = row.querySelector('td:nth-child(6)')?.textContent.toLowerCase() || '';
+
+                        const matches = id.includes(filter) ||
+                            name.includes(filter) ||
+                            barcode.includes(filter) ||
+                            stock.includes(filter) ||
+                            price.includes(filter) ||
+                            category.includes(filter);
+
+                        row.style.display = matches ? '' : 'none';
+
+                        if (matches) {
+                            visibleCount++;
                         }
                     });
 
                     updateTotalsProducts();
+                    console.log('✅ Filtrado completado:', visibleCount, 'productos visibles');
                 } catch (e) {
-                    console.error('Error filtering table:', e);
+                    console.error('❌ Error filtering products:', e);
                 }
             };
 
-            // Función de notificaciones
             window.showNotification = function(message, type = 'info') {
                 try {
                     const notification = document.createElement('div');
@@ -354,7 +485,6 @@
                 }
             };
 
-            // Función para mostrar modal de edición
             window.showEditModal = function(buttonElement) {
                 try {
                     const id = buttonElement.dataset.productId;
@@ -366,10 +496,9 @@
 
                     const modalContainer = document.getElementById('modal-container');
                     if (!modalContainer) return;
-                    
+
                     modalContainer.innerHTML = '';
 
-                    // Usar las categorías cargadas globalmente
                     let optionsHtml = '<option value="">Seleccionar...</option>';
                     for (let i = 0; i < categoriesData.length; i++) {
                         const cat = categoriesData[i];
@@ -381,52 +510,52 @@
                     const modal = document.createElement('div');
                     modal.id = 'edit-modal';
                     modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto';
-                    
+
                     const formAction = '{{ route("products.update", "") }}/' + id;
                     const csrfToken = '{{ csrf_token() }}';
-                    
+
                     modal.innerHTML = '<div class="modal-content bg-white p-8 rounded-2xl shadow-2xl max-w-3xl w-full border border-gray-200 my-8">' +
-                            '<div class="flex items-center justify-center mb-6 border-b border-gray-200 pb-4">' +
-                                '<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-emerald-500 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-                                    '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>' +
-                                    '<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>' +
-                                '</svg>' +
-                                '<h2 class="text-2xl font-extrabold text-gray-800">Editar Producto</h2>' +
-                            '</div>' +
-                            '<form action="' + formAction + '" method="POST" class="p-6 border border-gray-200 rounded-xl bg-gray-50 shadow-xl">' +
-                                '<input type="hidden" name="_token" value="' + csrfToken + '">' +
-                                '<input type="hidden" name="_method" value="PUT">' +
-                                '<input type="hidden" name="from" value="dashboard">' +
-                                '<h3 class="text-lg font-bold text-emerald-600 mb-4 border-b border-gray-200 pb-2">Actualizar Datos del Producto #' + id + '</h3>' +
-                                '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">' +
-                                    '<div>' +
-                                        '<label for="edit-name" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>' +
-                                        '<input type="text" name="name" id="edit-name" value="' + name + '" required class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-10">' +
-                                    '</div>' +
-                                    '<div>' +
-                                        '<label for="edit-barcode" class="block text-sm font-medium text-gray-700 mb-1">Código de Barras</label>' +
-                                        '<input type="text" name="codigo_barras" id="edit-barcode" value="' + barcode + '" placeholder="7501086801046" class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-10">' +
-                                    '</div>' +
-                                    '<div>' +
-                                        '<label for="edit-stock" class="block text-sm font-medium text-gray-700 mb-1">Stock</label>' +
-                                        '<input type="number" name="stock" id="edit-stock" value="' + stock + '" required min="0" class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-10">' +
-                                    '</div>' +
-                                    '<div>' +
-                                        '<label for="edit-price" class="block text-sm font-medium text-gray-700 mb-1">Precio ($)</label>' +
-                                        '<input type="number" step="0.01" name="price" id="edit-price" value="' + price + '" required min="0" class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-10">' +
-                                    '</div>' +
-                                    '<div>' +
-                                        '<label for="edit-category" class="block text-sm font-medium text-gray-700 mb-1">Categoría</label>' +
-                                        '<select name="category_id" id="edit-category" required class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-10">' +
-                                            optionsHtml +
-                                        '</select>' +
-                                    '</div>' +
-                                '</div>' +
-                                '<div class="mt-6 flex justify-end gap-3">' +
-                                    '<button type="submit" class="py-2.5 px-5 border border-transparent shadow-lg text-sm font-semibold rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition duration-300 ease-in-out transform hover:scale-[1.02]">Actualizar Producto</button>' +
-                                    '<button type="button" onclick="window.closeEditModal()" class="py-2.5 px-5 text-sm font-medium rounded-lg text-gray-700 bg-gray-200 hover:bg-gray-300 transition duration-150 ease-in-out shadow-md">Cancelar</button>' +
-                                '</div>' +
-                            '</form>' +
+                        '<div class="flex items-center justify-center mb-6 border-b border-gray-200 pb-4">' +
+                        '<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-emerald-500 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                        '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>' +
+                        '<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>' +
+                        '</svg>' +
+                        '<h2 class="text-2xl font-extrabold text-gray-800">Editar Producto</h2>' +
+                        '</div>' +
+                        '<form action="' + formAction + '" method="POST" class="p-6 border border-gray-200 rounded-xl bg-gray-50 shadow-xl">' +
+                        '<input type="hidden" name="_token" value="' + csrfToken + '">' +
+                        '<input type="hidden" name="_method" value="PUT">' +
+                        '<input type="hidden" name="from" value="dashboard">' +
+                        '<h3 class="text-lg font-bold text-emerald-600 mb-4 border-b border-gray-200 pb-2">Actualizar Datos del Producto #' + id + '</h3>' +
+                        '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">' +
+                        '<div>' +
+                        '<label for="edit-name" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>' +
+                        '<input type="text" name="name" id="edit-name" value="' + name + '" required class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-10">' +
+                        '</div>' +
+                        '<div>' +
+                        '<label for="edit-barcode" class="block text-sm font-medium text-gray-700 mb-1">Código de Barras</label>' +
+                        '<input type="text" name="codigo_barras" id="edit-barcode" value="' + barcode + '" placeholder="7501086801046" class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-10">' +
+                        '</div>' +
+                        '<div>' +
+                        '<label for="edit-stock" class="block text-sm font-medium text-gray-700 mb-1">Stock</label>' +
+                        '<input type="number" name="stock" id="edit-stock" value="' + stock + '" required min="0" class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-10">' +
+                        '</div>' +
+                        '<div>' +
+                        '<label for="edit-price" class="block text-sm font-medium text-gray-700 mb-1">Precio ($)</label>' +
+                        '<input type="number" step="0.01" name="price" id="edit-price" value="' + price + '" required min="0" class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-10">' +
+                        '</div>' +
+                        '<div>' +
+                        '<label for="edit-category" class="block text-sm font-medium text-gray-700 mb-1">Categoría</label>' +
+                        '<select name="category_id" id="edit-category" required class="mt-1 block w-full rounded-lg shadow-sm light-input text-sm h-10">' +
+                        optionsHtml +
+                        '</select>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="mt-6 flex justify-end gap-3">' +
+                        '<button type="submit" class="py-2.5 px-5 border border-transparent shadow-lg text-sm font-semibold rounded-lg text-white bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition duration-300 ease-in-out transform hover:scale-[1.02]">Actualizar Producto</button>' +
+                        '<button type="button" onclick="window.closeEditModal()" class="py-2.5 px-5 text-sm font-medium rounded-lg text-gray-700 bg-gray-200 hover:bg-gray-300 transition duration-150 ease-in-out shadow-md">Cancelar</button>' +
+                        '</div>' +
+                        '</form>' +
                         '</div>';
 
                     modalContainer.appendChild(modal);
@@ -438,7 +567,6 @@
                 }
             };
 
-            // Función para cerrar modal de edición
             window.closeEditModal = function() {
                 try {
                     const modal = document.getElementById('edit-modal');
@@ -448,7 +576,6 @@
                 }
             };
 
-            // Función para mostrar modal de eliminación
             window.showDeleteModal = function(buttonElement) {
                 try {
                     const id = buttonElement.dataset.productId;
@@ -456,27 +583,27 @@
 
                     const modalContainer = document.getElementById('modal-container');
                     if (!modalContainer) return;
-                    
+
                     modalContainer.innerHTML = '';
 
                     const modal = document.createElement('div');
                     modal.id = 'confirmation-modal';
                     modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
-                    
+
                     modal.innerHTML = '<div class="modal-content bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full border border-gray-200">' +
-                            '<h3 class="text-xl font-bold text-red-600 mb-4">Confirmar Eliminación</h3>' +
-                            '<p class="text-gray-800 text-lg font-medium mb-6">¿Estás seguro de que quieres eliminar el producto "' + name + '"? Esta acción no se puede deshacer.</p>' +
-                            '<div class="flex justify-end space-x-3">' +
-                                '<button id="modal-cancel" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition">Cancelar</button>' +
-                                '<button id="modal-confirm" class="px-4 py-2 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition">Eliminar</button>' +
-                            '</div>' +
+                        '<h3 class="text-xl font-bold text-red-600 mb-4">Confirmar Eliminación</h3>' +
+                        '<p class="text-gray-800 text-lg font-medium mb-6">¿Estás seguro de que quieres eliminar el producto "' + name + '"? Esta acción no se puede deshacer.</p>' +
+                        '<div class="flex justify-end space-x-3">' +
+                        '<button id="modal-cancel" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition">Cancelar</button>' +
+                        '<button id="modal-confirm" class="px-4 py-2 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition">Eliminar</button>' +
+                        '</div>' +
                         '</div>';
 
                     modalContainer.appendChild(modal);
-                    
+
                     const confirmBtn = document.getElementById('modal-confirm');
                     const cancelBtn = document.getElementById('modal-cancel');
-                    
+
                     if (confirmBtn) {
                         confirmBtn.addEventListener('click', function() {
                             const form = document.getElementById('delete-form-' + id);
@@ -484,11 +611,11 @@
                             window.closeModal();
                         });
                     }
-                    
+
                     if (cancelBtn) {
                         cancelBtn.addEventListener('click', window.closeModal);
                     }
-                    
+
                     modal.addEventListener('click', function(e) {
                         if (e.target === modal) window.closeModal();
                     });
@@ -497,7 +624,6 @@
                 }
             };
 
-            // Función para cerrar modal de confirmación
             window.closeModal = function() {
                 try {
                     const modal = document.getElementById('confirmation-modal');
@@ -507,16 +633,16 @@
                 }
             };
 
-            // Inicialización cuando el DOM está listo
             const initializePage = () => {
                 try {
-                    // Agregar event listener al buscador
                     const searchInput = document.getElementById('products-search-input');
                     if (searchInput) {
                         searchInput.addEventListener('input', filterTableProducts);
+                        console.log('✅ Event listener de búsqueda configurado');
+                    } else {
+                        console.warn('⚠️ Input de búsqueda no encontrado');
                     }
 
-                    // Agregar event listener para ESC
                     document.addEventListener('keydown', function(e) {
                         if (e.key === 'Escape') {
                             window.closeEditModal();
@@ -524,22 +650,18 @@
                         }
                     });
 
-                    // Actualizar totales al cargar
                     updateTotalsProducts();
                 } catch (e) {
                     console.error('Error initializing page:', e);
                 }
             };
 
-            // Ejecutar cuando el DOM esté completamente cargado
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', initializePage);
             } else {
-                // DOM ya está cargado
                 initializePage();
             }
 
-            // Re-calcular totales cuando la página se vuelve visible (para el problema de cambio de pestaña)
             document.addEventListener('visibilitychange', function() {
                 if (!document.hidden) {
                     setTimeout(updateTotalsProducts, 100);

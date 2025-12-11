@@ -4,20 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Producto</title>
-    <!-- Incluye Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Define la fuente Inter */
         body {
             font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at center, #1f2937, #111827);
         }
-        /* Estilo para el SELECT en Dark Mode */
+        /* Estilo para el SELECT */
         select {
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            /* Ícono de flecha hacia abajo en gris claro */
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23d1d5db' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M6 9l4 4 4-4'/%3e%3c/svg%3e");
             background-repeat: no-repeat;
             background-position: right 1rem center;
@@ -25,22 +21,22 @@
         }
     </style>
 </head>
-<body class="text-white flex items-start justify-center min-h-screen pt-36 p-4">
+<body class="text-gray-900 dark:text-white min-h-screen">
 
     <!-- Main Content Container (Darker background, soft corners, shadow) -->
-    <div class="bg-gray-800 p-8 md:p-10 rounded-3xl shadow-[0_0_30px_rgba(16,185,129,0.15)] w-full max-w-2xl border border-gray-700">
+    <div class="bg-white dark:bg-gray-800 p-4 sm:p-5 lg:p-6 w-full border-b border-gray-200 dark:border-gray-700">
         
         <!-- Header -->
-        <div class="mb-8 pb-4 border-b border-emerald-600/50 flex items-center justify-between">
-            <a href="{{ route('products.index') }}" 
-                class="text-gray-400 hover:text-emerald-400 transition-colors transform hover:scale-110 p-2 rounded-full -ml-3">
+        <div class="mb-8 pb-4 border-b border-gray-200 dark:border-emerald-600/50 flex items-center justify-between">
+            <a href="{{ route('products.index') }}"
+                class="text-gray-600 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors transform hover:scale-110 p-2 rounded-full -ml-3">
                 <!-- Icono de flecha hacia atrás (SVG) -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
             </a>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight flex-grow text-center pr-10">
-                Editar Producto: <span class="text-emerald-400">{{ $product->name }}</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight flex-grow text-center pr-10">
+                Editar Producto: <span class="text-emerald-600 dark:text-emerald-400">{{ $product->name }}</span>
             </h1>
         </div>
 
@@ -65,9 +61,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Campo Nombre -->
                 <div>
-                    <label for="name" class="block text-sm font-semibold text-gray-300 mb-2">Nombre del Producto</label>
+                    <label for="name" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Nombre del Producto</label>
                     <input type="text" id="name" name="name" value="{{ old('name', $product->name) }}"
-                        class="mt-1 block w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner"
+                        class="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner"
                         placeholder="Ej. Laptop Gaming X200" required>
                     @error('name')
                         <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
@@ -76,9 +72,9 @@
 
                 <!-- Campo Código de Barras -->
                 <div>
-                    <label for="codigo_barras" class="block text-sm font-semibold text-gray-300 mb-2">Código de Barras</label>
+                    <label for="codigo_barras" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Código de Barras</label>
                     <input type="text" id="codigo_barras" name="codigo_barras" value="{{ old('codigo_barras', $product->codigo_barras) }}"
-                        class="mt-1 block w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner"
+                        class="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner"
                         placeholder="Ej. 7501086801046">
                     @error('codigo_barras')
                         <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
@@ -87,9 +83,9 @@
 
                 <!-- Campo Stock -->
                 <div>
-                    <label for="stock" class="block text-sm font-semibold text-gray-300 mb-2">Stock</label>
+                    <label for="stock" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Stock</label>
                     <input type="number" id="stock" name="stock" value="{{ old('stock', $product->stock) }}"
-                        class="mt-1 block w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner" 
+                        class="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner" 
                         placeholder="Mínimo 0" required min="0">
                     @error('stock')
                         <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
@@ -98,9 +94,9 @@
 
                 <!-- Campo Precio -->
                 <div>
-                    <label for="price" class="block text-sm font-semibold text-gray-300 mb-2">Precio ($)</label>
+                    <label for="price" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Precio ($)</label>
                     <input type="number" step="0.01" id="price" name="price" value="{{ old('price', $product->price) }}"
-                        class="mt-1 block w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner" 
+                        class="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner" 
                         placeholder="Ej. 99.99" required min="0">
                     @error('price')
                         <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
@@ -109,9 +105,9 @@
 
                 <!-- Campo Categoría -->
                 <div>
-                    <label for="category_id" class="block text-sm font-semibold text-gray-300 mb-2">Categoría</label>
+                    <label for="category_id" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Categoría</label>
                     <select id="category_id" name="category_id" 
-                        class="mt-1 block w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner" required>
+                        class="mt-1 block w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-inner" required>
                         
                         <option value="" disabled class="text-gray-500">Selecciona una categoría</option>
                         

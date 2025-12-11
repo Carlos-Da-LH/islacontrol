@@ -13,19 +13,29 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
-        // Obtener todos los clientes ordenando "Público General" primero
-        $customers = Customer::where('user_id', auth()->id())
-            ->orderByRaw("CASE WHEN name = 'Público General' THEN 0 ELSE 1 END")
-            ->orderBy('name')
-            ->get();
+    public function index(Request $request)
+{
+    // Query base - SIN PAGINACIÓN con ordenamiento especial para "Público General"
+    $query = Customer::where('user_id', auth()->id())
+        ->orderByRaw("CASE WHEN name = 'Público General' THEN 0 ELSE 1 END")
+        ->orderBy('name');
 
-        // Devolver la vista 'customers.index' y pasar los clientes
-        return view('customers.index', [
-            'customers' => $customers
-        ]);
+    // Aplicar búsqueda si existe
+    if ($request->has('search') && $request->search != '') {
+        $search = $request->search;
+        $query->where(function($q) use ($search) {
+            $q->where('name', 'like', "%{$search}%")
+              ->orWhere('email', 'like', "%{$search}%")
+              ->orWhere('phone_number', 'like', "%{$search}%");
+        });
     }
+
+    // Traer TODOS los clientes (sin paginar)
+    $customers = $query->get();
+
+    // Devolver la vista 'customers.index' y pasar los clientes
+    return view('customers.index', ['customers' => $customers]);
+}
 
     /**
      * Muestra el formulario para crear un nuevo cliente.

@@ -6,38 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Crear Nueva Venta</title>
-    {{-- CDN de Tailwind CSS --}}
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/dark-mode.css">
-    <script src="/js/dark-mode.js"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <style>
         /* Estilos base */
         body {
             font-family: 'Inter', sans-serif;
         }
 
-        /* Contenedor principal para el color de fondo específico de la imagen (Navy/Negro Oscuro) */
-        .crud-container {
-            /* slate-800 oscuro de la vista de listado */
-            background-color: #1e293b; 
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Estilo para los inputs en el tema oscuro */
-        .input-dark-style {
-            background-color: #374151; /* Gris oscuro para el fondo del input */
-            color: #D1D5DB; /* Gris claro para el texto */
-            border-color: #4B5563; /* Borde gris oscuro */
-            transition: border-color 0.2s, background-color 0.2s;
-        }
-
-        .input-dark-style:focus {
-            border-color: #10B981; /* Verde esmeralda al enfocar */
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.5); /* Anillo de enfoque verde */
-        }
-        
         .btn-generate-ai {
             transition: all 0.2s ease-in-out;
         }
@@ -48,78 +24,75 @@
     </style>
 </head>
 
-{{-- Fondo muy oscuro para el cuerpo --}}
-<body class="bg-gray-900 min-h-screen font-sans pt-28 lg:pt-0">
+<body class="min-h-screen font-sans bg-gray-100 dark:bg-gray-900">
 
     @include('components.limit-reached-modal')
 
-    <div class="flex items-start justify-center p-4 sm:p-6 lg:p-8">
-        {{-- Contenedor del formulario: más ancho (max-w-4xl) y oscuro --}}
-        <div class="crud-container p-4 sm:p-6 lg:p-8 rounded-xl shadow-2xl w-full max-w-4xl">
+    {{-- Contenedor ANCHO y BAJO con scroll --}}
+    <div class="w-11/12 max-w-5xl mx-auto my-20 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 max-h-[60vh] flex flex-col">
 
-            {{-- Encabezado y Botón de Retroceso --}}
-            <div class="flex items-center mb-6 sm:mb-8">
-                {{-- Botón de Regreso (Ícono blanco) --}}
-                <a href="{{ route('sales.index') }}" class="text-gray-400 hover:text-white transition-colors mr-3 sm:mr-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                    </svg>
-                </a>
-                {{-- Título --}}
-                <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white flex-grow">Crear Nueva Venta</h1>
-            </div>
+        {{-- Encabezado FIJO --}}
+        <div class="flex items-center p-3 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
+            <a href="{{ route('sales.index') }}" class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+            </a>
+            <h1 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white flex-grow">Crear Nueva Venta</h1>
+        </div>
 
-            {{-- Mensajes de Session y Errores (Ajustados al tema oscuro) --}}
+        {{-- Contenedor con SCROLL --}}
+        <div class="overflow-y-auto flex-1 px-4 py-3">
+
+            {{-- Mensajes de Session y Errores --}}
             @if (session('success'))
-                <div class="p-3 rounded-lg text-sm bg-green-900 text-green-300 border border-green-700 mb-6" role="alert">
-                    {{ session('success') }}
-                </div>
+            <div class="p-3 rounded-lg text-sm bg-green-900 text-green-300 border border-green-700 mb-4" role="alert">
+                {{ session('success') }}
+            </div>
             @endif
             @if ($errors->any())
-                <div class="p-3 rounded-lg text-sm bg-red-900 text-red-300 border border-red-700 mb-6" role="alert">
-                    <ul class="list-disc ml-4">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="p-3 rounded-lg text-sm bg-red-900 text-red-300 border border-red-700 mb-4" role="alert">
+                <ul class="list-disc ml-4">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
 
-            <form id="sale-form" action="{{ route('sales.store') }}" method="POST" class="space-y-6">
+            <form id="sale-form" action="{{ route('sales.store') }}" method="POST" class="space-y-2">
                 @csrf
 
                 {{-- Campo Cliente y Fecha --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label for="customer_id" class="block text-sm font-medium text-gray-300">Cliente</label>
+                        <label for="customer_id" class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Cliente</label>
                         <select id="customer_id" name="customer_id"
-                            class="mt-1 block w-full px-4 py-2 rounded-lg shadow-sm sm:text-sm input-dark-style"
+                            class="block w-full px-2 py-1.5 rounded-md shadow-sm text-xs bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
                             required>
                             @foreach ($customers as $customer)
-                                <option value="{{ $customer->id }}" data-name="{{ $customer->name }}"
-                                    {{ $customer->name == 'Público General' ? 'selected' : '' }}>
-                                    {{ $customer->name === 'Público General' ? '1' : $customer->id }} - {{ $customer->name }}
-                                </option>
+                            <option value="{{ $customer->id }}" data-name="{{ $customer->name }}"
+                                {{ $customer->name == 'Público General' ? 'selected' : '' }}>
+                                {{ $customer->name === 'Público General' ? '1' : $customer->id }} - {{ $customer->name }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
 
                     <div>
-                        <label for="sale_date" class="block text-sm font-medium text-gray-300">Fecha de Venta</label>
+                        <label for="sale_date" class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Fecha</label>
                         <input type="date" id="sale_date" name="sale_date"
-                            class="mt-1 block w-full px-4 py-2 rounded-lg shadow-sm sm:text-sm input-dark-style"
+                            class="block w-full px-2 py-1.5 rounded-md shadow-sm text-xs bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
                             required value="{{ date('Y-m-d') }}">
                     </div>
                 </div>
 
-                <hr class="border-gray-700 mt-8 mb-6">
+                <hr class="border-gray-200 dark:border-gray-700 my-2">
 
-                <h2 class="text-2xl font-bold text-white mt-8 mb-4">Detalle de Productos</h2>
+                <h2 class="text-sm font-bold text-gray-900 dark:text-white mb-2">Productos</h2>
 
                 {{-- Encabezado de la cuadrícula de Productos --}}
-                <div class="grid grid-cols-1 md:grid-cols-6 gap-3 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
+                <div class="hidden lg:grid grid-cols-1 lg:grid-cols-6 gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
                     <div class="col-span-2">Producto</div>
                     <div>Cantidad</div>
                     <div>Precio Unitario</div>
@@ -127,109 +100,102 @@
                     <div></div>
                 </div>
 
-                {{-- Contenedor de Ítems (Productos de la venta) --}}
-                <div id="sale-items-container" class="space-y-4"></div>
+                {{-- Contenedor de Ítems --}}
+                <div id="sale-items-container" class="space-y-2"></div>
 
-                {{-- Botón para Añadir Producto --}}
+                {{-- Botón Añadir --}}
                 <button type="button" id="add-item-button"
-                    class="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 focus:ring-offset-[#1e293b]">
-                    <span class="text-xl mr-1">+</span> Añadir Producto
+                    class="px-3 py-1.5 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 transition-colors text-xs font-semibold">
+                    + Añadir
                 </button>
 
-                {{-- Resumen del Total --}}
-                <div class="border-t border-gray-700 pt-6 mt-6">
-                    <p class="text-xl font-bold text-white text-right">
-                        TOTAL: <span id="total-amount" class="text-green-400 font-extrabold ml-2">$0.00</span>
+                {{-- Total --}}
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
+                    <p class="text-sm font-bold text-gray-900 dark:text-white text-right">
+                        TOTAL: <span id="total-amount" class="text-green-600 dark:text-green-400 font-extrabold ml-1">$0.00</span>
                     </p>
                 </div>
 
-                <hr class="border-gray-700 mt-6 mb-6">
+                <hr class="border-gray-200 dark:border-gray-700 my-2">
 
                 {{-- Método de Pago --}}
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-3">Método de Pago</label>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <label class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1.5">Método de Pago</label>
+                    <div class="grid grid-cols-4 gap-2">
                         <label class="payment-method-option cursor-pointer">
                             <input type="radio" name="payment_method" value="efectivo" class="peer sr-only" checked required>
-                            <div class="border-2 border-gray-600 peer-checked:border-green-500 peer-checked:bg-green-900/30 rounded-lg p-3 text-center hover:border-gray-500 transition-all">
-                                <i class='bx bx-money text-3xl text-green-400'></i>
-                                <p class="text-xs font-semibold text-gray-300 mt-1">Efectivo</p>
+                            <div class="border border-gray-600 peer-checked:border-green-500 peer-checked:bg-green-900/30 rounded-md p-2 text-center hover:border-gray-500 transition-all">
+                                <i class='bx bx-money text-xl text-green-400'></i>
+                                <p class="text-xs font-medium text-gray-700 dark:text-gray-300 mt-1">Efect.</p>
                             </div>
                         </label>
                         <label class="payment-method-option cursor-pointer">
                             <input type="radio" name="payment_method" value="tarjeta_debito" class="peer sr-only" required>
-                            <div class="border-2 border-gray-600 peer-checked:border-blue-500 peer-checked:bg-blue-900/30 rounded-lg p-3 text-center hover:border-gray-500 transition-all">
-                                <i class='bx bx-credit-card text-3xl text-blue-400'></i>
-                                <p class="text-xs font-semibold text-gray-300 mt-1">Débito</p>
+                            <div class="border border-gray-600 peer-checked:border-blue-500 peer-checked:bg-blue-900/30 rounded-md p-2 text-center hover:border-gray-500 transition-all">
+                                <i class='bx bx-credit-card text-xl text-blue-400'></i>
+                                <p class="text-xs font-medium text-gray-700 dark:text-gray-300 mt-1">Déb.</p>
                             </div>
                         </label>
                         <label class="payment-method-option cursor-pointer">
                             <input type="radio" name="payment_method" value="tarjeta_credito" class="peer sr-only" required>
-                            <div class="border-2 border-gray-600 peer-checked:border-purple-500 peer-checked:bg-purple-900/30 rounded-lg p-3 text-center hover:border-gray-500 transition-all">
-                                <i class='bx bx-credit-card-alt text-3xl text-purple-400'></i>
-                                <p class="text-xs font-semibold text-gray-300 mt-1">Crédito</p>
+                            <div class="border border-gray-600 peer-checked:border-purple-500 peer-checked:bg-purple-900/30 rounded-md p-2 text-center hover:border-gray-500 transition-all">
+                                <i class='bx bx-credit-card-alt text-xl text-purple-400'></i>
+                                <p class="text-xs font-medium text-gray-700 dark:text-gray-300 mt-1">Créd.</p>
                             </div>
                         </label>
                         <label class="payment-method-option cursor-pointer">
                             <input type="radio" name="payment_method" value="transferencia" class="peer sr-only" required>
-                            <div class="border-2 border-gray-600 peer-checked:border-indigo-500 peer-checked:bg-indigo-900/30 rounded-lg p-3 text-center hover:border-gray-500 transition-all">
-                                <i class='bx bx-transfer text-3xl text-indigo-400'></i>
-                                <p class="text-xs font-semibold text-gray-300 mt-1">Transfer.</p>
+                            <div class="border border-gray-600 peer-checked:border-indigo-500 peer-checked:bg-indigo-900/30 rounded-md p-2 text-center hover:border-gray-500 transition-all">
+                                <i class='bx bx-transfer text-xl text-indigo-400'></i>
+                                <p class="text-xs font-medium text-gray-700 dark:text-gray-300 mt-1">Trans.</p>
                             </div>
                         </label>
                     </div>
                 </div>
 
-                {{-- Campos Condicionales para Efectivo --}}
-                <div id="cash-payment-section" class="space-y-4">
+                {{-- Efectivo --}}
+                <div id="cash-payment-section" class="space-y-2">
                     <div>
-                        <label for="amount_received" class="block text-sm font-medium text-gray-300 mb-2">
-                            Monto Recibido (Efectivo)
+                        <label for="amount_received" class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            Monto Recibido
                         </label>
                         <input type="number" id="amount_received" name="amount_received" step="0.01" min="0"
-                            class="mt-1 block w-full px-4 py-2 rounded-lg shadow-sm sm:text-sm input-dark-style"
+                            class="block w-full px-2 py-1.5 rounded-md shadow-sm text-xs bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
                             placeholder="0.00" oninput="calculateChange()">
                     </div>
-                    <div id="change-display" class="hidden p-4 bg-yellow-900/30 border-2 border-yellow-500 rounded-lg">
+                    <div id="change-display" class="hidden p-2 bg-yellow-900/30 border border-yellow-500 rounded-md">
                         <div class="flex justify-between items-center">
-                            <span class="text-lg font-semibold text-gray-300">Cambio:</span>
-                            <span id="change-value" class="text-2xl font-black text-yellow-400">$0.00</span>
+                            <span class="text-xs font-semibold text-gray-700 dark:text-gray-300">Cambio:</span>
+                            <span id="change-value" class="text-base font-black text-yellow-400">$0.00</span>
                         </div>
                     </div>
                 </div>
 
-                {{-- Campo de Referencia para Tarjetas/Transferencias --}}
+                {{-- Referencia --}}
                 <div id="reference-section" class="hidden">
-                    <label for="payment_reference" class="block text-sm font-medium text-gray-300 mb-2">
-                        Referencia / Número de Transacción (Opcional)
+                    <label for="payment_reference" class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        Referencia (Opcional)
                     </label>
                     <input type="text" id="payment_reference" name="payment_reference" maxlength="100"
-                        class="mt-1 block w-full px-4 py-2 rounded-lg shadow-sm sm:text-sm input-dark-style"
+                        class="block w-full px-2 py-1.5 rounded-md shadow-sm text-xs bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"
                         placeholder="Ej: AUTH123456">
                 </div>
 
-                {{-- Notas y Botón IA --}}
+                {{-- Notas --}}
                 <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <label for="notes" class="block text-sm font-medium text-gray-300">Notas Adicionales</label>
-                        <button type="button" id="generate-note-button"
-                            class="bg-purple-600 text-white font-semibold py-1 px-3 rounded-lg shadow-md hover:bg-purple-700 transition-colors btn-generate-ai text-xs focus:ring-offset-[#1e293b]">
-                            Generar Nota IA
-                        </button>
-                    </div>
-                    <textarea id="notes" name="notes" rows="4"
-                        class="mt-1 block w-full px-4 py-2 rounded-lg shadow-sm sm:text-sm input-dark-style"></textarea>
+                    <label for="notes" class="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Notas</label>
+                    <textarea id="notes" name="notes" rows="2"
+                        class="block w-full px-2 py-1.5 rounded-md shadow-sm text-xs bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors"></textarea>
                 </div>
 
-                {{-- Área de Mensajes Dinámicos (Errores/Info) --}}
-                <div id="message-area"
-                    class="p-3 rounded-lg text-sm transition-opacity duration-300 ease-in-out hidden"></div>
+                {{-- Mensajes --}}
+                <div id="message-area" class="p-2 rounded-md text-xs transition-opacity duration-300 ease-in-out hidden"></div>
 
                 {{-- Botón Guardar --}}
-                <div class="pt-4">
+                <div class="pt-3 pb-2">
                     <button type="submit"
-                        class="w-full bg-green-600 text-white font-bold text-lg py-3 rounded-lg hover:bg-green-700 transition-colors shadow-lg focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-green-600 focus:ring-offset-[#1e293b]">
-                        Guardar Venta
+                        class="w-full bg-green-600 text-white font-bold text-sm py-2 rounded-md hover:bg-green-700 transition-colors shadow-md focus:outline-none focus:ring-2 focus:ring-green-600">
+                        💾 Guardar Venta
                     </button>
                 </div>
             </form>
@@ -238,7 +204,6 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // **CLAVE:** Preparamos el string de las opciones de producto usando Blade.
         const productOptionsHtml = `
             <option value="">Selecciona un producto</option>
             @foreach($products as $product)
@@ -251,16 +216,11 @@
         const container = document.getElementById('sale-items-container');
         const addButton = document.getElementById('add-item-button');
         const totalAmountSpan = document.getElementById('total-amount');
-        const notesTextarea = document.getElementById('notes');
-        const customerSelect = document.getElementById('customer_id');
-        const generateNoteButton = document.getElementById('generate-note-button');
         const messageArea = document.getElementById('message-area');
-        const inputDarkStyle = 'input-dark-style'; // Clase CSS para los inputs oscuros
+        const inputDarkStyle = 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200 border border-gray-300 dark:border-gray-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors';
 
         let itemIndex = 0;
 
-        // --- FUNCIONES DE UTILIDAD (Mensajes) ---
-        
         function showMessage(message, type = 'error') {
             messageArea.innerText = message;
             messageArea.classList.remove('hidden', 'bg-red-900', 'text-red-300', 'bg-green-900', 'text-green-300', 'bg-blue-900', 'text-blue-300', 'opacity-0');
@@ -274,35 +234,23 @@
         }
 
         function hideMessage() {
-            messageArea.classList.add('opacity-0'); 
+            messageArea.classList.add('opacity-0');
             setTimeout(() => {
                 messageArea.classList.add('hidden');
                 messageArea.innerText = '';
             }, 300);
         }
 
-        function resetGenerateButton() {
-            generateNoteButton.disabled = false;
-            generateNoteButton.innerText = 'Generar Nota IA';
-            generateNoteButton.classList.remove('bg-gray-400', 'cursor-not-allowed');
-            generateNoteButton.classList.add('bg-purple-600', 'hover:bg-purple-700');
-        }
-        
-        // --- FUNCIONES DE CÁLCULO Y LÓGICA DE PRODUCTOS ---
-        
         function updateTotals() {
             let total = 0;
             document.querySelectorAll('.item-row').forEach(row => {
-                // Aseguramos que los valores sean números y usamos .toFixed(2)
                 const quantity = parseFloat(row.querySelector('input[name*="[quantity]"]').value) || 0;
                 const price = parseFloat(row.querySelector('input[name*="[price]"]').value) || 0;
                 const subtotal = quantity * price;
                 
-                // Formateo de subtotal
                 row.querySelector('.subtotal').innerText = `$${subtotal.toFixed(2)}`;
                 total += subtotal;
             });
-            // Formateo del total
             totalAmountSpan.innerText = `$${total.toFixed(2)}`;
         }
         
@@ -314,62 +262,59 @@
             const selectedOption = selectElement.options[selectElement.selectedIndex];
             const price = selectedOption.dataset.price || '0.00'; 
             
-            // Asignar precio y actualizar totales
             priceInput.value = parseFloat(price).toFixed(2);
             updateTotals();
         }
 
         function addItem() {
             const newItem = document.createElement('div');
-            newItem.classList.add('grid', 'grid-cols-1', 'md:grid-cols-6', 'gap-3', 'mb-4', 'items-center', 'item-row');
+            newItem.classList.add('grid', 'grid-cols-1', 'lg:grid-cols-6', 'gap-2', 'mb-2', 'items-center', 'item-row', 'p-2', 'bg-gray-50', 'dark:bg-gray-900/50', 'rounded-md', 'border', 'border-gray-200', 'dark:border-gray-700');
 
-            // Usamos la variable productOptionsHtml y la clase de estilo oscuro
             newItem.innerHTML = `
-                <div class="col-span-1 md:col-span-2">
+                <div class="col-span-1 lg:col-span-2">
+                    <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1 lg:hidden">Producto</label>
                     <select name="sale_items[${itemIndex}][product_id]" required
-                        class="block w-full rounded-lg shadow-sm px-4 py-2 product-select-field sm:text-sm ${inputDarkStyle}">
+                        class="block w-full rounded-md shadow-sm px-2 py-1.5 product-select-field text-xs ${inputDarkStyle}">
                         ${productOptionsHtml}
                     </select>
                 </div>
                 <div class="col-span-1">
+                    <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1 lg:hidden">Cant.</label>
                     <input type="number" name="sale_items[${itemIndex}][quantity]" required min="1"
-                        class="block w-full rounded-lg shadow-sm px-4 py-2 sm:text-sm ${inputDarkStyle}" value="1" placeholder="Cant.">
+                        class="block w-full rounded-md shadow-sm px-2 py-1.5 text-xs ${inputDarkStyle}" value="1" placeholder="Cant.">
                 </div>
                 <div class="col-span-1">
+                    <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1 lg:hidden">Precio</label>
                     <input type="number" name="sale_items[${itemIndex}][price]" required step="0.01" min="0"
-                        class="block w-full rounded-lg shadow-sm px-4 py-2 sm:text-sm ${inputDarkStyle}" placeholder="Precio" value="0.00">
+                        class="block w-full rounded-md shadow-sm px-2 py-1.5 text-xs ${inputDarkStyle}" placeholder="Precio" value="0.00">
                 </div>
-                <div class="col-span-1 text-right">
-                    <span class="subtotal block text-base font-semibold text-white">$0.00</span>
+                <div class="col-span-1 text-left lg:text-right">
+                    <label class="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1 lg:hidden">Subtotal</label>
+                    <span class="subtotal block text-sm font-bold text-green-600 dark:text-green-400">$0.00</span>
                 </div>
                 <div class="col-span-1">
                     <button type="button"
-                        class="remove-item-button w-full px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-600 focus:ring-offset-[#1e293b]">
-                        X
+                        class="remove-item-button w-full px-2 py-1.5 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors focus:outline-none text-xs">
+                        ✕
                     </button>
                 </div>
             `;
 
             container.appendChild(newItem);
 
-            // Conectamos los listeners a los campos del producto
             const productSelect = newItem.querySelector('.product-select-field');
             const priceInput = newItem.querySelector('input[name*="[price]"]');
             const quantityInput = newItem.querySelector('input[name*="[quantity]"]');
 
-            productSelect.addEventListener('change', handleProductChange); 
+            productSelect.addEventListener('change', handleProductChange);
             quantityInput.addEventListener('input', updateTotals);
             priceInput.addEventListener('input', updateTotals);
 
             itemIndex++;
         }
 
-        // --- INICIALIZACIÓN DE LISTENERS Y LÓGICA DE CARGA ---
-
-        // Conecta el botón Añadir Producto
         addButton.addEventListener('click', addItem);
         
-        // Listener para eliminar ítems
         container.addEventListener('click', e => {
             if (e.target.classList.contains('remove-item-button')) {
                 e.target.closest('.item-row').remove();
@@ -377,91 +322,8 @@
             }
         });
 
-        // Lógica para el botón "Generar Nota IA" (AJAX)
-        generateNoteButton.addEventListener('click', async () => {
-            // Desactivar botón
-            generateNoteButton.disabled = true;
-            generateNoteButton.innerText = 'Generando...';
-            generateNoteButton.classList.remove('bg-purple-600', 'hover:bg-purple-700');
-            generateNoteButton.classList.add('bg-gray-400', 'cursor-not-allowed');
-
-            const customerName = customerSelect.options[customerSelect.selectedIndex]?.dataset?.name;
-            
-            // Validaciones
-            if (!customerName) {
-                showMessage('⚠️ Selecciona un cliente para poder generar la nota.', 'error');
-                resetGenerateButton();
-                return;
-            }
-
-            const products = [];
-            document.querySelectorAll('.item-row').forEach(row => {
-                const productSelect = row.querySelector('select[name*="[product_id]"]');
-                const quantityInput = row.querySelector('input[name*="[quantity]"]');
-                const priceInput = row.querySelector('input[name*="[price]"]');
-                if (productSelect.value && quantityInput.value) {
-                    products.push({
-                        name: productSelect.options[productSelect.selectedIndex].dataset.name,
-                        quantity: quantityInput.value,
-                        price: priceInput.value
-                    });
-                }
-            });
-
-            if (products.length === 0) {
-                showMessage('⚠️ Añade al menos un producto a la venta.', 'error');
-                resetGenerateButton();
-                return;
-            }
-
-            // Preparar datos para el envío
-            const productsText = products.map(p => `${p.quantity} x ${p.name} ($${p.price})`).join(', ');
-            const total = totalAmountSpan.innerText;
-
-            try {
-                const response = await fetch('{{ route("sales.generate_note") }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({
-                        customer_name: customerName,
-                        products_list: productsText,
-                        total_amount: total
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok && data.success) { 
-                    if (data.note) {
-                        notesTextarea.value = data.note;
-                        showMessage('Nota generada exitosamente.', 'success');
-                    } else {
-                        throw new Error('El servidor no devolvió el contenido de la nota.');
-                    }
-                } else {
-                    const errorMessage = data.note || data.message || `Error HTTP ${response.status}. Revisa el backend.`;
-                    throw new Error(errorMessage);
-                }
-            } catch (error) {
-                // Manejo de errores de conexión o servidor
-                const finalMessage = `❌ Error al generar la nota: ${error.message || 'Hubo un problema de conexión.'}`;
-                notesTextarea.value = finalMessage;
-                showMessage(finalMessage, 'error');
-                console.error('Error de generación de nota (JS):', error);
-            } finally {
-                resetGenerateButton();
-            }
-        });
-
-        // ⚠️ CLAVE: Agregamos el primer ítem al cargar la página ⚠️
         addItem();
 
-        // === FUNCIONES PARA MÉTODO DE PAGO ===
-
-        // Manejar cambio de método de pago
         document.querySelectorAll('input[name="payment_method"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 const cashSection = document.getElementById('cash-payment-section');
@@ -478,7 +340,6 @@
             });
         });
 
-        // Calcular cambio
         function calculateChange() {
             const totalText = document.getElementById('total-amount').innerText.replace('$', '').replace(',', '');
             const total = parseFloat(totalText) || 0;
@@ -493,7 +354,6 @@
             }
         }
 
-        // Hacer disponible globalmente
         window.calculateChange = calculateChange;
     });
 </script>

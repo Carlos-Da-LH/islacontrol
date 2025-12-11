@@ -14,23 +14,31 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        // Obtiene todos los productos del usuario autenticado con su categoría relacionada
-        // CORREGIDO: Removida la paginación que causaba problemas
-        // Los productos más recientes aparecen primero
-        $products = Product::where('user_id', auth()->id())
-                         ->with('category')
-                         ->orderBy('id', 'desc')
-                         ->get();
+    public function index(Request $request)
+{
+    // Query base
+    $query = Product::where('user_id', auth()->id())
+                    ->with('category')
+                    ->orderBy('id', 'desc');
 
-        // Obtiene todas las categorías del usuario autenticado para la lista desplegable del formulario.
-        $categories = Category::where('user_id', auth()->id())->get();
-
-        // Retorna la vista de Blade y le pasa los datos de productos y categorías.
-        return view('products.index', compact('products', 'categories'));
+    // Aplicar búsqueda si existe
+    if ($request->has('search') && $request->search != '') {
+        $search = $request->search;
+        $query->where(function($q) use ($search) {
+            $q->where('name', 'like', "%{$search}%")
+              ->orWhere('codigo_barras', 'like', "%{$search}%");
+        });
     }
 
+    // Traer TODOS los resultados
+    $products = $query->get();
+
+    // Obtener categorías
+    $categories = Category::where('user_id', auth()->id())->get();
+
+    // Retornar vista
+    return view('products.index', compact('products', 'categories'));
+}
     /**
      * Muestra el formulario para crear un nuevo producto.
      *

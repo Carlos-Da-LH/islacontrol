@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Helpers\PlanHelper;
 
 class CategoryController extends Controller
 {
@@ -12,12 +13,24 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $categories = Category::where('user_id', auth()->id())->get();
-        // Cargar y pasar las categorías a la vista 'categories.index'
-        return view('categories.index', compact('categories'));
+    public function index(Request $request)
+{
+    // Query base - SIN PAGINACIÓN
+    $query = Category::where('user_id', auth()->id())
+                     ->orderBy('name');
+
+    // Aplicar búsqueda si existe
+    if ($request->has('search') && $request->search != '') {
+        $search = $request->search;
+        $query->where('name', 'like', "%{$search}%");
     }
+
+    // Traer TODAS las categorías (sin paginar)
+    $categories = $query->get();
+
+    // Cargar y pasar las categorías a la vista
+    return view('categories.index', compact('categories'));
+}
 
     /**
      * Muestra el formulario para crear una nueva categoría.

@@ -53,7 +53,7 @@
         }
     </style>
 </head>
-<body class="text-white dark:text-white min-h-screen p-4 pt-28 lg:pt-4">
+<body class="text-white dark:text-white min-h-screen p-4 pt-52 lg:pt-4">
 
     <div class="max-w-7xl mx-auto">
 
