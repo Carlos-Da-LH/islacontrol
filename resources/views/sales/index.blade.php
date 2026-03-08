@@ -615,10 +615,10 @@
                     </thead>
                     <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700" id="sales-table-body">
                         @forelse ($sales as $sale)
-                        <tr class="hover:bg-gray-50 transition-colors sales-row" data-sale-id="{{ $sale->id }}" data-sale-amount="{{ $sale->amount }}">
+                        <tr class="hover:bg-gray-50 dark:hover:bg-teal-700/20 transition-colors sales-row" data-sale-id="{{ $sale->id }}" data-sale-amount="{{ $sale->amount }}">
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ $sale->id }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-700 dark:text-white">{{ $sale->customer->name }}</td>
-                            <td class="px-6 py-4 text-sm text-gray-700">
+                            <td class="px-6 py-4 text-sm text-gray-700 dark:text-white">
                                 <div class="max-w-xs">
                                     @foreach($sale->saleItems as $item)
                                     <div class="text-xs">
@@ -627,9 +627,9 @@
                                     @endforeach
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-semibold text-teal-600">${{ number_format($sale->amount, 2) }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ \Carbon\Carbon::parse($sale->sale_date)->format('d/m/Y') }}</td>
-                            <td class="px-6 py-4 text-sm text-gray-700">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-semibold text-teal-600 dark:text-teal-400">${{ number_format($sale->amount, 2) }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-white">{{ \Carbon\Carbon::parse($sale->sale_date)->format('d/m/Y') }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-700 dark:text-white">
                                 <div class="max-w-xs truncate" title="{{ $sale->notes }}">
                                     {{ $sale->notes ? Str::limit($sale->notes, 30) : '-' }}
                                 </div>

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IslaControl – Agencia de Software</title>
   <meta name="description" content="IslaControl es una agencia de software que desarrolla soluciones digitales a medida: sistemas de gestión, aplicaciones web y móviles para tu negocio." />
-  <link rel="icon" href="{{ asset('favicon.ico') }}" />
+  <link rel="icon" href="favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -43,7 +43,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 5%;
-      height: 110px;
+      height: 70px;
       background: rgba(255,255,255,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(0,0,0,0.06);
@@ -57,7 +57,8 @@
       gap: 10px;
       text-decoration: none;
     }
-    .nav-logo img { height: 100px; }
+    .nav-logo img { height: 40px; }
+    .nav-logo span { font-size: 1.2rem; font-weight: 700; color: var(--green-dark); }
 
     .nav-links {
       display: flex;
@@ -677,6 +678,7 @@
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
+      .hero-inner { padding-top: 1rem; }
       .stats-inner { grid-template-columns: repeat(2, 1fr); }
       .services-grid { grid-template-columns: 1fr; }
       .testimonios-grid { grid-template-columns: 1fr; }
@@ -691,7 +693,7 @@
 <!-- NAVBAR -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo">
-    <img src="{{ asset('images/nuevo_islacontrol.png') }}" alt="IslaControl Logo" />
+    <img src="images/nuevo_islacontrol.png" alt="IslaControl Logo" />
   </a>
   <ul class="nav-links">
     <li><a href="#servicios">Servicios</a></li>
@@ -732,7 +734,7 @@
     <div class="hero-visual">
       <div class="hero-card-wrap">
         <div class="hero-main-card">
-          <img src="{{ asset('images/nuevo_islacontrol.png') }}" alt="IslaControl" />
+          <img src="images/nuevo_islacontrol.png" alt="IslaControl" />
           <h3>IslaControl Software</h3>
           <p>Tu socio tecnológico de confianza</p>
         </div>
@@ -758,10 +760,22 @@
 <!-- STATS -->
 <div id="stats">
   <div class="stats-inner">
-    <div class="stat-item"><h3>50+</h3><p>Proyectos entregados</p></div>
-    <div class="stat-item"><h3>30+</h3><p>Clientes satisfechos</p></div>
-    <div class="stat-item"><h3>5+</h3><p>Años de experiencia</p></div>
-    <div class="stat-item"><h3>100%</h3><p>Soporte post-entrega</p></div>
+    <div class="stat-item">
+      <h3>50+</h3>
+      <p>Proyectos entregados</p>
+    </div>
+    <div class="stat-item">
+      <h3>30+</h3>
+      <p>Clientes satisfechos</p>
+    </div>
+    <div class="stat-item">
+      <h3>5+</h3>
+      <p>Años de experiencia</p>
+    </div>
+    <div class="stat-item">
+      <h3>100%</h3>
+      <p>Soporte post-entrega</p>
+    </div>
   </div>
 </div>
 
@@ -818,19 +832,31 @@
       <div class="proceso-steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div><h4>Descubrimiento</h4><p>Entendemos tu negocio, tus objetivos y los problemas que quieres resolver con tecnología.</p></div>
+          <div>
+            <h4>Descubrimiento</h4>
+            <p>Entendemos tu negocio, tus objetivos y los problemas que quieres resolver con tecnología.</p>
+          </div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div><h4>Propuesta y diseño</h4><p>Creamos una propuesta detallada con alcance, tiempo y costo. Luego diseñamos los wireframes.</p></div>
+          <div>
+            <h4>Propuesta y diseño</h4>
+            <p>Creamos una propuesta detallada con alcance, tiempo y costo. Luego diseñamos los wireframes.</p>
+          </div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div><h4>Desarrollo ágil</h4><p>Trabajamos en sprints con entregas parciales para que veas el progreso semana a semana.</p></div>
+          <div>
+            <h4>Desarrollo ágil</h4>
+            <p>Trabajamos en sprints con entregas parciales para que veas el progreso semana a semana.</p>
+          </div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div><h4>Entrega y soporte</h4><p>Lanzamos el producto y te capacitamos en su uso. Seguimos contigo después del lanzamiento.</p></div>
+          <div>
+            <h4>Entrega y soporte</h4>
+            <p>Lanzamos el producto y te capacitamos en su uso. Seguimos contigo después del lanzamiento.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -849,7 +875,7 @@
   </div>
 </section>
 
-<!-- PRODUCTOS -->
+<!-- PRODUCTOS DESTACADOS -->
 <section id="productos">
   <div style="max-width:1200px;margin:0 auto;">
     <div class="section-head center">
@@ -864,7 +890,10 @@
           <h3>IslaControl POS</h3>
           <p>Sistema de punto de venta completo con control de inventario, caja, reportes de ventas y gestión de clientes. Ideal para tiendas, restaurantes y negocios de retail.</p>
           <div class="product-tags">
-            <span class="tag">Inventario</span><span class="tag">Facturación</span><span class="tag">Reportes</span><span class="tag">Multi-usuario</span>
+            <span class="tag">Inventario</span>
+            <span class="tag">Facturación</span>
+            <span class="tag">Reportes</span>
+            <span class="tag">Multi-usuario</span>
           </div>
         </div>
       </div>
@@ -874,7 +903,10 @@
           <h3>IslaControl Empresarial</h3>
           <p>Plataforma ERP para pymes que integra ventas, compras, recursos humanos, contabilidad básica y reportería avanzada en un solo sistema.</p>
           <div class="product-tags">
-            <span class="tag">ERP</span><span class="tag">RRHH</span><span class="tag">Contabilidad</span><span class="tag">Dashboard</span>
+            <span class="tag">ERP</span>
+            <span class="tag">RRHH</span>
+            <span class="tag">Contabilidad</span>
+            <span class="tag">Dashboard</span>
           </div>
         </div>
       </div>
@@ -884,7 +916,10 @@
           <h3>IslaControl Rentas</h3>
           <p>Sistema especializado para negocios de renta de equipos, vehículos o maquinaria. Control de contratos, mantenimiento y disponibilidad en tiempo real.</p>
           <div class="product-tags">
-            <span class="tag">Contratos</span><span class="tag">Calendario</span><span class="tag">Clientes</span><span class="tag">Cobros</span>
+            <span class="tag">Contratos</span>
+            <span class="tag">Calendario</span>
+            <span class="tag">Clientes</span>
+            <span class="tag">Cobros</span>
           </div>
         </div>
       </div>
@@ -894,7 +929,10 @@
           <h3>Software a Medida</h3>
           <p>¿No encuentras lo que buscas? Construimos exactamente lo que tu negocio necesita, desde cero, con tu lógica y tus procesos en mente.</p>
           <div class="product-tags">
-            <span class="tag">Personalizado</span><span class="tag">Escalable</span><span class="tag">Tu marca</span><span class="tag">Soporte incluido</span>
+            <span class="tag">Personalizado</span>
+            <span class="tag">Escalable</span>
+            <span class="tag">Tu marca</span>
+            <span class="tag">Soporte incluido</span>
           </div>
         </div>
       </div>
@@ -954,7 +992,10 @@
         <p>"IslaControl nos desarrolló el sistema de inventario que necesitábamos. Ahora tenemos todo bajo control y los reportes son increíbles."</p>
         <div class="testi-author">
           <div class="avatar">MR</div>
-          <div><h5>Mario Rodríguez</h5><span>Gerente, Ferretería Central</span></div>
+          <div>
+            <h5>Mario Rodríguez</h5>
+            <span>Gerente, Ferretería Central</span>
+          </div>
         </div>
       </div>
       <div class="testi-card">
@@ -962,7 +1003,10 @@
         <p>"El sistema de punto de venta transformó nuestra operación. Antes tardábamos horas cerrando caja, ahora son minutos."</p>
         <div class="testi-author">
           <div class="avatar">AL</div>
-          <div><h5>Ana López</h5><span>Dueña, Boutique Estilo</span></div>
+          <div>
+            <h5>Ana López</h5>
+            <span>Dueña, Boutique Estilo</span>
+          </div>
         </div>
       </div>
       <div class="testi-card">
@@ -970,7 +1014,10 @@
         <p>"Muy profesionales. Cumplieron los tiempos pactados y nos dieron seguimiento después de la entrega. Los recomiendo sin dudarlo."</p>
         <div class="testi-author">
           <div class="avatar">JG</div>
-          <div><h5>Juan García</h5><span>Director, Rentas Express</span></div>
+          <div>
+            <h5>Juan García</h5>
+            <span>Director, Rentas Express</span>
+          </div>
         </div>
       </div>
     </div>
@@ -984,13 +1031,16 @@
       <h2>Hagamos algo increíble juntos</h2>
       <p>Cuéntanos tu proyecto. Respondemos en menos de 24 horas con una propuesta inicial sin costo.</p>
       <div class="contact-item">
-        <div class="ci-icon">📧</div><span>hola@islacontrol.com</span>
+        <div class="ci-icon">📧</div>
+        <span>hola@islacontrol.com</span>
       </div>
       <div class="contact-item">
-        <div class="ci-icon">📱</div><span>+52 (555) 123-4567</span>
+        <div class="ci-icon">📱</div>
+        <span>+52 (555) 123-4567</span>
       </div>
       <div class="contact-item">
-        <div class="ci-icon">📍</div><span>México · Atención en toda Latinoamérica</span>
+        <div class="ci-icon">📍</div>
+        <span>México · Atención en toda Latinoamérica</span>
       </div>
     </div>
     <form class="contact-form" onsubmit="handleSubmit(event)">
@@ -1019,7 +1069,7 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <img src="{{ asset('images/islacontrol2.png') }}" alt="IslaControl" />
+      <img src="images/islacontrol2.png" alt="IslaControl" />
       <p>Agencia de desarrollo de software especializada en soluciones a medida para empresas de todos los tamaños.</p>
     </div>
     <div class="footer-col">
@@ -1057,16 +1107,23 @@
 </footer>
 
 <script>
+  // Navbar scroll effect
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 20);
   });
 
+  // Hamburger menu
   const hamburger = document.getElementById('hamburger');
   const mobileNav = document.getElementById('mobileNav');
-  hamburger.addEventListener('click', () => mobileNav.classList.toggle('open'));
-  function closeMobile() { mobileNav.classList.remove('open'); }
+  hamburger.addEventListener('click', () => {
+    mobileNav.classList.toggle('open');
+  });
+  function closeMobile() {
+    mobileNav.classList.remove('open');
+  }
 
+  // Contact form
   function handleSubmit(e) {
     e.preventDefault();
     const btn = e.target.querySelector('.btn-submit');
@@ -1083,7 +1140,7 @@
     }, 3000);
   }
 
-  // Animate stats
+  // Animate stats on scroll
   const animateValue = (el, end, duration) => {
     let start = 0;
     const step = Math.ceil(end / (duration / 16));
@@ -1093,26 +1150,29 @@
       else el.textContent = start + (el.dataset.suffix || '');
     }, 16);
   };
+
   const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.querySelectorAll('h3').forEach(h3 => {
           const text = h3.textContent;
           const num = parseInt(text);
-          h3.dataset.suffix = text.replace(num, '');
+          const suffix = text.replace(num, '');
+          h3.dataset.suffix = suffix;
           animateValue(h3, num, 1000);
         });
         statsObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.5 });
+
   const statsSection = document.getElementById('stats');
   if (statsSection) statsObserver.observe(statsSection);
 
   // Fade-in on scroll
   const fadeEls = document.querySelectorAll('.service-card, .step, .pq-card, .testi-card, .product-card');
   const fadeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
         setTimeout(() => {
           entry.target.style.opacity = '1';
@@ -1122,6 +1182,7 @@
       }
     });
   }, { threshold: 0.1 });
+
   fadeEls.forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
