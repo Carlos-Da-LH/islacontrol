@@ -984,13 +984,13 @@
       <h2>Hagamos algo increíble juntos</h2>
       <p>Cuéntanos tu proyecto. Respondemos en menos de 24 horas con una propuesta inicial sin costo.</p>
       <div class="contact-item">
-        <div class="ci-icon">📧</div><span>hola@islacontrol.com</span>
+        <div class="ci-icon">📧</div><span>islacontroloficial@gmail.com</span>
       </div>
       <div class="contact-item">
-        <div class="ci-icon">📱</div><span>+52 (555) 123-4567</span>
+        <div class="ci-icon">📱</div><span>+52 938 152 0455</span>
       </div>
       <div class="contact-item">
-        <div class="ci-icon">📍</div><span>México · Atención en toda Latinoamérica</span>
+        <div class="ci-icon">📍</div><span>Fracc. Orizaba, Calle Alfa 11B, Cd. del Carmen, Campeche, México CP 24158</span>
       </div>
     </div>
     <form class="contact-form" onsubmit="handleSubmit(event)">
