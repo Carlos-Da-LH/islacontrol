@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IslaControl – Agencia de Software</title>
   <meta name="description" content="IslaControl es una agencia de software que desarrolla soluciones digitales a medida: sistemas de gestión, aplicaciones web y móviles para tu negocio." />
-  <link rel="icon" href="{{ asset('favicon.ico') }}" />
+  <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -736,12 +736,8 @@
           <h3>IslaControl Solutions</h3>
           <p>Tu socio tecnológico de confianza</p>
         </div>
-        <div class="floating-badge fb-1">
-          <span class="icon">🚀</span>
-          <div>
-            <div style="color:#1a5c45;font-size:.8rem">Entrega rápida</div>
-            <div style="color:#64748b;font-weight:400;font-size:.7rem">Proyectos en tiempo</div>
-          </div>
+
+
         </div>
       </div>
     </div>
