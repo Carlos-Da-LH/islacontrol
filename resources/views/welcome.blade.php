@@ -743,13 +743,6 @@
             <div style="color:#64748b;font-weight:400;font-size:.7rem">Proyectos en tiempo</div>
           </div>
         </div>
-        <div class="floating-badge fb-2">
-          <span class="icon">⭐</span>
-          <div>
-            <div style="color:#1a5c45;font-size:.8rem">Alta calidad</div>
-            <div style="color:#64748b;font-weight:400;font-size:.7rem">Código limpio</div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
