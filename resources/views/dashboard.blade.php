@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Dashboard | IslaControl Solutions</title>
+    <title>Dashboard | IslaControl</title>
     <link rel="icon" type="image/png" href="/storage/logos/logo_islacontrol22.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -850,8 +850,8 @@
          SPLASH SCREEN
          =================================== -->
     <div id="splash-screen">
-        <img src="/images/nuevo_islacontrol.png" alt="IslaControl Solutions Logo" class="splash-logo">
-        <h1 class="splash-title">IslaControl Solutions</h1>
+        <img src="/images/nuevo_islacontrol.png" alt="IslaControl Logo" class="splash-logo">
+        <h1 class="splash-title">IslaControl</h1>
         <p class="splash-tagline">Gestión y Punto de Venta para tu Negocio</p>
         <div class="splash-loader"></div>
         <p class="splash-loading-text">Cargando...</p>
@@ -860,7 +860,7 @@
     <div id="sidebar-overlay" class="overlay print:hidden" onclick="toggleSidebar()"></div>
 
     <header class="lg:hidden bg-white shadow-md p-4 fixed top-0 left-0 right-0 z-30 flex justify-between items-center border-b border-gray-200 print:hidden">
-        <h1 class="text-xl font-bold text-custom-active">IslaControl Solutions</h1>
+        <h1 class="text-xl font-bold text-custom-active">IslaControl</h1>
         <button id="menu-toggle" onclick="toggleSidebar()" class="text-2xl text-custom-text">
             <i class='bx bx-menu'></i>
         </button>
@@ -869,7 +869,7 @@
     <div id="sidebar" class="sidebar bg-white text-gray-800 flex flex-col shadow-lg border-r border-gray-200 print:hidden">
 
         <div class="flex items-center justify-center pt-6 pb-4 border-b border-gray-200">
-            <img src="/images/nuevo_islacontrol.png" class="h-48 w-48 object-contain drop-shadow-xl" alt="Logo IslaControl Solutions">
+            <img src="/images/nuevo_islacontrol.png" class="h-48 w-48 object-contain drop-shadow-xl" alt="Logo IslaControl">
         </div>
 
         <div class="sidebar-content-scrollable" id="sidebar-nav-container">
@@ -1061,7 +1061,7 @@
             }, 2000); // 2 segundos de visualización
         });
 
-        console.log("🚀 Inicializando IslaControl Solutions Dashboard v2...");
+        console.log("🚀 Inicializando IslaControl Dashboard v2...");
 
         const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
 
@@ -5191,7 +5191,7 @@
                 totalUnits,
                 settings
             } = saleData;
-            const nombreNegocio = settings.nombre_negocio || 'IslaControl Solutions';
+            const nombreNegocio = settings.nombre_negocio || 'IslaControl';
             const fecha = new Date().toLocaleDateString('es-MX', {
                 day: '2-digit',
                 month: '2-digit',
@@ -5263,7 +5263,7 @@
             phoneInput.value = '';
 
             // Generar y mostrar preview del mensaje corto de agradecimiento
-            const nombreNegocio = window.lastSaleData.settings.nombre_negocio || 'IslaControl Solutions';
+            const nombreNegocio = window.lastSaleData.settings.nombre_negocio || 'IslaControl';
             const mensaje = `✨ ¡Gracias por tu compra! ✨
 
 Apreciamos tu preferencia en ${nombreNegocio}.
@@ -5377,7 +5377,7 @@ Esperamos verte pronto de nuevo.
                 totalUnits,
                 settings
             } = saleData;
-            const nombreNegocio = settings.nombre_negocio || 'IslaControl Solutions';
+            const nombreNegocio = settings.nombre_negocio || 'IslaControl';
             const fecha = new Date().toLocaleDateString('es-MX', {
                 day: '2-digit',
                 month: '2-digit',
@@ -5522,7 +5522,7 @@ Esperamos verte pronto de nuevo.
             const {
                 settings
             } = window.lastSaleData;
-            const nombreNegocio = settings.nombre_negocio || 'IslaControl Solutions';
+            const nombreNegocio = settings.nombre_negocio || 'IslaControl';
 
             // Limpiar el teléfono (quitar espacios, guiones, etc)
             phone = phone.replace(/\D/g, '');
@@ -5988,7 +5988,7 @@ Esperamos verte pronto de nuevo.
         <div class="ticket-line"></div>
 
         <div class="ticket-footer">
-            <p>Desarrollado por IslaControl Solutions</p>
+            <p>Desarrollado por IslaControl</p>
         </div>
 
     </div>
@@ -9396,7 +9396,7 @@ Esperamos verte pronto de nuevo.
                                 <i class='bx bx-store text-white text-3xl sm:text-4xl md:text-5xl'></i>
                             </div>
                             <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white mb-2 sm:mb-3">
-                                ¡Bienvenido a IslaControl Solutions!
+                                ¡Bienvenido a IslaControl!
                             </h2>
                             <p class="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4">
                                 Sistema de gestión para todo tipo de negocios. Selecciona el tuyo para comenzar.
@@ -9464,7 +9464,7 @@ Esperamos verte pronto de nuevo.
                             <button type="submit"
                                     class="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 active:scale-95 text-white font-bold py-3 sm:py-4 md:py-5 px-4 sm:px-6 rounded-lg sm:rounded-xl transition-all transform hover:scale-[1.02] shadow-2xl text-sm sm:text-base md:text-lg">
                                 <i class='bx bx-check-circle text-lg sm:text-xl md:text-2xl align-middle mr-1 sm:mr-2'></i>
-                                Comenzar con IslaControl Solutions
+                                Comenzar con IslaControl
                             </button>
                         </form>
 
@@ -9563,7 +9563,7 @@ Esperamos verte pronto de nuevo.
                 btn.classList.add('opacity-70');
             });
 
-            // Marcar como seleccionado con efecto visual mejorado (verde IslaControl Solutions)
+            // Marcar como seleccionado con efecto visual mejorado (verde IslaControl)
             const selectedButton = event.target.closest('.business-type-option');
             selectedButton.classList.remove('opacity-70');
             selectedButton.classList.add('ring-4', 'ring-emerald-500', 'scale-105', 'shadow-2xl');

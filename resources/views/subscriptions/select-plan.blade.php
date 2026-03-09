@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selecciona tu Plan - IslaControl Solutions</title>
+    <title>Selecciona tu Plan - IslaControl</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -33,7 +33,7 @@
                 <div class="inline-flex items-center justify-center w-20 h-20 bg-emerald-100 rounded-full mb-4">
                     <i class='bx bx-gift text-4xl text-emerald-600'></i>
                 </div>
-                <h1 class="text-4xl font-bold text-gray-800 mb-4">¡Bienvenido a IslaControl Solutions! 🎉</h1>
+                <h1 class="text-4xl font-bold text-gray-800 mb-4">¡Bienvenido a IslaControl! 🎉</h1>
                 <p class="text-xl text-gray-600 mb-2">Elige tu plan y comienza con <strong>30 días gratis</strong></p>
                 <p class="text-gray-500">Sin compromisos, cancela cuando quieras</p>
             </div>
@@ -129,7 +129,7 @@
                         <div>
                             <h3 class="font-bold text-gray-800 mb-2">Plan Gratuito</h3>
                             <p class="text-sm text-gray-600 mb-3">
-                                Perfecto para probar IslaControl Solutions con funcionalidad limitada
+                                Perfecto para probar IslaControl con funcionalidad limitada
                             </p>
                             <div class="text-xs text-gray-500 space-y-1">
                                 <p>• 10 productos</p>

@@ -245,7 +245,7 @@
 
     <!-- Pie de página -->
     <div class="footer">
-        <p>Generado el {{ \Carbon\Carbon::now()->format('d/m/Y H:i:s') }} | IslaControl Solutions - Sistema de Punto de Venta</p>
+        <p>Generado el {{ \Carbon\Carbon::now()->format('d/m/Y H:i:s') }} | IslaControl - Sistema de Punto de Venta</p>
     </div>
 </body>
 </html>

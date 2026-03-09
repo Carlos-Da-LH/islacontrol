@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IslaControl Solutions – Agencia de Software</title>
-  <meta name="description" content="IslaControl Solutions es una agencia de software que desarrolla soluciones digitales a medida: sistemas de gestión, aplicaciones web y móviles para tu negocio." />
+  <title>IslaControl – Agencia de Software</title>
+  <meta name="description" content="IslaControl es una agencia de software que desarrolla soluciones digitales a medida: sistemas de gestión, aplicaciones web y móviles para tu negocio." />
   <link rel="icon" href="{{ asset('favicon.ico') }}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -611,7 +611,7 @@
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
       gap: 3rem;
       padding-bottom: 2rem;
       border-bottom: 1px solid rgba(255,255,255,.08);
@@ -691,7 +691,7 @@
 <!-- NAVBAR -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo">
-    <img src="{{ asset('images/nuevo_islacontrol.png') }}" alt="IslaControl Solutions Logo" />
+    <img src="{{ asset('images/nuevo_islacontrol.png') }}" alt="IslaControl Logo" />
   </a>
   <ul class="nav-links">
     <li><a href="#servicios">Servicios</a></li>
@@ -732,8 +732,8 @@
     <div class="hero-visual">
       <div class="hero-card-wrap">
         <div class="hero-main-card">
-          <img src="{{ asset('images/nuevo_islacontrol.png') }}" alt="IslaControl Solutions" />
-          <h3>IslaControl Solutions Software</h3>
+          <img src="{{ asset('images/nuevo_islacontrol.png') }}" alt="IslaControl" />
+          <h3>IslaControl Software</h3>
           <p>Tu socio tecnológico de confianza</p>
         </div>
         <div class="floating-badge fb-1">
@@ -861,7 +861,7 @@
       <div class="product-card">
         <div class="product-img">🏪</div>
         <div class="product-body">
-          <h3>IslaControl Solutions POS</h3>
+          <h3>IslaControl POS</h3>
           <p>Sistema de punto de venta completo con control de inventario, caja, reportes de ventas y gestión de clientes. Ideal para tiendas, restaurantes y negocios de retail.</p>
           <div class="product-tags">
             <span class="tag">Inventario</span><span class="tag">Facturación</span><span class="tag">Reportes</span><span class="tag">Multi-usuario</span>
@@ -871,7 +871,7 @@
       <div class="product-card">
         <div class="product-img">🏢</div>
         <div class="product-body">
-          <h3>IslaControl Solutions Empresarial</h3>
+          <h3>IslaControl Empresarial</h3>
           <p>Plataforma ERP para pymes que integra ventas, compras, recursos humanos, contabilidad básica y reportería avanzada en un solo sistema.</p>
           <div class="product-tags">
             <span class="tag">ERP</span><span class="tag">RRHH</span><span class="tag">Contabilidad</span><span class="tag">Dashboard</span>
@@ -881,7 +881,7 @@
       <div class="product-card">
         <div class="product-img">🚗</div>
         <div class="product-body">
-          <h3>IslaControl Solutions Rentas</h3>
+          <h3>IslaControl Rentas</h3>
           <p>Sistema especializado para negocios de renta de equipos, vehículos o maquinaria. Control de contratos, mantenimiento y disponibilidad en tiempo real.</p>
           <div class="product-tags">
             <span class="tag">Contratos</span><span class="tag">Calendario</span><span class="tag">Clientes</span><span class="tag">Cobros</span>
@@ -908,7 +908,7 @@
     <div>
       <span class="section-label">¿Por qué elegirnos?</span>
       <h2 class="section-title">No somos un proveedor, <span>somos tu aliado</span></h2>
-      <p class="section-sub" style="margin-bottom:2rem">En IslaControl Solutions creemos que la tecnología debe resolver problemas reales. Por eso escuchamos primero y escribimos código después.</p>
+      <p class="section-sub" style="margin-bottom:2rem">En IslaControl creemos que la tecnología debe resolver problemas reales. Por eso escuchamos primero y escribimos código después.</p>
       <a href="#contacto" class="btn-primary">Habla con nosotros</a>
     </div>
     <div class="porque-visual">
@@ -934,7 +934,7 @@
       </div>
       <div class="pq-card highlight">
         <div class="icon">🌴</div>
-        <h4>IslaControl Solutions: donde las ideas florecen</h4>
+        <h4>IslaControl: donde las ideas florecen</h4>
         <p>Como una isla donde todo es posible, convertimos tus ideas en productos de software que marcan la diferencia.</p>
       </div>
     </div>
@@ -951,7 +951,7 @@
     <div class="testimonios-grid">
       <div class="testi-card">
         <div class="stars">★★★★★</div>
-        <p>"IslaControl Solutions nos desarrolló el sistema de inventario que necesitábamos. Ahora tenemos todo bajo control y los reportes son increíbles."</p>
+        <p>"IslaControl nos desarrolló el sistema de inventario que necesitábamos. Ahora tenemos todo bajo control y los reportes son increíbles."</p>
         <div class="testi-author">
           <div class="avatar">MR</div>
           <div><h5>Mario Rodríguez</h5><span>Gerente, Ferretería Central</span></div>
@@ -1019,7 +1019,7 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <img src="{{ asset('images/islacontrol2.png') }}" alt="IslaControl Solutions" />
+      <img src="{{ asset('images/islacontrol2.png') }}" alt="IslaControl" />
       <p>Agencia de desarrollo de software especializada en soluciones a medida para empresas de todos los tamaños.</p>
     </div>
     <div class="footer-col">
@@ -1045,22 +1045,13 @@
       <h4>Contacto</h4>
       <ul>
         <li><a href="#contacto">Cotizar proyecto</a></li>
-        <li><a href="mailto:islacontroloficial@gmail.com">islacontroloficial@gmail.com</a></li>
-        <li><a href="tel:+529381520455">938 152 0455</a></li>
+        <li><a href="mailto:hola@islacontrol.com">hola@islacontrol.com</a></li>
         <li><a href="#contacto">Soporte técnico</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Ubicación</h4>
-      <ul>
-        <li><a href="https://maps.google.com/?q=Fracc.+Orizaba+Calle+Alfa+11B,+Cd+del+Carmen,+Campeche" target="_blank" rel="noopener">Fracc. Orizaba, Calle Alfa 11B</a></li>
-        <li><span style="color:rgba(255,255,255,.6);font-size:.85rem;">Cd. del Carmen, Campeche</span></li>
-        <li><span style="color:rgba(255,255,255,.6);font-size:.85rem;">México, CP 24158</span></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 IslaControl Solutions. Todos los derechos reservados.</span>
+    <span>© 2026 IslaControl. Todos los derechos reservados.</span>
     <span>Hecho con ❤️ en México</span>
   </div>
 </footer>

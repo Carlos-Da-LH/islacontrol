@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#00D084" />
-    <title>Acerca de IslaControl Solutions</title>
+    <title>Acerca de IslaControl</title>
     <link rel="icon" type="image/png" href="/storage/logos/logo_islacontrol22.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -38,7 +38,7 @@
                     <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #00D084 0%, #00a066 100%);">
                         <i class='bx bx-store text-white text-2xl'></i>
                     </div>
-                    <span class="text-xl font-bold text-gray-800">IslaControl Solutions</span>
+                    <span class="text-xl font-bold text-gray-800">IslaControl</span>
                 </div>
                 <a href="{{ route('welcome') }}" class="text-gray-600 hover:text-gray-800 flex items-center gap-2">
                     <i class='bx bx-arrow-back'></i>
@@ -54,7 +54,7 @@
             <div class="w-24 h-24 bg-white/20 backdrop-blur-md rounded-3xl flex items-center justify-center mx-auto mb-6">
                 <i class='bx bx-store text-white text-5xl'></i>
             </div>
-            <h1 class="text-4xl sm:text-5xl font-bold mb-4">Acerca de IslaControl Solutions</h1>
+            <h1 class="text-4xl sm:text-5xl font-bold mb-4">Acerca de IslaControl</h1>
             <p class="text-xl text-white/90 max-w-2xl mx-auto">
                 La solución completa para gestionar tu negocio de manera eficiente y profesional
             </p>
@@ -68,7 +68,7 @@
         <div class="bg-white rounded-2xl shadow-lg p-8 sm:p-12 mb-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-4">Nuestra Misión</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                IslaControl Solutions nace con la misión de proporcionar a pequeños y medianos negocios una herramienta
+                IslaControl nace con la misión de proporcionar a pequeños y medianos negocios una herramienta
                 profesional, accesible y fácil de usar para gestionar todas las áreas críticas de su operación diaria.
             </p>
             <p class="text-lg text-gray-700 leading-relaxed">
@@ -163,7 +163,7 @@
         <div class="bg-white rounded-2xl shadow-lg p-8 sm:p-12 mb-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-4">Tecnología</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                IslaControl Solutions está construido con tecnologías modernas y probadas:
+                IslaControl está construido con tecnologías modernas y probadas:
             </p>
             <div class="grid md:grid-cols-2 gap-4">
                 <div class="flex items-center gap-3">
@@ -195,7 +195,7 @@
 
         <!-- Why Choose Us -->
         <div class="bg-white rounded-2xl shadow-lg p-8 sm:p-12 mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">¿Por qué elegir IslaControl Solutions?</h2>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">¿Por qué elegir IslaControl?</h2>
             <div class="space-y-4">
                 <div class="flex gap-3">
                     <i class='bx bx-star text-yellow-500 text-2xl flex-shrink-0'></i>
@@ -247,7 +247,7 @@
             <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div>
                     <h2 class="text-2xl font-bold mb-2">Versión Actual</h2>
-                    <p class="text-emerald-50">IslaControl Solutions v1.0.0</p>
+                    <p class="text-emerald-50">IslaControl v1.0.0</p>
                     <p class="text-emerald-50 text-sm mt-2">Última actualización: {{ date('F Y') }}</p>
                 </div>
                 <div class="text-center md:text-right">
@@ -262,36 +262,15 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 mt-12">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-8 border-b border-gray-700">
-                <div>
-                    <h4 class="text-white font-bold mb-3">IslaControl Solutions</h4>
-                    <p class="text-sm leading-relaxed">Agencia de desarrollo de software especializada en soluciones a medida.</p>
-                </div>
-                <div>
-                    <h4 class="text-white font-bold mb-3">Contacto</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="mailto:islacontroloficial@gmail.com" class="hover:text-emerald-400 transition-colors break-all">islacontroloficial@gmail.com</a></li>
-                        <li><a href="tel:+529381520455" class="hover:text-emerald-400 transition-colors">938 152 0455</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-bold mb-3">Ubicación</h4>
-                    <address class="text-sm not-italic leading-relaxed">
-                        Fracc. Orizaba, Calle Alfa 11B<br>
-                        Cd. del Carmen, Campeche<br>
-                        México, CP 24158
-                    </address>
-                </div>
-            </div>
-            <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-                <p>&copy; {{ date('Y') }} IslaControl Solutions. Todos los derechos reservados.</p>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <a href="{{ route('legal.privacy') }}" class="hover:text-emerald-400 transition-colors">Privacidad</a>
-                    <a href="{{ route('legal.terms') }}" class="hover:text-emerald-400 transition-colors">Términos</a>
-                    <a href="{{ route('legal.contact') }}" class="hover:text-emerald-400 transition-colors">Contacto</a>
-                    <a href="{{ route('legal.about') }}" class="hover:text-emerald-400 transition-colors">Acerca de</a>
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center text-gray-600">
+                <p>&copy; {{ date('Y') }} IslaControl. Todos los derechos reservados.</p>
+                <div class="mt-4 flex justify-center gap-6">
+                    <a href="{{ route('legal.privacy') }}" class="text-gray-600 hover:text-emerald-600">Privacidad</a>
+                    <a href="{{ route('legal.terms') }}" class="text-gray-600 hover:text-emerald-600">Términos</a>
+                    <a href="{{ route('legal.contact') }}" class="text-gray-600 hover:text-emerald-600">Contacto</a>
+                    <a href="{{ route('legal.about') }}" class="text-gray-600 hover:text-emerald-600">Acerca de</a>
                 </div>
             </div>
         </div>

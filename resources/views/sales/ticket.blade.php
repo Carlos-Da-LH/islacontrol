@@ -425,7 +425,7 @@
         <div class="ticket-line"></div>
 
         <div class="ticket-footer text-center">
-            <p class="text-xs font-semibold text-gray-400">Desarrollado por IslaControl Solutions</p>
+            <p class="text-xs font-semibold text-gray-400">Desarrollado por IslaControl</p>
         </div>
 
     </div>
