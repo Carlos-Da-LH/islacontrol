@@ -43,7 +43,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 5%;
-      height: 110px;
+      height: 70px;
       background: rgba(255,255,255,0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(0,0,0,0.06);
@@ -57,7 +57,7 @@
       gap: 10px;
       text-decoration: none;
     }
-    .nav-logo img { height: 100px; }
+    .nav-logo img { height: 50px; }
 
     .nav-links {
       display: flex;
@@ -643,12 +643,12 @@
       position: fixed;
       top: 70px; left: 0; right: 0;
       background: var(--white);
-      padding: 1.5rem 5%;
+      padding: 1rem 5%;
       border-top: 1px solid var(--gray-100);
       box-shadow: 0 8px 24px rgba(0,0,0,.08);
-      z-index: 99;
+      z-index: 98;
       flex-direction: column;
-      gap: 1rem;
+      gap: .5rem;
     }
     .mobile-nav.open { display: flex; }
     .mobile-nav a {
@@ -677,12 +677,32 @@
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
-      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      #hero { padding: 90px 5% 40px; min-height: auto; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-visual { order: -1; }
+      .hero-main-card img { width: 100px; }
+      .hero-text h1 { font-size: 1.8rem; }
+      .hero-text p { font-size: .95rem; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .stat-item h3 { font-size: 1.8rem; }
+      section { padding: 3rem 5%; }
       .services-grid { grid-template-columns: 1fr; }
       .testimonios-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
-      .footer-inner { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; }
       .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
+      .footer-col ul li span { color: rgba(255,255,255,.6); font-size: .85rem; }
+      .contacto-inner { gap: 2rem; }
+      .porque-visual { grid-template-columns: 1fr; }
+      .pq-card.highlight { grid-column: span 1; }
+      .products-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 400px) {
+      .hero-text h1 { font-size: 1.5rem; }
+      .section-title { font-size: 1.4rem; }
     }
   </style>
 </head>
