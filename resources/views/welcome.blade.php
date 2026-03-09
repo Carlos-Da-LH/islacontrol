@@ -987,13 +987,13 @@
         <div class="ci-icon">📍</div><span>Fracc. Orizaba, Calle Alfa 11B, Cd. del Carmen, Campeche, México CP 24158</span>
       </div>
     </div>
-    <form class="contact-form" onsubmit="handleSubmit(event)">
+    <form class="contact-form" onsubmit="handleSubmit(event)" action="https://formspree.io/f/mvzwzzrp" method="POST">
       <div class="form-row">
-        <input type="text" placeholder="Tu nombre" required />
-        <input type="email" placeholder="Correo electrónico" required />
+        <input type="text" name="nombre" placeholder="Tu nombre" required />
+        <input type="email" name="email" placeholder="Correo electrónico" required />
       </div>
-      <input type="text" placeholder="Nombre de tu empresa" />
-      <select>
+      <input type="text" name="empresa" placeholder="Nombre de tu empresa" />
+      <select name="servicio">
         <option value="" disabled selected>¿Qué servicio te interesa?</option>
         <option>Sistema de Gestión / ERP</option>
         <option>Punto de Venta (POS)</option>
@@ -1003,7 +1003,7 @@
         <option>Mantenimiento y soporte</option>
         <option>Otro</option>
       </select>
-      <textarea placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
+      <textarea name="mensaje" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
       <button type="submit" class="btn-submit">Enviar mensaje →</button>
     </form>
   </div>
@@ -1070,20 +1070,39 @@
   hamburger.addEventListener('click', () => mobileNav.classList.toggle('open'));
   function closeMobile() { mobileNav.classList.remove('open'); }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const btn = e.target.querySelector('.btn-submit');
-    btn.textContent = '✓ Mensaje enviado';
-    btn.style.background = 'var(--green-pale)';
-    btn.style.color = 'var(--green-dark)';
+    const form = e.target;
+    const btn = form.querySelector('.btn-submit');
+    btn.textContent = 'Enviando...';
     btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = 'Enviar mensaje →';
-      btn.style.background = '';
-      btn.style.color = '';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        btn.textContent = '✓ Mensaje enviado';
+        btn.style.background = 'var(--green-pale)';
+        btn.style.color = 'var(--green-dark)';
+        form.reset();
+        setTimeout(() => {
+          btn.textContent = 'Enviar mensaje →';
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.disabled = false;
+        }, 3000);
+      } else {
+        btn.textContent = 'Error, intenta de nuevo';
+        btn.style.background = '#fee2e2';
+        btn.style.color = '#dc2626';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Error de conexión';
       btn.disabled = false;
-      e.target.reset();
-    }, 3000);
+    }
   }
 
   // Animate stats
