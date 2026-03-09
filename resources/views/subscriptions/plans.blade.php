@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planes y Precios - IslaControl</title>
+    <title>Planes y Precios - IslaControl Solutions</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -256,7 +256,7 @@
         <!-- CTA Section -->
         <div class="mt-12 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-2xl shadow-xl p-8 text-center text-white">
             <h3 class="text-3xl font-bold mb-3">¿Listo para comenzar?</h3>
-            <p class="text-white/90 text-lg mb-6">Únete a miles de negocios que confían en IslaControl</p>
+            <p class="text-white/90 text-lg mb-6">Únete a miles de negocios que confían en IslaControl Solutions</p>
             <a href="{{ route('subscription.checkout', 'basico') }}"
                class="inline-block bg-white text-emerald-600 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all">
                 Comenzar prueba gratuita

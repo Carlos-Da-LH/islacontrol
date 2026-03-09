@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pantalla del Cliente - IslaControl</title>
+    <title>Pantalla del Cliente - IslaControl Solutions</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
@@ -65,7 +65,7 @@
                      class="h-16 w-auto logo-float"
                      onerror="this.style.display='none'">
                 <div>
-                    <h1 id="business-name" class="text-3xl font-black text-gray-800">IslaControl</h1>
+                    <h1 id="business-name" class="text-3xl font-black text-gray-800">IslaControl Solutions</h1>
                     <p class="text-sm text-gray-500">Punto de Venta</p>
                 </div>
             </div>

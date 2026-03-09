@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#00D084" />
-    <title>Contacto - IslaControl</title>
+    <title>Contacto - IslaControl Solutions</title>
     <link rel="icon" type="image/png" href="/storage/logos/logo_islacontrol22.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@
                     <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #00D084 0%, #00a066 100%);">
                         <i class='bx bx-store text-white text-2xl'></i>
                     </div>
-                    <span class="text-xl font-bold text-gray-800">IslaControl</span>
+                    <span class="text-xl font-bold text-gray-800">IslaControl Solutions</span>
                 </div>
                 <a href="{{ route('welcome') }}" class="text-gray-600 hover:text-gray-800 flex items-center gap-2">
                     <i class='bx bx-arrow-back'></i>
@@ -86,7 +86,7 @@
             <div class="space-y-6">
                 <!-- FAQ Item 1 -->
                 <div class="border-b border-gray-200 pb-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">¿Cómo creo una cuenta en IslaControl?</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">¿Cómo creo una cuenta en IslaControl Solutions?</h3>
                     <p class="text-gray-600">
                         En la página de inicio, haz clic en "Comenzar Ahora" o "Registrarse". Necesitarás proporcionar
                         un correo electrónico y crear una contraseña. También puedes registrarte usando tu cuenta de Google.
@@ -106,9 +106,9 @@
 
                 <!-- FAQ Item 3 -->
                 <div class="border-b border-gray-200 pb-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">¿Puedo usar IslaControl desde varios dispositivos?</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">¿Puedo usar IslaControl Solutions desde varios dispositivos?</h3>
                     <p class="text-gray-600">
-                        Sí, IslaControl es una aplicación web que funciona en cualquier navegador. Puedes acceder desde
+                        Sí, IslaControl Solutions es una aplicación web que funciona en cualquier navegador. Puedes acceder desde
                         tu computadora, tablet o celular. Tus datos se sincronizan automáticamente.
                     </p>
                 </div>
@@ -146,7 +146,7 @@
                 <div class="border-b border-gray-200 pb-6">
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">¿Qué es el asistente AI?</h3>
                     <p class="text-gray-600">
-                        IslaControl incluye un asistente de inteligencia artificial que puede ayudarte a analizar tus
+                        IslaControl Solutions incluye un asistente de inteligencia artificial que puede ayudarte a analizar tus
                         ventas, obtener insights de tu negocio y responder preguntas sobre tu inventario. El asistente
                         corre localmente en tu dispositivo para mayor privacidad.
                     </p>
@@ -154,9 +154,9 @@
 
                 <!-- FAQ Item 8 -->
                 <div class="border-b border-gray-200 pb-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">¿IslaControl tiene costo?</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">¿IslaControl Solutions tiene costo?</h3>
                     <p class="text-gray-600">
-                        Actualmente IslaControl es gratuito. Si en el futuro introducimos planes de pago, te
+                        Actualmente IslaControl Solutions es gratuito. Si en el futuro introducimos planes de pago, te
                         notificaremos con anticipación y los usuarios actuales tendrán condiciones preferenciales.
                     </p>
                 </div>
@@ -202,14 +202,35 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-12">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="text-center text-gray-600">
-                <p>&copy; {{ date('Y') }} IslaControl. Todos los derechos reservados.</p>
-                <div class="mt-4 flex justify-center gap-6">
-                    <a href="{{ route('legal.privacy') }}" class="text-gray-600 hover:text-emerald-600">Privacidad</a>
-                    <a href="{{ route('legal.terms') }}" class="text-gray-600 hover:text-emerald-600">Términos</a>
-                    <a href="{{ route('legal.contact') }}" class="text-gray-600 hover:text-emerald-600">Contacto</a>
+    <footer class="bg-gray-900 text-gray-300 mt-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-8 border-b border-gray-700">
+                <div>
+                    <h4 class="text-white font-bold mb-3">IslaControl Solutions</h4>
+                    <p class="text-sm leading-relaxed">Agencia de desarrollo de software especializada en soluciones a medida.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-3">Contacto</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="mailto:islacontroloficial@gmail.com" class="hover:text-emerald-400 transition-colors break-all">islacontroloficial@gmail.com</a></li>
+                        <li><a href="tel:+529381520455" class="hover:text-emerald-400 transition-colors">938 152 0455</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-3">Ubicación</h4>
+                    <address class="text-sm not-italic leading-relaxed">
+                        Fracc. Orizaba, Calle Alfa 11B<br>
+                        Cd. del Carmen, Campeche<br>
+                        México, CP 24158
+                    </address>
+                </div>
+            </div>
+            <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+                <p>&copy; {{ date('Y') }} IslaControl Solutions. Todos los derechos reservados.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="{{ route('legal.privacy') }}" class="hover:text-emerald-400 transition-colors">Privacidad</a>
+                    <a href="{{ route('legal.terms') }}" class="hover:text-emerald-400 transition-colors">Términos</a>
+                    <a href="{{ route('legal.contact') }}" class="hover:text-emerald-400 transition-colors">Contacto</a>
                 </div>
             </div>
         </div>

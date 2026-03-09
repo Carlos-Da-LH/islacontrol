@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#00D084" />
-    <title>Términos de Servicio - IslaControl</title>
+    <title>Términos de Servicio - IslaControl Solutions</title>
     <link rel="icon" type="image/png" href="/storage/logos/logo_islacontrol22.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@
                     <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #00D084 0%, #00a066 100%);">
                         <i class='bx bx-store text-white text-2xl'></i>
                     </div>
-                    <span class="text-xl font-bold text-gray-800">IslaControl</span>
+                    <span class="text-xl font-bold text-gray-800">IslaControl Solutions</span>
                 </div>
                 <a href="{{ route('welcome') }}" class="text-gray-600 hover:text-gray-800 flex items-center gap-2">
                     <i class='bx bx-arrow-back'></i>
@@ -54,7 +54,7 @@
                 <section>
                     <h2 class="text-2xl font-semibold text-gray-900 mb-3">1. Aceptación de los Términos</h2>
                     <p>
-                        Al acceder y utilizar IslaControl ("la aplicación"), aceptas estar sujeto a estos Términos de Servicio.
+                        Al acceder y utilizar IslaControl Solutions ("la aplicación"), aceptas estar sujeto a estos Términos de Servicio.
                         Si no estás de acuerdo con alguna parte de estos términos, no debes utilizar nuestra aplicación.
                     </p>
                 </section>
@@ -62,7 +62,7 @@
                 <section>
                     <h2 class="text-2xl font-semibold text-gray-900 mb-3">2. Descripción del Servicio</h2>
                     <p>
-                        IslaControl es una aplicación de gestión empresarial que te permite administrar:
+                        IslaControl Solutions es una aplicación de gestión empresarial que te permite administrar:
                     </p>
                     <ul class="list-disc list-inside space-y-2 ml-4 mt-2">
                         <li>Inventario de productos</li>
@@ -78,7 +78,7 @@
                 <section>
                     <h2 class="text-2xl font-semibold text-gray-900 mb-3">3. Registro de Cuenta</h2>
                     <h3 class="text-xl font-semibold text-gray-800 mb-2 mt-4">3.1 Requisitos</h3>
-                    <p>Para utilizar IslaControl, debes:</p>
+                    <p>Para utilizar IslaControl Solutions, debes:</p>
                     <ul class="list-disc list-inside space-y-2 ml-4 mt-2">
                         <li>Tener al menos 18 años de edad</li>
                         <li>Proporcionar información precisa y completa durante el registro</li>
@@ -117,7 +117,7 @@
                 <section>
                     <h2 class="text-2xl font-semibold text-gray-900 mb-3">5. Propiedad Intelectual</h2>
                     <p>
-                        IslaControl y todo su contenido, características y funcionalidad son propiedad de sus desarrolladores
+                        IslaControl Solutions y todo su contenido, características y funcionalidad son propiedad de sus desarrolladores
                         y están protegidos por las leyes de derechos de autor y propiedad intelectual.
                     </p>
                     <p class="mt-2">
@@ -137,7 +137,7 @@
                 <section>
                     <h2 class="text-2xl font-semibold text-gray-900 mb-3">7. Disponibilidad del Servicio</h2>
                     <p>
-                        Nos esforzamos por mantener IslaControl disponible 24/7, pero no garantizamos que el servicio
+                        Nos esforzamos por mantener IslaControl Solutions disponible 24/7, pero no garantizamos que el servicio
                         esté libre de interrupciones. Podemos:
                     </p>
                     <ul class="list-disc list-inside space-y-2 ml-4 mt-2">
@@ -167,7 +167,7 @@
                 <section>
                     <h2 class="text-2xl font-semibold text-gray-900 mb-3">9. Tarifas y Pagos</h2>
                     <p>
-                        IslaControl actualmente se ofrece de forma gratuita. Si en el futuro implementamos planes de pago:
+                        IslaControl Solutions actualmente se ofrece de forma gratuita. Si en el futuro implementamos planes de pago:
                     </p>
                     <ul class="list-disc list-inside space-y-2 ml-4 mt-2">
                         <li>Te notificaremos con 30 días de anticipación</li>
@@ -198,7 +198,7 @@
                 <section>
                     <h2 class="text-2xl font-semibold text-gray-900 mb-3">11. Limitación de Responsabilidad</h2>
                     <p>
-                        IslaControl se proporciona "tal cual" sin garantías de ningún tipo. No somos responsables por:
+                        IslaControl Solutions se proporciona "tal cual" sin garantías de ningún tipo. No somos responsables por:
                     </p>
                     <ul class="list-disc list-inside space-y-2 ml-4 mt-2">
                         <li>Pérdidas financieras derivadas del uso de la aplicación</li>
@@ -236,7 +236,7 @@
 
                 <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 mt-8">
                     <p class="text-emerald-800 font-semibold">
-                        Al utilizar IslaControl, confirmas que has leído, entendido y aceptado estos Términos de Servicio.
+                        Al utilizar IslaControl Solutions, confirmas que has leído, entendido y aceptado estos Términos de Servicio.
                     </p>
                 </div>
             </div>
@@ -244,10 +244,36 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-12">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="text-center text-gray-600">
-                <p>&copy; {{ date('Y') }} IslaControl. Todos los derechos reservados.</p>
+    <footer class="bg-gray-900 text-gray-300 mt-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-8 border-b border-gray-700">
+                <div>
+                    <h4 class="text-white font-bold mb-3">IslaControl Solutions</h4>
+                    <p class="text-sm leading-relaxed">Agencia de desarrollo de software especializada en soluciones a medida.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-3">Contacto</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="mailto:islacontroloficial@gmail.com" class="hover:text-emerald-400 transition-colors break-all">islacontroloficial@gmail.com</a></li>
+                        <li><a href="tel:+529381520455" class="hover:text-emerald-400 transition-colors">938 152 0455</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-3">Ubicación</h4>
+                    <address class="text-sm not-italic leading-relaxed">
+                        Fracc. Orizaba, Calle Alfa 11B<br>
+                        Cd. del Carmen, Campeche<br>
+                        México, CP 24158
+                    </address>
+                </div>
+            </div>
+            <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+                <p>&copy; {{ date('Y') }} IslaControl Solutions. Todos los derechos reservados.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="{{ route('legal.privacy') }}" class="hover:text-emerald-400 transition-colors">Privacidad</a>
+                    <a href="{{ route('legal.terms') }}" class="hover:text-emerald-400 transition-colors">Términos</a>
+                    <a href="{{ route('legal.contact') }}" class="hover:text-emerald-400 transition-colors">Contacto</a>
+                </div>
             </div>
         </div>
     </footer>

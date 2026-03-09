@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#00D084" />
-    <title>Política de Privacidad - IslaControl</title>
+    <title>Política de Privacidad - IslaControl Solutions</title>
     <link rel="icon" type="image/png" href="/storage/logos/logo_islacontrol22.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@
                     <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #00D084 0%, #00a066 100%);">
                         <i class='bx bx-store text-white text-2xl'></i>
                     </div>
-                    <span class="text-xl font-bold text-gray-800">IslaControl</span>
+                    <span class="text-xl font-bold text-gray-800">IslaControl Solutions</span>
                 </div>
                 <a href="{{ route('welcome') }}" class="text-gray-600 hover:text-gray-800 flex items-center gap-2">
                     <i class='bx bx-arrow-back'></i>
@@ -54,7 +54,7 @@
                 <section>
                     <h2 class="text-2xl font-semibold text-gray-900 mb-3">1. Introducción</h2>
                     <p>
-                        IslaControl ("nosotros", "nuestro" o "la aplicación") se compromete a proteger tu privacidad.
+                        IslaControl Solutions ("nosotros", "nuestro" o "la aplicación") se compromete a proteger tu privacidad.
                         Esta Política de Privacidad explica cómo recopilamos, usamos, compartimos y protegemos tu información
                         personal cuando utilizas nuestra aplicación de gestión de negocios.
                     </p>
@@ -150,7 +150,7 @@
                 <section>
                     <h2 class="text-2xl font-semibold text-gray-900 mb-3">8. Uso del Asistente AI</h2>
                     <p>
-                        IslaControl incluye un asistente de inteligencia artificial local (Ollama). Las conversaciones
+                        IslaControl Solutions incluye un asistente de inteligencia artificial local (Ollama). Las conversaciones
                         con el asistente se almacenan localmente en tu dispositivo y no se comparten con terceros.
                         Puedes eliminar el historial de conversaciones en cualquier momento desde la configuración.
                     </p>
@@ -186,10 +186,36 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-12">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="text-center text-gray-600">
-                <p>&copy; {{ date('Y') }} IslaControl. Todos los derechos reservados.</p>
+    <footer class="bg-gray-900 text-gray-300 mt-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-8 border-b border-gray-700">
+                <div>
+                    <h4 class="text-white font-bold mb-3">IslaControl Solutions</h4>
+                    <p class="text-sm leading-relaxed">Agencia de desarrollo de software especializada en soluciones a medida.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-3">Contacto</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="mailto:islacontroloficial@gmail.com" class="hover:text-emerald-400 transition-colors break-all">islacontroloficial@gmail.com</a></li>
+                        <li><a href="tel:+529381520455" class="hover:text-emerald-400 transition-colors">938 152 0455</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-3">Ubicación</h4>
+                    <address class="text-sm not-italic leading-relaxed">
+                        Fracc. Orizaba, Calle Alfa 11B<br>
+                        Cd. del Carmen, Campeche<br>
+                        México, CP 24158
+                    </address>
+                </div>
+            </div>
+            <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+                <p>&copy; {{ date('Y') }} IslaControl Solutions. Todos los derechos reservados.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="{{ route('legal.privacy') }}" class="hover:text-emerald-400 transition-colors">Privacidad</a>
+                    <a href="{{ route('legal.terms') }}" class="hover:text-emerald-400 transition-colors">Términos</a>
+                    <a href="{{ route('legal.contact') }}" class="hover:text-emerald-400 transition-colors">Contacto</a>
+                </div>
             </div>
         </div>
     </footer>
