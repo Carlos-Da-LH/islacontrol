@@ -611,7 +611,7 @@
       max-width: 1200px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
       gap: 3rem;
       padding-bottom: 2rem;
       border-bottom: 1px solid rgba(255,255,255,.08);
@@ -1045,13 +1045,22 @@
       <h4>Contacto</h4>
       <ul>
         <li><a href="#contacto">Cotizar proyecto</a></li>
-        <li><a href="mailto:hola@islacontrol.com">hola@islacontrol.com</a></li>
+        <li><a href="mailto:islacontroloficial@gmail.com">islacontroloficial@gmail.com</a></li>
+        <li><a href="tel:+529381520455">938 152 0455</a></li>
         <li><a href="#contacto">Soporte técnico</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ubicación</h4>
+      <ul>
+        <li><span>Fracc. Orizaba, Calle Alfa 11B</span></li>
+        <li><span>Cd. del Carmen, Campeche</span></li>
+        <li><span>México, CP 24158</span></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 IslaControl. Todos los derechos reservados.</span>
+    <span>© 2026 IslaControl Solutions. Todos los derechos reservados.</span>
     <span>Hecho con ❤️ en México</span>
   </div>
 </footer>
