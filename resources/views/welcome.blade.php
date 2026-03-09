@@ -831,7 +831,8 @@
       <h3 style="color:var(--green-dark);font-weight:700;margin-bottom:.5rem">Stack tecnológico</h3>
       <p style="font-size:.85rem;color:var(--gray-600);margin-bottom:1rem">Usamos las mejores herramientas del mercado</p>
       <div class="tech-badge">⚡ Laravel / PHP</div>
-      <div class="tech-badge">⚛️ React / Vue.js</div>
+      <div class="tech-badge">🅰️ Angular</div>
+      <div class="tech-badge">🚀 Astro</div>
       <div class="tech-badge">📱 Flutter / React Native</div>
       <div class="tech-badge">🗄️ MySQL / PostgreSQL</div>
       <div class="tech-badge">☁️ AWS / VPS / cPanel</div>
