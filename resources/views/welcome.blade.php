@@ -733,7 +733,7 @@
       <div class="hero-card-wrap">
         <div class="hero-main-card">
           <img src="{{ asset('images/nuevo_islacontrol.png') }}" alt="IslaControl" />
-          <h3>IslaControl Software</h3>
+          <h3>IslaControl Solutions</h3>
           <p>Tu socio tecnológico de confianza</p>
         </div>
         <div class="floating-badge fb-1">
